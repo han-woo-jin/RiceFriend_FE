@@ -1,58 +1,39 @@
-import styled from 'styled-components';
-import React from "react";
-const Image = (props) => {
-  const { shape, src, size } = props;
-  
+import React from 'react'
+import styled from 'styled-components'
+
+const Text = (props) => {
+
+  const { bold, color, size, children, margin } = props;
+
   const styles = {
-    src: src,
+    bold: bold,
+    color: color,
     size: size,
-  }
-//   if (shape === "circle") {
-//     return (
-//       <ImageCircle {...styles}></ImageCircle>
-//     )
-//   }
-  if (shape === "rectangle") {
-    return (
-      <AspectOutter>
-        <AspectInner {...styles}></AspectInner>
-      </AspectOutter>
-    )
-  }
-  if (shape === "layout1") {
-    return (
-      <Outter1>
-        <AspectInner {...styles}></AspectInner>
-      </Outter1>
-    )
+    margin: margin,
   }
   return (
     <React.Fragment>
-      <ImageDefault {...styles}></ImageDefault>
+      <P {...styles}>
+        {children}
+      </P>
     </React.Fragment>
   )
 }
-Image.defaultProps = {
-  shape: "circle",
-  src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACfCAMAAABX0UX9AAAAA1BMVEVLidy+keIGAAAASElEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABODcYhAAEl463hAAAAAElFTkSuQmCC",
-  size: 36,
-};
 
-const ImageDefault = styled.div`
-  --size: ${(props) => props.size}px;
-  width: var(--size);
-  height: var(--size);
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
+Text.defaultProps = {
+  children: null,
+  bold: false,
+  color: '#222831',
+  size: '14px',
+  margin: false,
+}
+
+const P = styled.p`
+  color: ${(props) => props.color};
+  font-size: ${(props) => props.size};
+  font-weight: ${(props) => (props.bold ? '600' : '400')};
+  ${(props) => (props.margin ? `margin: ${props.margin}` : '')}
 `;
 
-const AspectOutter = styled.div`
-    width: 100%;
-    min-width: 250px;
-`;
 
-const Outter1 = styled.div`
-width: 100%;
-flex-basis: 50%;
-min-width: 250px;
-`;
+export default Text;
