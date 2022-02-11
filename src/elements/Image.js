@@ -40,9 +40,9 @@ const Image = (props) => {
 }
 
 Image.defaultProps = {
-  shape: "circle",
-  src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACfCAMAAABX0UX9AAAAA1BMVEVLidy+keIGAAAASElEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABODcYhAAEl463hAAAAAElFTkSuQmCC",
-  size: 36,
+  shape: "rectangle",
+  src: "/src/babfriend.png",
+  size: 30,
 };
 
 const ImageDefault = styled.div`
@@ -54,7 +54,7 @@ const ImageDefault = styled.div`
 `;
 
 const AspectOutter = styled.div`
-    width: 100%;
+    width: 25%;
     min-width: 250px;
 `;
 
@@ -77,7 +77,7 @@ const ImageCircle = styled.div`
     width: var(--size);
     height: var(--size);
     border-radius: var(--size);
-
+    position: relative;
     background-image: url("${(props) => props.src}");
     background-size: cover;
     margin: 4px;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, Input, Grid, Button } from "../elements";
 import { useHistory } from 'react-router-dom';
+import ricefriend from '../ricefriend.png'
 // import { useDispatch } from "react-redux";
 // import { actionCreators as userActions } from "../redux/modules/user";
 import { emailCheck } from "../shared/common";
@@ -25,7 +26,7 @@ const Signup = (props) => {
       window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
       return;
     }
-    console.log(id, pwd, 성별)
+    console.log(id, user_name, pwd, 성별)
     //    dispatch(userActions.signupFB(id, pwd, user_name));
   };
 
@@ -33,7 +34,11 @@ const Signup = (props) => {
   return (
     <React.Fragment>
       <Grid padding="16px">
-        <Text size="36px" bold>
+        <Text size="36px" bold centertext>
+          <>
+            <img alt='babfriend' src={ricefriend} style={{ background: "white", height: "20vh", width: "15vw" }} />
+            <br></br>
+          </>
           회원가입
         </Text>
         <Grid padding="16px 0px">

@@ -1,7 +1,9 @@
 import React from "react";
-import { Text, Input, Grid, Button } from "../elements";
+import { Text, Input, Grid, Button, Image } from "../elements";
 import { emailCheck } from "../shared/common";
 import { useHistory } from 'react-router-dom';
+import ricefriend from '../ricefriend.png'
+import styled from 'styled-components';
 // import { useDispatch } from "react-redux";
 // import { actionCreators as userActions } from "../redux/modules/user";
 const Login = (props) => {
@@ -30,7 +32,13 @@ const Login = (props) => {
   return (
     <React.Fragment>
       <Grid padding="16px">
-        <Text size="32px" bold>
+
+        <Text size="32px" bold centertext >
+          <>
+            <img alt='babfriend' src={ricefriend} style={{ background: "white", height: "20vh", width: "15vw" }} />
+            <br></br>
+          </>
+
           로그인
         </Text>
 
@@ -72,5 +80,11 @@ const Login = (props) => {
     </React.Fragment>
   );
 };
+
+const Box = styled.div`
+  width: 20px;
+  height: 20px;
+  position: relative;
+`;
 
 export default Login;
