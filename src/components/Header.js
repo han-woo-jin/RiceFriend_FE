@@ -9,6 +9,9 @@ const Header = () => {
             <Grid>
                 <Button>밥친구</Button>
             </Grid>
+            <Grid>
+                <Button>아무거나</Button>
+            </Grid>
 
             <Button width='100px' margin='2px' padding='8px' text='로그인' ></Button>
             <Button width='150px' margin='2px' padding='8px' text='회원가입' ></Button>
