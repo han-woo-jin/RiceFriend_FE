@@ -41,6 +41,7 @@ const ImageDefault = styled.div`
 
 const AspectOutter = styled.div`
     width: 100%
+    max-width: 500px;
     min-width: 250px;
 `;
 

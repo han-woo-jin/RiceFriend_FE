@@ -28,7 +28,7 @@ const Post = (props) => {
                 />
                 <CardContent>
                     <Text margin="0px" size="20px">
-                        지역 : {props.name}
+                        지역 : {props.locationName}
                     </Text>
                     <Text margin="5px 0px" size="20px">
                         모집인원 : {props.limitMember} 명
