@@ -1,6 +1,7 @@
 import React from "react";
 import {Grid, Text, Button} from '../elements'
 import styled from "styled-components";
+import { history } from '../redux/configStore'
 
 const Header = (props) => {
 
@@ -17,8 +18,8 @@ const Header = (props) => {
 
 
                         <Grid is_flex width="200px" margin="2em">
-                            <Button width='100px' margin='2px' padding='8px' bold text='로그인' ></Button>
-                            <Button width='120px' margin='2px' padding='8px' bold text='회원가입' ></Button>
+                            <Button width='100px' margin='2px' padding='8px' bold _onClick={() => history.push('/login')} text='로그인' ></Button>
+                            <Button width='120px' margin='2px' padding='8px' bold _onClick={() => history.push('/signup')} text='회원가입' ></Button>
                         </Grid>
                     </Grid>
                 </Grid>
