@@ -30,7 +30,7 @@ Button.defaultProps = {
   width: '100%',
   bold: false,
   cursor: 'pointer',
-  bg: false,
+  bg: "black",
 };
 
 const Btn = styled.button`

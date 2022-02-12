@@ -2,7 +2,6 @@ import React from "react";
 import { Text, Input, Grid, Button, Image } from "../elements";
 import { emailCheck } from "../shared/common";
 import { useHistory } from 'react-router-dom';
-import ricefriend from '../ricefriend.png'
 import styled from 'styled-components';
 // import { useDispatch } from "react-redux";
 // import { actionCreators as userActions } from "../redux/modules/user";

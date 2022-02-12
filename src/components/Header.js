@@ -13,8 +13,8 @@ const Header = () => {
           <img alt='' src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/babfriend.png" width="100px" />
           <Grid is_flex>
             <LogoText>
-              <Text margin='0px' size="36px">밥친구</Text>
-              <Text margin='0px' size="30px">맛집 탐방 모임 커뮤니티</Text>
+              <Text margin='0px' size="26px">밥친구</Text>
+              <Text margin='0px' size="20px">맛집 탐방 모임 커뮤니티</Text>
             </LogoText>
 
             <Grid is_flex width="200px" margin="2em">
