@@ -1,31 +1,118 @@
 import React from "react";
 import CommentWrite from "../components/CommentWrite";
 import CommentList from "../components/CommentList";
-import {Grid, Button, Text, Image} from "../elements"
+import { Grid, Button, Text, Image } from "../elements"
+import styled from "styled-components";
+import { history } from "../redux/configStore";
+
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import IconButton from '@mui/material/IconButton';
 
 const PostDetail = (props) => {
 
+    const post_id = props.match.params.id;
+    const is_edit = post_id ? true : false;
+
     return (
         <React.Fragment>
-            <Grid>
-                <Image shape='rectangle' src={props.imgUrl} />
-            프롭스 이미지
-            프롭스 타이틀
-            프롭스 닉네임
-            프롭스 네임
-            프롭스 유저카운트 / 리미트멤버 명
-            프롭스 로케이션네임
-            프롭스 미팅데이트
-            프롭스 콘텐츠
-            댓글 : 프롭스 커멘트 카운트 개
-            머터리얼 체크
-            참여자 : 누구누구님, 누구누구님
+            <Wrap>
+                <Grid>
+                    <TableHeader>
+                        <Grid padding="5px">
+                            <Image src={props.imgUrl} />
 
-            코멘트 라이트
-            코멘트 리스트
-            </Grid>
-        </React.Fragment>
+                        </Grid>
+                        <Grid padding="5px">
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <Text margin="10px" size="32px"> 모임이름 </Text>
+                                </FormControl>
+                            </Box>
+
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <Text margin="10px" size="32px"> 닉네임 </Text>
+                                </FormControl>
+                            </Box>
+
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <Text margin="10px" size="32px"> 맛집이름 </Text>
+                                </FormControl>
+                            </Box>
+
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <Text margin="10px" size="32px"> 지역 </Text>
+                                </FormControl>
+                            </Box>
+
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <Text margin="10px" size="32px"> 모집인원 : {props.userCount} / {props.limitMember} 명 </Text>
+                                </FormControl>
+                            </Box>
+
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <Text margin="10px" size="32px"> 마감일 </Text>
+                                </FormControl>
+                            </Box>
+
+                        </Grid>
+                    </TableHeader>
+
+                    <Grid padding="16px">
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth>
+                                <Text size="24px"> 내용 </Text>
+                            </FormControl>
+                        </Box>
+
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth>
+                                <Text size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
+                            </FormControl>
+                        </Box>
+
+                        <Grid is_flex margin="0px 10px">
+                            <IconButton aria-label="add to join">
+                                <AddTaskIcon />
+                            </IconButton>
+                            <Grid is_flex margin= "0px 20px">
+                                <Text size="20px">댓글 0개</Text>
+                            </Grid>
+                        </Grid>
+
+                        <CommentWrite></CommentWrite>
+                        <CommentList></CommentList>
+
+                    </Grid>
+                </Grid>
+            </Wrap>
+        </React.Fragment >
     )
 }
+
+const TableHeader = styled.div`
+    columns: 2;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+  `;
+
+const Wrap = styled.div`
+max-width : 1100px;
+min-width:  920px;
+min-height : 100vh;
+margin : auto;
+`
 
 export default PostDetail;

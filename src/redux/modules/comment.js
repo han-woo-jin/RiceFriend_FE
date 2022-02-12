@@ -15,7 +15,6 @@ const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({post_id, co
 const initialState = {
   list: {
 
-
   },
 };
 
