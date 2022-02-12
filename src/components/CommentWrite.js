@@ -31,7 +31,7 @@ const CommentWrite = (props) => {
                 is_Submit 
                 onSubmit={write}
                 />
-                <Button width='50px' margin='0px 2px 0px 2px' _onClick={write} >작성</Button>
+                <Button width='50px' margin='12px 2px 0px 2px' _onClick={write} >작성</Button>
 
             </Grid>
         </React.Fragment>

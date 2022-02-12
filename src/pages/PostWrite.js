@@ -64,7 +64,7 @@ const PostWrite = (props) => {
               <input type="file" onChange={saveFile} />
 
             </Grid>
-            <Grid padding="5px">
+            <Grid padding="5px" margin="120px 0px 0px 0px">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <TextField fullWidth label="모임이름" id="모임이름" value={모임이름}

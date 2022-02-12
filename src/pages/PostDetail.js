@@ -20,44 +20,49 @@ const PostDetail = (props) => {
             <Wrap>
                 <Grid>
                     <TableHeader>
-                        <Grid padding="5px">
+                        <Grid padding="10px" margin="40px 0px 0px 0px">
                             <Image src={props.imgUrl} />
 
                         </Grid>
                         <Grid padding="5px">
+                            <EditDeleteBtn>
+                                <Button margin="0px 5px">수정</Button>
+                                <Button margin="0px 5px">삭제</Button>
+                            </EditDeleteBtn>
+
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px" size="32px"> 모임이름 </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> 모임이름 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px" size="32px"> 닉네임 </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 닉네임 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px" size="32px"> 맛집이름 </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 맛집이름 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px" size="32px"> 지역 </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 지역 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px" size="32px"> 모집인원 : {props.userCount} / {props.limitMember} 명 </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모집인원 : {props.userCount} / {props.limitMember} 명 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px" size="32px"> 마감일 </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 마감일 </Text>
                                 </FormControl>
                             </Box>
 
@@ -81,7 +86,7 @@ const PostDetail = (props) => {
                             <IconButton aria-label="add to join">
                                 <AddTaskIcon />
                             </IconButton>
-                            <Grid is_flex margin= "0px 20px">
+                            <Grid is_flex margin="0px 20px">
                                 <Text size="20px">댓글 0개</Text>
                             </Grid>
                         </Grid>
@@ -113,6 +118,14 @@ max-width : 1100px;
 min-width:  920px;
 min-height : 100vh;
 margin : auto;
+`
+
+const EditDeleteBtn = styled.div`
+display: flex;
+width: 150px;
+float: right;
+margin-right: 40px;
+
 `
 
 export default PostDetail;
