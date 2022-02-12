@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, Text, Button } from '../elements'
+import { Image, Text, Button, Grid } from '../elements'
 import styled from 'styled-components';
+import { history } from '../redux/configStore';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,6 +15,7 @@ import NotesIcon from '@mui/icons-material/Notes';
 const Post = (props) => {
 
     return (
+        <Grid _onClick={() => {history.push(`/post/${props.id}`)}}>
             <Card sx={{ maxWidth: 345 }}>
                 <CardHeader
                     title={props.meetingTitle}
@@ -49,6 +51,7 @@ const Post = (props) => {
                     </Text>
                 </CardActions>
             </Card>
+        </Grid>
     )
 }
 

@@ -3,18 +3,16 @@ import Post from "../components/Post";
 import { useSelector, useDispatch } from "react-redux";
 import { actionsCreators as postActions } from "../redux/modules/post";
 import { Button, Grid } from "../elements";
-import styled from "styled-components";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { history } from "../redux/configStore";
 
-
-const PostList = () => {
+const PostList = (props) => {
 
     const post_list = useSelector(state => state.post.list)
 
     return (
         <React.Fragment>
 
-            <Grid is_flex _onClick={null}>
+            <Grid is_flex>
                 {post_list.map((p, i) => {
                     return (
                         <Post key={i} {...p} />
@@ -22,7 +20,7 @@ const PostList = () => {
                 })}
             </Grid>
 
-            <Button is_float>+</Button>
+            <Button is_float _onClick={() => {history.push('/write')}}>+</Button>
         </React.Fragment>
 
     )

@@ -1,12 +1,12 @@
 import React from "react";
 
-const PostDetail = () => {
+const PostWrite = () => {
 
     return (
         <React.Fragment>
-            상세페이지
+            작성페이지
         </React.Fragment>
     )
 }
 
-export default PostDetail;
+export default PostWrite;
