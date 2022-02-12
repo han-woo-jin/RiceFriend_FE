@@ -45,6 +45,7 @@ const Btn = styled.button`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
   ${(props) => (props.bg ? `background-color: ${props.bg};` : "")};
   font-weight: ${(props) => (props.bold ? "700" : "400")};
+  font-size: 20px;
   border: 0;
   outline: 0;
   cursor: pointer;
