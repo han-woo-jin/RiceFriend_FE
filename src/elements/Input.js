@@ -1,46 +1,128 @@
 import React from "react";
 import styled from "styled-components";
-const Text = (props) => {
-  const { bold, color, size, children, margin, lefttext } = props;
-  const styles = { bold: bold, color: color, size: size, margin };
 
-  if (lefttext) {
+import { Text, Grid } from "./index";
+
+const Input = (props) => {
+  const {
+    label,
+    placeholder,
+    _onChange,
+    type,
+    multiLine,
+    value,
+    is_submit,
+    onSubmit,
+    left,
+    radio,
+  } = props;
+
+  if (left) {
     return (
-      <T {...styles}>
-        {children}
-      </T>
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        <LeftTextarea
+          rows={10}
+          value={value}
+          placeholder={placeholder}
+          onChange={_onChange}
+        ></LeftTextarea>
+      </Grid>
+    );
+  }
+
+  if (multiLine) {
+
+    return (
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        <ElTextarea
+          rows={10}
+          value={value}
+          placeholder={placeholder}
+          onChange={_onChange}
+        ></ElTextarea>
+      </Grid>
+    );
+  }
+  if (radio) {
+
+    return (
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        <ElInput
+          type={radio}
+          value={value}
+          placeholder={placeholder}
+          onChange={_onChange}
+        ></ElInput>
+      </Grid>
     );
   }
 
   return (
-    <P {...styles}>
-      {children}
-    </P>
-  )
+    <React.Fragment>
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        {is_submit ? (
+          <ElInput
+            type={type}
+            placeholder={placeholder}
+            onChange={_onChange}
+            value={value}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                onSubmit(e);
+              }
+            }}
+          />
+        ) : (
+          <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
+        )}
+      </Grid>
+    </React.Fragment>
+  );
 };
 
-Text.defaultProps = {
-  lefttext: false,
-  children: null,
-  bold: false,
-  color: "#222831",
-  size: "14px",
-  margin: false,
+Input.defaultProps = {
+  radio: false,
+  multiLine: false,
+  left: false,
+  label: false,
+  placeholder: "텍스트를 입력해주세요.",
+  type: "text",
+  value: "",
+  is_submit: false,
+  onSubmit: () => { },
+  _onChange: () => { },
 };
 
-const P = styled.p`
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.size};
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+const ElTextarea = styled.textarea`
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
 `;
 
-const T = styled.p`
-  text-align: center;
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.size};
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+const ElInput = styled.input`
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
 `;
 
-export default Text;
+const LeftTextarea = styled.textarea`
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
+`;
+
+const LeftInput = styled.input`
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
+`;
+
+export default Input;

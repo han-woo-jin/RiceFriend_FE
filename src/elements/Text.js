@@ -1,58 +1,48 @@
-import styled from 'styled-components';
 import React from "react";
-const Image = (props) => {
-  const { shape, src, size } = props;
-  
-  const styles = {
-    src: src,
-    size: size,
-  }
-//   if (shape === "circle") {
-//     return (
-//       <ImageCircle {...styles}></ImageCircle>
-//     )
-//   }
-  if (shape === "rectangle") {
+import styled from "styled-components";
+
+
+const Text = (props) => {
+  const { bold, color, size, children, margin, centertext } = props;
+
+  const styles = { bold: bold, color: color, size: size, margin };
+  if (centertext) {
     return (
-      <AspectOutter>
-        <AspectInner {...styles}></AspectInner>
-      </AspectOutter>
-    )
-  }
-  if (shape === "layout1") {
-    return (
-      <Outter1>
-        <AspectInner {...styles}></AspectInner>
-      </Outter1>
-    )
+      <T {...styles}>
+        {children}
+      </T>
+    );
   }
   return (
-    <React.Fragment>
-      <ImageDefault {...styles}></ImageDefault>
-    </React.Fragment>
+    <P {...styles}>
+      {children}
+    </P>
   )
-}
-Image.defaultProps = {
-  shape: "circle",
-  src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACfCAMAAABX0UX9AAAAA1BMVEVLidy+keIGAAAASElEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABODcYhAAEl463hAAAAAElFTkSuQmCC",
-  size: 36,
 };
 
-const ImageDefault = styled.div`
-  --size: ${(props) => props.size}px;
-  width: var(--size);
-  height: var(--size);
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
+Text.defaultProps = {
+  centertext: false,
+  children: null,
+  bold: false,
+  color: "#222831",
+  size: "14px",
+  margin: false,
+};
+
+const P = styled.p`
+  color: ${(props) => props.color};
+  font-size: ${(props) => props.size};
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
 `;
 
-const AspectOutter = styled.div`
-    width: 100%;
-    min-width: 250px;
+const T = styled.p`
+  text-align: center;
+  color: ${(props) => props.color};
+  font-size: ${(props) => props.size};
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+  
 `;
 
-const Outter1 = styled.div`
-width: 100%;
-flex-basis: 50%;
-min-width: 250px;
-`;
+export default Text;
