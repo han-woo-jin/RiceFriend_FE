@@ -1,67 +1,57 @@
 import React from "react";
 import styled from "styled-components";
-
 const Button = (props) => {
-  const { text, _onClick, is_float, children, margin, width, padding } = props;
-
-  if (is_float) {
-    return (
-      <React.Fragment>
-        <FloatButton onClick={_onClick}>{text ? text : children}</FloatButton>
-      </React.Fragment>
-    );
-  }
+  const { margin, padding, bg, bold, children, _onClick, text, width, cursor, disabled, color } = props;
 
   const styles = {
     margin: margin,
-    width: width,
     padding: padding,
+    bg: bg,
+    bold: bold,
+    width: width,
+    cursor: cursor,
+    disabled: disabled,
+    color: color,
   };
 
   return (
     <React.Fragment>
-      <ElButton {...styles} onClick={_onClick}>{text ? text : children}</ElButton>
+      <Btn {...styles} onClick={_onClick}>{text ? text : children}</Btn>
     </React.Fragment>
   );
 };
 
 Button.defaultProps = {
-  text: false,
   children: null,
+  text: false,
   _onClick: () => { },
-  is_float: false,
+  color: "#ffffff",
   margin: false,
   width: '100%',
-  padding: "12px 0px",
+  bold: false,
+  cursor: 'pointer',
+  bg: false,
 };
 
-const ElButton = styled.button`
+const Btn = styled.button`
   width: ${(props) => props.width};
-  background-color: #3f51b5;
-  color: #ffffff;
   border-radius: 10px;
-  padding: 12px 0px;
+  height: 40px;
+  color: ${(props) => (props.color)};
+  border-radius: 10px;
   box-sizing: border-box;
   border: none;
   padding: ${(props) => props.padding};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-`;
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")};
+  font-weight: ${(props) => (props.bold ? "700" : "400")};
+  border: 0;
+  outline: 0;
+  cursor: pointer;
 
-const FloatButton = styled.button`
-  width: 50px;
-  height: 50px;
-  background-color: #3f51b5;
-  color: #ffffff;
-  box-sizing: border-box;
-  font-size: 36px;
-  font-weight: 800;
-  position: fixed;
-  bottom: 50px;
-  right: 16px;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  border-radius: 50px;
+  &:hover {
+    background-color : #f8f3ee
+  }
 `;
 
 export default Button;

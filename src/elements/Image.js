@@ -9,28 +9,13 @@ const Image = (props) => {
     size: size,
   }
 
-  if (shape === "circle") {
-    return (
-      <ImageCircle {...styles}></ImageCircle>
-    )
-  }
-
-  if (shape === "rectangle") {
+  if (shape === 'rectangle') {
     return (
       <AspectOutter>
         <AspectInner {...styles}></AspectInner>
       </AspectOutter>
     )
   }
-
-  if (shape === "layout1") {
-    return (
-      <Outter1>
-        <AspectInner {...styles}></AspectInner>
-      </Outter1>
-    )
-  }
-
 
   return (
     <React.Fragment>
@@ -40,28 +25,23 @@ const Image = (props) => {
 }
 
 Image.defaultProps = {
-  shape: "rectangle",
-  src: "/src/babfriend.png",
-  size: 30,
+  shape: 'rectangle',
+  src: 'http://img.insight.co.kr/static/2018/09/12/700/z7n04ul8ig3y27w6l6ok.jpg',
+  size: 36,
 };
 
 const ImageDefault = styled.div`
-  --size: ${(props) => props.size}px;
-  width: var(--size);
-  height: var(--size);
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-`;
+    --size: ${(props) => props.size}px;
+    width: var(--size);
+    height: var(--size);
+
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+`
 
 const AspectOutter = styled.div`
-    width: 25%;
-    min-width: 250px;
-`;
-
-const Outter1 = styled.div`
-width: 100%;
-flex-basis: 50%;
-min-width: 250px;
+    width: 100%
+    min-width :250px;
 `;
 
 const AspectInner = styled.div`
@@ -70,28 +50,6 @@ const AspectInner = styled.div`
     overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;
-`;
-
-const ImageCircle = styled.div`
-    --size: ${(props) => props.size}px;
-    width: var(--size);
-    height: var(--size);
-    border-radius: var(--size);
-    position: relative;
-    background-image: url("${(props) => props.src}");
-    background-size: cover;
-    margin: 4px;
-`;
-
-const Image1 = styled.div`
-    --size: ${(props) => props.size}px;
-    width: var(--size);
-    height: var(--size);
-    border-radius: var(--size);
-
-    background-image: url("${(props) => props.src}");
-    background-size: cover;
-    margin: 4px;
 `;
 
 export default Image;

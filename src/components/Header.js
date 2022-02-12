@@ -1,77 +1,42 @@
 import React from "react";
-import { Grid, Text, Button } from "../elements";
-import { getCookie, deleteCookie } from "../shared/Cookie";
-import NotiBadge from './NotiBadge';
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+import Grid from '../elements/Grid'
+import Button from '../elements/Button'
+import Text from '../elements/Text'
+import styled from "styled-components";
 
-import { history } from "../redux/configureStore";
-import { apiKey } from "../shared/firebase";
-
-const Header = (props) => {
-  const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
-
-  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-
-  const is_session = sessionStorage.getItem(_session_key) ? true : false;
-
-  console.log(is_session);
-
-  if (is_login && is_session) {
-    return (
-      <React.Fragment>
-        <Grid is_flex padding="4px 16px">
-          <Grid>
-            <Text margin="0px" size="24px" bold>
-              한우진
-            </Text>
-          </Grid>
-
-          <Grid is_flex>
-            <NotiBadge _onClick={() => {
-              history.push("/noti");
-            }} />
-            <Button
-              text="로그아웃"
-              _onClick={() => {
-                dispatch(userActions.logoutFB());
-              }}
-            ></Button>
-          </Grid>
-        </Grid>
-      </React.Fragment>
-    );
-  }
+const Header = () => {
 
   return (
     <React.Fragment>
-      <Grid is_flex padding="4px 16px">
-        <Grid>
-          <Text margin="0px" size="24px" bold>
-            한우진
-          </Text>
-        </Grid>
-
+      <HeaderForm>
         <Grid is_flex>
-          <Button
-            text="로그인"
-            _onClick={() => {
-              history.push("/login");
-            }}
-          ></Button>
-          <Button
-            text="회원가입"
-            _onClick={() => {
-              history.push("/signup");
-            }}
-          ></Button>
+          <img alt='' src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/babfriend.png" width="100px" />
+          <Grid is_flex>
+            <LogoText>
+              <Text margin='0px' size="36px">밥친구</Text>
+              <Text margin='0px' size="30px">맛집 탐방 모임 커뮤니티</Text>
+            </LogoText>
+
+            <Grid is_flex width="200px" margin="2em">
+              <Button width='100px' margin='2px' padding='8px' bold text='로그인' ></Button>
+              <Button width='120px' margin='2px' padding='8px' bold text='회원가입' ></Button>
+            </Grid>
+          </Grid>
         </Grid>
-      </Grid>
+      </HeaderForm>
     </React.Fragment>
-  );
+  )
 };
 
-Header.defaultProps = {};
+const HeaderForm = styled.div`
+background-color: rgba(249,125,102,1);
+padding: 0px 70px;
+height: 120px;
+`
+
+const LogoText = styled.div`
+`
+
+
 
 export default Header;

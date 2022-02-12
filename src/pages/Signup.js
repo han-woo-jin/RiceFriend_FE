@@ -36,7 +36,7 @@ const Signup = (props) => {
       <Grid padding="16px">
         <Text size="36px" bold centertext>
           <>
-            <img alt='babfriend' src={ricefriend} style={{ background: "white", height: "20vh", width: "15vw" }} />
+            <img alt='babfriend' src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/ricefriend.png" style={{ background: "white", height: "20vh", width: "15vw" }} />
             <br></br>
           </>
           회원가입
