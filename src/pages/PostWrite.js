@@ -1,11 +1,9 @@
 import React from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
-// import Upload from "../shared/Upload";
+
 import styled from 'styled-components';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
-// import { actionCreators as postActions } from "../redux/modules/post";
-// import { actionCreators as imageActions } from "../redux/modules/image";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 
@@ -15,11 +13,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 const PostWrite = (props) => {
-  // const dispatch = useDispatch();
-  // const is_login = useSelector((state) => state.user.is_login);
-  // const preview = useSelector((state) => state.image.preview);
-  // const post_list = useSelector((state) => state.post.list);
-
   const [지역, 지역선택] = React.useState("");
   const [인원, 인원선택] = React.useState("");
   const [모임이름, 모임이름변경] = React.useState("");
@@ -46,6 +39,7 @@ const PostWrite = (props) => {
   const handleChange = (e) => {
     입력변경(e.target.value);
   };
+
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
   const history = useHistory();
@@ -76,7 +70,8 @@ const PostWrite = (props) => {
 
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <TextField fullWidth label="맛집이름" id="맛집이름" value={맛집이름}
+                  <TextField
+                    fullWidth label="맛집이름" id="맛집이름" value={맛집이름}
                     onChange={handlerest} />
                 </FormControl>
               </Box>
@@ -92,9 +87,22 @@ const PostWrite = (props) => {
                     label="지역선택"
                     onChange={handleRegion}
                   >
-                    <MenuItem value={"천안"}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={"서울"}>서울</MenuItem>
+                    <MenuItem value={"인천"}>인천</MenuItem>
+                    <MenuItem value={"대전"}>대전</MenuItem>
+                    <MenuItem value={"광주"}>광주</MenuItem>
+                    <MenuItem value={"대구"}>대구</MenuItem>
+                    <MenuItem value={"울산"}>울산</MenuItem>
+                    <MenuItem value={"부산"}>부산</MenuItem>
+                    <MenuItem value={"경기"}>경기</MenuItem>
+                    <MenuItem value={"강원"}>강원</MenuItem>
+                    <MenuItem value={"충북"}>충북</MenuItem>
+                    <MenuItem value={"충남"}>충남</MenuItem>
+                    <MenuItem value={"전북"}>전북</MenuItem>
+                    <MenuItem value={"전남"}>전남</MenuItem>
+                    <MenuItem value={"경북"}>경북</MenuItem>
+                    <MenuItem value={"경남"}>경남</MenuItem>
+                    <MenuItem value={"제주"}>제주</MenuItem>
                   </Select>
                 </FormControl>
               </Box>

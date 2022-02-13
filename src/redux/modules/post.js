@@ -1,46 +1,96 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import { firestore, storage } from "../../shared/firebase";
-import "moment";
-import moment from "moment";
+import { createAction, handleActions } from "redux-actions"
+import { produce } from 'immer'
 
-import { actionCreators as imageActions } from "./image";
+//Action
+const SET_POST = "SET_POST"
+const ADD_POST = "ADD_POST"
+const EDIT_POST = "EDIT_POST"
+const DEL_POST = "DEL_POST"
 
-const SET_POST = "SET_POST";
-const ADD_POST = "ADD_POST";
-const EDIT_POST = "EDIT_POST";
-const LOADING = "LOADING";
+//Action create
+const setPost = createAction(SET_POST, (postlist) => ({ postlist }))
+const addPost = createAction(ADD_POST, (post) => ({ post }))
+const editPost = createAction(EDIT_POST, (post, post_Id) => ({ post, post_Id }))
+const delPost = createAction(DEL_POST, (post_Id) => ({ post_Id }))
 
-const setPost = createAction(SET_POST, (post_list, paging) => ({
-  post_list,
-  paging,
-}));
-const addPost = createAction(ADD_POST, (post) => ({ post }));
-const editPost = createAction(EDIT_POST, (post_id, post) => ({
-  post_id,
-  post,
-}));
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+//initialState
+const initialState = {
+  list: [
+    {
+      meetingTitle: "리덕스 초기값 첫번째 우대갈비",
+      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
+      name: '몽탄 용산점',
+      nickname: '음바페',
+      limitMember: 4,
+      userCount: 0,
+      locationName: '서울',
+      meetingDate: '2022-02-16',
+      contents: '',
+      commentCnt: 0,
+    },
+    {
+      meetingTitle: "리덕스 초기값 두번째 우대갈비",
+      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
+      name: '몽탄 용산점',
+      nickname: '음바페',
+      limitMember: 4,
+      userCount: 0,
+      locationName: '서울',
+      meetingDate: '2022-02-16',
+      contents: '',
+      commentCnt: 0,
+    },
+    {
+      meetingTitle: "리덕스 초기값 세번째 우대갈비",
+      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
+      name: '몽탄 용산점',
+      nickname: '음바페',
+      limitMember: 4,
+      userCount: 0,
+      locationName: '서울',
+      meetingDate: '2022-02-16',
+      contents: '',
+      commentCnt: 0,
+    },
+    {
+      meetingTitle: "리덕스 초기값 네번째 우대갈비",
+      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
+      name: '몽탄 용산점',
+      nickname: '음바페',
+      limitMember: 4,
+      userCount: 0,
+      locationName: '서울',
+      meetingDate: '2022-02-16',
+      contents: '',
+      commentCnt: 0,
+    },
+  ],
+}
 
-const initialPost = {
-  list: [],
-};
 
-export default handleActions(
-  {
-    [SET_POST]: (state, action) => produce(state, (draft) => { }),
-  },
-  //initialState
-);
+//Middleware
 
-const actionCreators = {
+
+
+//Reducer
+export default handleActions({
+  [SET_POST]: (state, action) => produce(state, (draft) => {
+    draft.list.push(...action.payload.postlist)
+  }),
+  [ADD_POST]: (state, action) => produce(state, (draft) => {
+    draft.list.unshift(action.payload.post);
+  }),
+
+}, initialState);
+
+
+
+
+
+const actionsCreators = {
   setPost,
-  addPost,
-  editPost,
-  // getPostFB,
-  // addPostFB,
-  // editPostFB,
-  // getOnePostFB,
-};
 
-export { actionCreators };
+
+}
+
+export { actionsCreators }

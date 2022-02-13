@@ -79,4 +79,6 @@ const ImgInner = styled.div`
     max-height: 40px;
 `;
 
+
+
 export default Image;

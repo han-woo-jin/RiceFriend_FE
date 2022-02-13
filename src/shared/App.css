@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+* {
+  font-family: "Nanum Pen Script", cursive;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

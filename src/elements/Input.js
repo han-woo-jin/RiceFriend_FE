@@ -15,19 +15,18 @@ const Input = (props) => {
     onSubmit,
     left,
     radio,
-    select
   } = props;
 
   if (left) {
     return (
       <Grid>
         {label && <Text margin="0px">{label}</Text>}
-        <LeftInput
-
+        <LeftTextarea
+          rows={10}
           value={value}
           placeholder={placeholder}
           onChange={_onChange}
-        ></LeftInput>
+        ></LeftTextarea>
       </Grid>
     );
   }
@@ -94,7 +93,6 @@ Input.defaultProps = {
   type: "text",
   value: "",
   is_submit: false,
-  select: "",
   onSubmit: () => { },
   _onChange: () => { },
 };
@@ -122,7 +120,7 @@ const LeftTextarea = styled.textarea`
 
 const LeftInput = styled.input`
   border: 1px solid #212121;
-  width: 20px;
+  width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
 `;
