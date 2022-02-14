@@ -8,26 +8,15 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 const Header = (props) => {
 
-  //const [is_login, setIsLogin] = React.useState(false);
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
+  let is_login = useSelector((state) => state.user.is_login);
+  const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
+  console.log("토큰유무: ", is_token);
+  if (is_login === false && is_token === true) {
+    is_login = true;
+  }
 
-  // React.useEffect(() => {
-
-  //   // 쿠키를 가져와요!
-  //   let cookie = getCookie('user_id');
-  //   // 확인해봅시다!
-  //   console.log(cookie);
-  //   // 쿠키가 있으면?
-  //   if (cookie) {
-  //     setIsLogin(true);
-  //   } else {
-  //     setIsLogin(false);
-  //   }
-  // });
-
-
-  if (is_login) {
+  if (is_token) {
     return (
       <React.Fragment>
         <HeaderForm>
@@ -41,7 +30,11 @@ const Header = (props) => {
 
 
               <Grid is_flex width="200px" margin="2em">
-                <Button width='100px' margin='2px' padding='8px' bold _onClick={() => { dispatch(userActions.logOut({})); }} text='로그아웃' ></Button>
+                <Button width='100px' margin='2px' padding='8px' bold
+                  _onClick={() => {
+                    dispatch(userActions.logoutAction());
+                    alert("로그아웃 되었습니다.");
+                  }} text='로그아웃' ></Button>
                 <Button width='120px' margin='2px' padding='8px' bold _onClick={() => history.push('/signup')} text='회원가입' ></Button>
               </Grid>
             </Grid>

@@ -17,6 +17,7 @@ const delPost = createAction(DEL_POST, (post_Id) => ({ post_Id }))
 const initialState = {
   list: [
     {
+      postId: 1,
       meetingTitle: "리덕스 초기값 첫번째 우대갈비",
       imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
       name: '몽탄 용산점',
@@ -29,6 +30,7 @@ const initialState = {
       commentCnt: 0,
     },
     {
+      postId: 2,
       meetingTitle: "리덕스 초기값 두번째 우대갈비",
       imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
       name: '몽탄 용산점',
@@ -41,6 +43,7 @@ const initialState = {
       commentCnt: 0,
     },
     {
+      postId: 3,
       meetingTitle: "리덕스 초기값 세번째 우대갈비",
       imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
       name: '몽탄 용산점',
@@ -53,6 +56,7 @@ const initialState = {
       commentCnt: 0,
     },
     {
+      postId: 4,
       meetingTitle: "리덕스 초기값 네번째 우대갈비",
       imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
       name: '몽탄 용산점',
@@ -80,6 +84,13 @@ export default handleActions({
   [ADD_POST]: (state, action) => produce(state, (draft) => {
     draft.list.unshift(action.payload.post);
   }),
+  [EDIT_POST]: (state, action) => produce(state, (draft) => {
+    let idx = draft.list.findIndex((p) => p.postId === action.payload.post_Id)
+    draft.list[idx] = { ...draft.list[idx], ...action.payload.post }
+  }),
+  [DEL_POST]: (state, action) => produce(state, (draft) => {
+    draft.list.filter((p) => p.postId !== action.payload.post_Id)
+  }),
 
 }, initialState);
 
@@ -87,10 +98,11 @@ export default handleActions({
 
 
 
-const actionsCreators = {
+const actionCreators = {
   setPost,
-
-
+  addPost,
+  editPost,
+  delPost,
 }
 
-export { actionsCreators }
+export { actionCreators }

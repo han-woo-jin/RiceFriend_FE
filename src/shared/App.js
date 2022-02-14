@@ -12,7 +12,9 @@ import PostDetail from '../pages/PostDetail';
 import PostWrite from '../pages/PostWrite';
 
 function App() {
+
   return (
+    
     <Grid>
       <Header />
       <ConnectedRouter history={history}>

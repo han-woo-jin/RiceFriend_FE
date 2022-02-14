@@ -1,8 +1,7 @@
 import React from "react";
-import { Text, Input, Grid, Button, Image } from "../elements";
+import { Text, Grid, Button } from "../elements";
 import { emailCheck } from "../shared/common";
 import { useHistory } from 'react-router-dom';
-import { setCookie } from '../shared/Cookie';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 
@@ -13,36 +12,38 @@ import { actionCreators as userActions } from "../redux/modules/user";
 const Login = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [id, setId] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
-  const changeId = (e) => {
-    setId(e.target.value);
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+    console.log(e.target.value)
   }
 
-  const changePwd = (e) => {
-    setPwd(e.target.value);
+  const changePassword = (e) => {
+    setPassword(e.target.value);
+    console.log(e.target.value)
   }
 
 
 
   const login = () => {
 
-    console.log(id);
+    console.log(email);
 
-    if (id === "" || pwd === "") {
+    if (email === "" || password === "") {
       window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
       return;
     }
 
-    if (!emailCheck(id)) {
+    if (!emailCheck(email)) {
       window.alert("이메일 형식이 맞지 않습니다!");
       return;
     }
     // setCookie("user_id", id, 5);
     // setCookie("user_pwd", pwd, 5);
 
-    dispatch(userActions.loginAction({ user_name: "perl" }));
+    dispatch(userActions.loginAction(email, password));
   };
 
   return (
@@ -64,8 +65,8 @@ const Login = (props) => {
               <FormControl fullWidth>
                 <TextField fullWidth
                   placeholder='아이디를 입력해주세요.'
-                  label="아이디" id="아이디" value={id}
-                  onChange={changeId} />
+                  label="아이디" id="아이디" value={email}
+                  onChange={changeEmail} />
               </FormControl>
             </Box>
 
@@ -77,8 +78,8 @@ const Login = (props) => {
               <FormControl fullWidth>
                 <TextField fullWidth
                   placeholder='비밀번호를 입력해주세요.'
-                  label="패스워드" id="패스워드" value={pwd}
-                  onChange={changePwd} />
+                  label="패스워드" id="패스워드" value={password}
+                  onChange={changePassword} />
               </FormControl>
             </Box>
           </Grid>
