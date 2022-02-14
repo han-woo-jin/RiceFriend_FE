@@ -4,6 +4,8 @@ import CommentList from "../components/CommentList";
 import { Grid, Button, Text, Image } from "../elements"
 import styled from "styled-components";
 import { history } from "../redux/configStore";
+import {actionCreators as postActions} from '../redux/modules/post'
+
 
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -32,7 +34,7 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px 10px 10px 20px" size="32px"> 모임이름 </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> {} </Text>
                                 </FormControl>
                             </Box>
 

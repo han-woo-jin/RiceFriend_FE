@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
 // import Upload from "../shared/Upload";
 import styled from 'styled-components';
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom';
-// import { actionCreators as postActions } from "../redux/modules/post";
+import { history } from "../redux/configStore";
+import { actionCreators as postActions } from "../redux/modules/post";
 // import { actionCreators as imageActions } from "../redux/modules/image";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,41 +14,79 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const PostWrite = (props) => {
-  // const dispatch = useDispatch();
-  // const is_login = useSelector((state) => state.user.is_login);
-  // const preview = useSelector((state) => state.image.preview);
-  // const post_list = useSelector((state) => state.post.list);
+import moment from "moment";
 
-  const [지역, 지역선택] = React.useState("");
-  const [인원, 인원선택] = React.useState("");
-  const [모임이름, 모임이름변경] = React.useState("");
-  const [맛집이름, 맛집이름변경] = React.useState("");
-  const [입력, 입력변경] = React.useState("");
-  const [이미지, 이미지변경] = React.useState("");
+const PostWrite = (props) => {
+  const dispatch = useDispatch()
+  const post = useSelector(state => state.post.list)
+
+
+  const [meetingTitle, setMeetingTitle] = useState()
+  const [imgUrl, setimgUrl] = useState();
+  const [name, setName] = useState();
+  const [limitMember, setlimitMember] = useState();
+  const [locationName, setlocationName] = useState();
+  const [meetingDate, setmeetingDate] = useState();
+  const [contents, setContents] = useState()
+  const date = moment().format("YYYY-MM-DD")
+
+  // postInfo ? postInfo.contents : "" 같은 수정식별자 달아주기
+
+
+
+  const addpost = () => {
+    dispatch(postActions.addPost({
+      meetingTitle: meetingTitle,
+      imgUrl: imgUrl,
+      name: name,
+      contents: contents,
+      limitMember: limitMember,
+      locationName: locationName,
+      meetingDate: meetingDate,
+    }))
+    history.push('/')
+  }
+
+  //수정관련
+  const id = props.match.params.id
+  const is_edit = id ? true : false
+  // let postInfo = is_edit ? post.find((p) => p.postId === id) : null
+
+  const editpost = () => {
+    dispatch(postActions.editPost({
+      meetingTitle: meetingTitle,
+      imgUrl: imgUrl,
+      name: name,
+      contents: contents,
+      limitMember: limitMember,
+      locationName: locationName,
+      meetingDate: meetingDate,
+    }))
+  }
 
   const saveFile = (e) => {
-    이미지변경(URL.createObjectURL(e.target.files[0]));
+    setimgUrl(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleRegion = (e) => {
-    지역선택(e.target.value);
+    setlocationName(e.target.value);
   };
   const handlePeople = (e) => {
-    인원선택(e.target.value);
+    setlimitMember(e.target.value);
   };
   const handlename = (e) => {
-    모임이름변경(e.target.value);
+    setMeetingTitle(e.target.value);
   };
   const handlerest = (e) => {
-    맛집이름변경(e.target.value);
+    setName(e.target.value);
   };
   const handleChange = (e) => {
-    입력변경(e.target.value);
+    setContents(e.target.value);
   };
-  const post_id = props.match.params.id;
-  const is_edit = post_id ? true : false;
-  const history = useHistory();
+
+  const handleDate = (e) => {
+    setmeetingDate(e.target.value)
+  }
 
   return (
     <React.Fragment>
@@ -58,7 +96,7 @@ const PostWrite = (props) => {
             <Grid padding="5px">
               <Image
                 shape="preview"
-                src={이미지}
+                src={imgUrl}
                 _onClick={() => { history.push('/login') }}
               />
               <input type="file" onChange={saveFile} />
@@ -67,7 +105,7 @@ const PostWrite = (props) => {
             <Grid padding="5px" margin="120px 0px 0px 0px">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <TextField fullWidth label="모임이름" id="모임이름" value={모임이름}
+                  <TextField fullWidth label="모임이름" id="meetingTitle" value={meetingTitle}
                     onChange={handlename} />
                 </FormControl>
               </Box>
@@ -76,7 +114,7 @@ const PostWrite = (props) => {
 
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <TextField fullWidth label="맛집이름" id="맛집이름" value={맛집이름}
+                  <TextField fullWidth label="맛집이름" id="name" value={name}
                     onChange={handlerest} />
                 </FormControl>
               </Box>
@@ -88,13 +126,26 @@ const PostWrite = (props) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={지역}
+                    value={locationName}
                     label="지역선택"
                     onChange={handleRegion}
                   >
-                    <MenuItem value={"천안"}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={"서울"}>서울</MenuItem>
+                    <MenuItem value={"인천"}>인천</MenuItem>
+                    <MenuItem value={"대전"}>대전</MenuItem>
+                    <MenuItem value={"광주"}>광주</MenuItem>
+                    <MenuItem value={"대구"}>대구</MenuItem>
+                    <MenuItem value={"울산"}>울산</MenuItem>
+                    <MenuItem value={"부산"}>부산</MenuItem>
+                    <MenuItem value={"경기"}>경기</MenuItem>
+                    <MenuItem value={"강원"}>강원</MenuItem>
+                    <MenuItem value={"충북"}>충북</MenuItem>
+                    <MenuItem value={"충남"}>충남</MenuItem>
+                    <MenuItem value={"전북"}>전북</MenuItem>
+                    <MenuItem value={"전남"}>전남</MenuItem>
+                    <MenuItem value={"경북"}>경북</MenuItem>
+                    <MenuItem value={"경남"}>경남</MenuItem>
+                    <MenuItem value={"제주"}>제주</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -105,7 +156,7 @@ const PostWrite = (props) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={인원}
+                    value={limitMember}
                     label="모집인원"
                     onChange={handlePeople}
                   >
@@ -126,19 +177,27 @@ const PostWrite = (props) => {
                   label="입력"
                   multiline
                   rows={5}
-                  value={입력}
+                  value={contents}
                   onChange={handleChange}
                 />
               </FormControl>
             </Box>
 
+            <Grid >
+              <Text bold size="20px">
+                마감일 :
+                <input type="date" label="마감일" min={date}
+                  onChange={handleDate} />
+              </Text>
+
+            </Grid>
           </Grid>
         </Grid>
         <Grid padding="16px">
           {is_edit ? (
-            <Button text="게시글 수정" _onClick={() => { }}></Button>
+            <Button text="게시글 수정" _onClick={editpost}></Button>
           ) : (
-            <Button text="게시글 작성" _onClick={() => { console.log(모임이름, 맛집이름, 지역, 인원, 입력) }}></Button>
+            <Button text="게시글 작성" _onClick={addpost}></Button>
           )}
         </Grid>
       </Wrap>
