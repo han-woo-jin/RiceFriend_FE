@@ -1,5 +1,8 @@
 import {createAction, handleActions} from "redux-actions"
 import {produce} from 'immer'
+import { instance } from "../../shared/axios"
+
+const token = localStorage.getItem('token')
 
 //Action
 const SET_POST = "SET_POST"
@@ -17,47 +20,9 @@ const delPost = createAction(DEL_POST, (post_Id) => ({post_Id}))
 const initialState ={
     list: [
         {   
-            postId: 1,
+            id :1,
+            meeting_Id: 1,
             meetingTitle: "리덕스 초기값 첫번째 우대갈비",
-            imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-            name: '몽탄 용산점',
-            nickname: '음바페',
-            limitMember: 4,
-            userCount: 0,
-            locationName: '서울',
-            meetingDate: '2022-02-16',
-            contents: '',
-            commentCnt: 0,
-        },
-        {
-            postId: 2,
-            meetingTitle: "리덕스 초기값 두번째 우대갈비",
-            imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-            name: '몽탄 용산점',
-            nickname: '음바페',
-            limitMember: 4,
-            userCount: 0,
-            locationName: '서울',
-            meetingDate: '2022-02-16',
-            contents: '',
-            commentCnt: 0,
-        },
-        {
-            postId: 3,
-            meetingTitle: "리덕스 초기값 세번째 우대갈비",
-            imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-            name: '몽탄 용산점',
-            nickname: '음바페',
-            limitMember: 4,
-            userCount: 0,
-            locationName: '서울',
-            meetingDate: '2022-02-16',
-            contents: '',
-            commentCnt: 0,
-        },
-        {
-            postId: 4,
-            meetingTitle: "리덕스 초기값 네번째 우대갈비",
             imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
             name: '몽탄 용산점',
             nickname: '음바페',
@@ -73,6 +38,66 @@ const initialState ={
 
 
 //Middleware
+const addPostAction = (post) => {
+    return function(dispatch, getState, {history}){
+        const _post = {
+      meetingTitle: post.meetingTitle,
+      name: post.retaurantName,
+      content: post.content,
+      limitMember: post.limitMember,
+      locationID: post.locationName,
+      meetingDate: post.meetingDate,
+    }
+
+        instance.post("/api/meeting",_post , {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((res) => {
+                console.log(res)
+                dispatch(addPost(res))
+                history.replace('/')
+            })
+            .catch((error) => console.log(error))
+
+
+        dispatch(addPost(_post))
+    }
+
+}
+
+const editPostAction = (post, meeting_Id) =>{
+    return function(dispatch, getState, {history}){
+        instance.put(`/api/meeting/${meeting_Id}`, post ,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            })
+                .then((res) =>{
+                    console.log(res)
+                    dispatch(editPost(res ,meeting_Id))
+                })
+                .catch((err)=> console.log(err))
+    }
+}
+
+const delPostAction = (post, meeting_Id) =>{
+    return function(dispatch, getState, {history}){
+        instance.put(`/api/meeting/${meeting_Id}`, post ,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            })
+                .then((res) =>{
+                    console.log(res)
+                    dispatch(editPost(res ,meeting_Id))
+                })
+                .catch((err)=> console.log(err))
+    }
+}
+
+
 
 
 
@@ -103,6 +128,9 @@ const actionCreators ={
     addPost,
     editPost,
     delPost,
+    addPostAction,
+    editPostAction,
+    delPostAction,
 }
 
 export { actionCreators }

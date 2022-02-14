@@ -20,7 +20,6 @@ const PostList = (props) => {
                 })}
             </Grid>
 
-            <Button is_float _onClick={() => {history.push('/write')}}>+</Button>
         </React.Fragment>
 
     )

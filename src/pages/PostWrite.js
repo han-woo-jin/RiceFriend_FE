@@ -19,7 +19,7 @@ import moment from "moment";
 const PostWrite = (props) => {
   const dispatch = useDispatch()
   const post = useSelector(state => state.post.list)
-
+  const token = localStorage.getItem('token')
 
   const [meetingTitle, setMeetingTitle] = useState()
   const [imgUrl, setimgUrl] = useState();
@@ -62,6 +62,7 @@ const PostWrite = (props) => {
       locationName: locationName,
       meetingDate: meetingDate,
     }))
+    history.push('/')
   }
 
   const saveFile = (e) => {
