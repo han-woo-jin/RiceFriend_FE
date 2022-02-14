@@ -2,6 +2,7 @@
   "name": "ricefriend_fe",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://13.124.254.39",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -14,6 +15,7 @@
     "axios": "^0.26.0",
     "connected-react-router": "6.8.0",
     "history": "4.10.1",
+    "http-proxy-middleware": "^2.0.3",
     "immer": "^9.0.12",
     "moment": "^2.29.1",
     "react": "^17.0.2",

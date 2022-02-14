@@ -10,7 +10,9 @@ const Header = (props) => {
 
   const dispatch = useDispatch();
   let is_login = useSelector((state) => state.user.is_login);
-  const is_token = localStorage.getItem("MY_TOKEN") ? true : false;
+
+  const is_token = document.cookie;
+
   console.log("토큰유무: ", is_token);
   if (is_login === false && is_token === true) {
     is_login = true;

@@ -25,6 +25,8 @@ const Signup = (props) => {
   const [nickname, setNickname] = React.useState("");
   const [gender, setGender] = React.useState("")
 
+
+
   const changeEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -77,7 +79,7 @@ const Signup = (props) => {
               <TextField fullWidth
 
                 placeholder="email를 입력해주세요. ex)aaa@aaa.com"
-                label="email" email="아이디" value={email}
+                label="email" id="아이디" value={email}
 
                 color='primary'
                 onChange={changeEmail} />
@@ -88,7 +90,7 @@ const Signup = (props) => {
               <TextField fullWidth
                 placeholder='닉네임을 입력해주세요.'
                 color='primary'
-                label="닉네임" email="닉네임"
+                label="닉네임" id="닉네임"
                 value={nickname}
                 onChange={changeNickname} />
             </FormControl>
@@ -115,16 +117,17 @@ const Signup = (props) => {
               <TextField fullWidth
                 label="비밀번호"
                 placeholder='비밀번호를 입력해주세요'
-                email="비밀번호"
+                id="비밀번호"
                 value={password} type="password"
                 color='primary'
                 onChange={changePassword} />
+
             </FormControl>
           </Grid>
           <Grid padding="16px 0px">
             <FormControl fullWidth>
               <TextField fullWidth
-                email="비밀번호확인"
+                id="비밀번호확인"
                 label="비밀번호확인"
                 placeholder='비밀번호를 다시 입력해주세요'
                 color='primary'

@@ -17,12 +17,10 @@ const Login = (props) => {
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value)
   }
 
   const changePassword = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value)
   }
 
 
@@ -44,6 +42,7 @@ const Login = (props) => {
     // setCookie("user_pwd", pwd, 5);
 
     dispatch(userActions.loginAction(email, password));
+    history.push('/');
   };
 
   return (
@@ -78,6 +77,7 @@ const Login = (props) => {
               <FormControl fullWidth>
                 <TextField fullWidth
                   placeholder='비밀번호를 입력해주세요.'
+                  type="password"
                   label="패스워드" id="패스워드" value={password}
                   onChange={changePassword} />
               </FormControl>

@@ -13,6 +13,9 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
 
 import moment from "moment";
 
@@ -87,7 +90,9 @@ const PostWrite = (props) => {
   const handleDate = (e) => {
     setmeetingDate(e.target.value)
   }
-
+  const Input = styled('input')({
+    display: 'none',
+  });
   return (
     <React.Fragment>
       <Wrap>
@@ -99,8 +104,20 @@ const PostWrite = (props) => {
                 src={imgUrl}
                 _onClick={() => { history.push('/login') }}
               />
-              <input type="file" onChange={saveFile} />
-
+              <Stack direction="row" alignItems="center" spacing={2}>
+                {/* <label htmlFor="contained-button-file">
+                  <Input accept="image/*" id="contained-button-file" multiple type="file" />
+                  <Button variant="contained" component="span">
+                    Upload
+                  </Button>
+                </label> */}
+                <label htmlFor="icon-button-file">
+                  <Input accept="image/*" id="icon-button-file" type="file" onChange={saveFile} />
+                  <IconButton color="primary" aria-label="upload picture" component="span">
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+              </Stack>
             </Grid>
             <Grid padding="5px" margin="120px 0px 0px 0px">
               <Box sx={{ minWidth: 120 }}>
