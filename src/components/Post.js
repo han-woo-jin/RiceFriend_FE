@@ -15,8 +15,8 @@ import NotesIcon from '@mui/icons-material/Notes';
 const Post = (props) => {
 
     return (
-        <Grid _onClick={() => {history.push(`/post/${props.id}`)}}>
-            <Card sx={{ maxWidth: 345 }}>
+        <Grid >
+            <Card onClick={() => {history.push(`/meeting/${props.meetingId}`)}} sx={{ maxWidth: 345 }}>
                 <CardHeader
                     title={props.meetingTitle}
                     subheader={props.restaurantName}

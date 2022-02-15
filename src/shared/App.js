@@ -30,9 +30,9 @@ function App() {
         <Route path='/' exact component={PostList} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
-        <Route path="/write/:id" exact component={PostWrite} />
+        <Route path="/write/:meetingId" exact component={PostWrite} />
         <Route path="/write/" exact component={PostWrite} />
-        <Route path="/post/:id" exact component={PostDetail} />
+        <Route path="/meeting/:meetingId" exact component={PostDetail} />
       </ConnectedRouter>
         <Button is_float text="+" _onClick={() => {history.push('/write')}}></Button>
     </Grid>

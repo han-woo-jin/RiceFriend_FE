@@ -63,10 +63,10 @@ const PostWrite = (props) => {
 
   const addpost = () => {
 
-    if (!meetingTitle || !content || !restaurantName || !limitMember || !locationId || !meetingDate) {
-      window.alert("빈 공간을 채워주세요!")
-      return;
-    }
+    // if (!meetingTitle || !content || !restaurantName || !limitMember || !locationId || !meetingDate) {
+    //   window.alert("빈 공간을 채워주세요!")
+    //   return;
+    // }
 
     // 폼데이터 생성
     let formData = new FormData()
