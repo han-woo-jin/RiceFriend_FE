@@ -19,35 +19,38 @@ import moment from "moment";
 const PostWrite = (props) => {
   const dispatch = useDispatch()
   const post = useSelector(state => state.post.list)
-  const token = document.cookie
   const [postInfo, setPostInfo] = useState([])
 
   const [meetingTitle, setMeetingTitle] = useState()
   const [imgUrl, setimgUrl] = useState();
-  const [name, setName] = useState();
+  const [restaurantName, setRestaurantName] = useState();
   const [limitMember, setlimitMember] = useState();
-  const [locationName, setlocationName] = useState();
+  const [locationId, setlocationId] = useState();
   const [meetingDate, setmeetingDate] = useState();
-  const [contents, setContents] = useState()
-  const date = moment().format("YYYY-MM-DD hh:mm:ss")
+  const [content, setContent] = useState()
+  const date = moment().format("YYYY-MM-DD")
+
 
 
   const addpost = () => {
 
-    if( !meetingTitle || !contents || !name || !limitMember || !locationName || !meetingDate ){
+    if( !meetingTitle || !content || !restaurantName || !limitMember || !locationId || !meetingDate ){
       window.alert("빈 공간을 채워주세요!")
       return ;
   }
 
-    dispatch(postActions.addPostAction({
+    dispatch(postActions.addPostAction(
+      {
       meetingTitle: meetingTitle,
-      imgUrl: imgUrl,
-      name: name,
-      contents: contents,
+      // imgUrl: imgUrl,
+      restaurantName: restaurantName,
+      content: content,
       limitMember: limitMember,
-      locationName: locationName,
+      locationId: locationId,
       meetingDate: meetingDate,
-    }))
+    }
+    
+    ))
     history.push('/')
   }
 
@@ -61,10 +64,10 @@ const PostWrite = (props) => {
     dispatch(postActions.editPostAction({
       meetingTitle: meetingTitle,
       imgUrl: imgUrl,
-      name: name,
-      contents: contents,
+      restaurantName: restaurantName,
+      content: content,
       limitMember: limitMember,
-      locationName: locationName,
+      locationId: locationId,
       meetingDate: meetingDate,
     }))
     history.push('/')
@@ -75,7 +78,7 @@ const PostWrite = (props) => {
   };
 
   const handleRegion = (e) => {
-    setlocationName(e.target.value);
+    setlocationId(e.target.value);
   };
   const handlePeople = (e) => {
     setlimitMember(e.target.value);
@@ -84,10 +87,10 @@ const PostWrite = (props) => {
     setMeetingTitle(e.target.value);
   };
   const handlerest = (e) => {
-    setName(e.target.value);
+    setRestaurantName(e.target.value);
   };
   const handleChange = (e) => {
-    setContents(e.target.value);
+    setContent(e.target.value);
   };
 
   const handleDate = (e) => {
@@ -120,7 +123,7 @@ const PostWrite = (props) => {
 
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <TextField fullWidth label="맛집이름" id="name" value={name}
+                  <TextField fullWidth label="맛집이름" id="name" value={restaurantName}
                     onChange={handlerest} />
                 </FormControl>
               </Box>
@@ -132,26 +135,27 @@ const PostWrite = (props) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={locationName}
+                    value={locationId}
                     label="지역선택"
                     onChange={handleRegion}
                   >
-                    <MenuItem value={"서울"}>서울</MenuItem>
-                    <MenuItem value={"인천"}>인천</MenuItem>
-                    <MenuItem value={"대전"}>대전</MenuItem>
-                    <MenuItem value={"광주"}>광주</MenuItem>
-                    <MenuItem value={"대구"}>대구</MenuItem>
-                    <MenuItem value={"울산"}>울산</MenuItem>
-                    <MenuItem value={"부산"}>부산</MenuItem>
-                    <MenuItem value={"경기"}>경기</MenuItem>
-                    <MenuItem value={"강원"}>강원</MenuItem>
-                    <MenuItem value={"충북"}>충북</MenuItem>
-                    <MenuItem value={"충남"}>충남</MenuItem>
-                    <MenuItem value={"전북"}>전북</MenuItem>
-                    <MenuItem value={"전남"}>전남</MenuItem>
-                    <MenuItem value={"경북"}>경북</MenuItem>
-                    <MenuItem value={"경남"}>경남</MenuItem>
-                    <MenuItem value={"제주"}>제주</MenuItem>
+                    <MenuItem value={11}>서울</MenuItem>
+                    <MenuItem value={28}>인천</MenuItem>
+                    <MenuItem value={30}>대전</MenuItem>
+                    <MenuItem value={29}>광주</MenuItem>
+                    <MenuItem value={27}>대구</MenuItem>
+                    <MenuItem value={31}>울산</MenuItem>
+                    <MenuItem value={26}>부산</MenuItem>
+                    <MenuItem value={41}>경기</MenuItem>
+                    <MenuItem value={42}>강원</MenuItem>
+                    <MenuItem value={43}>충북</MenuItem>
+                    <MenuItem value={44}>충남</MenuItem>
+                    <MenuItem value={45}>전북</MenuItem>
+                    <MenuItem value={46}>전남</MenuItem>
+                    <MenuItem value={47}>경북</MenuItem>
+                    <MenuItem value={48}>경남</MenuItem>
+                    <MenuItem value={50}>제주</MenuItem>
+                    <MenuItem value={36}>세종</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -183,7 +187,7 @@ const PostWrite = (props) => {
                   label="입력"
                   multiline
                   rows={5}
-                  value={contents}
+                  value={content}
                   onChange={handleChange}
                 />
               </FormControl>

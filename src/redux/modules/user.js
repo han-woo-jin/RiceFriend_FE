@@ -38,7 +38,7 @@ const loginAction = (email, password) => {
       .login(email, password)
       .then((res) => {
         setCookie('token', res.data.token, 7);
-        dispatch(setUser({ email: email }));
+        dispatch(setUser({ email: email, }));
         history.push('/');
       })
       .catch((error) => {
