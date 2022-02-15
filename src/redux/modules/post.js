@@ -2,8 +2,11 @@ import { createAction, handleActions } from "redux-actions"
 import { produce } from 'immer'
 import { apis, instance } from "../../shared/axios"
 import axios from 'axios'
-const token = document.cookie
 
+import { axapis } from '../../shared/formaxios'
+
+
+const token = document.cookie
 //Action
 const SET_POST = "SET_POST"
 const ADD_POST = "ADD_POST"
@@ -51,14 +54,7 @@ const setPostAction = () => {
 
 const addPostAction = (formData) => {
   return function (dispatch, getState, { history }) {
-    axios({
-      method: "post",
-      url: "http://bobfriend.shop/api/meeting",
-      data: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    axapis.createPost(formData)
       .then((response) => {
         console.log(response)
         history.push('/')
