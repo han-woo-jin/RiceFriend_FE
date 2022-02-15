@@ -3,35 +3,33 @@ import { Grid, Image, Text, Button } from '../elements'
 import { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-// import { actionCreators as commentAcions} from '../redux/modules/comment';
+import { actionCreators as commentAcions} from '../redux/modules/comment';
 
 const CommentList = (props) => {
 
     const {post_id} = props;
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const comment_list = useSelector(state => state.comment.list)
+    const comment_list = useSelector(state => state.comment.list)
     
-    // React.useEffect( () => {
-    //     if(!comment_list[post_id]){
-    //         dispatch(commentAcions.getCommentFB(post_id));
-    //     }
-    // }, [])
+    React.useEffect( () => {
+        if(!comment_list[post_id]){
+            dispatch(commentAcions.setComment(post_id));
+        }
+    }, [])
 
-    // if(!comment_list[post_id] || !post_id){
-    //     return null;
-    // }
-
-    // const [comment_list, setCommentList] = useState();
+    if(!comment_list[post_id] || !post_id){
+        return null;
+    }
 
     return (
         <React.Fragment>
             <Grid padding='16px'>
                 <CommentItem />
-                {/* {comment_list[post_id].map((c,i) => {
+                {comment_list[post_id].map((c,i) => {
                     return <CommentItem key={c.i} {...c}/>
-                })} */}
+                })}
             </Grid>
         </React.Fragment>
     );
