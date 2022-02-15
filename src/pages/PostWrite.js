@@ -28,7 +28,7 @@ const PostWrite = (props) => {
   const [imageFile, setImageFile] = useState(null);
 
   const [meetingTitle, setMeetingTitle] = useState()
-  const [name, setName] = useState();
+  const [restaurantName, setRestaurantName] = useState();
   const [limitMember, setlimitMember] = useState();
   const [locationId, setlocationId] = useState();
   const [meetingDate, setmeetingDate] = useState();
@@ -51,34 +51,39 @@ const PostWrite = (props) => {
     };
     if (file) {
       setImageFile(file)
-
     }
 
   };
 
 
   const addpost = () => {
-    console.log(meetingDate)
 
-    // 새로운 폼데이터 생성
-    // let addFormData = new FormData();
-    // // 이미지와 함께 보낼 콘텐츠와 타이틀
-    // const data = {
-    //   meetingTitle: meetingTitle,
-    //   restaurantName: name,
-    //   content: content,
-    //   limitMember: limitMember,
-    //   locationId: locationId,
-    //   meetingDate: meetingDate,
-    // };
-    // // 폼데이터에 이미지와 콘텐츠 추가
-    // addFormData.append("multipartFile", imageFile);
-    // addFormData.append(
-    //   "data",
-    //   new Blob([JSON.stringify(data)], { type: "application/json" })
-    // );
-    // // AddPost 요청
-    // dispatch(postActions.addPostAction(addFormData))
+    if (!meetingTitle || !content || !restaurantName || !limitMember || !locationId || !meetingDate) {
+      window.alert("빈 공간을 채워주세요!")
+      return;
+    }
+
+    // 폼데이터 생성
+    let formData = new FormData()
+    // 보낼 데이터 묶음
+    const data = {
+      meetingTitle: meetingTitle,
+      restaurantName: restaurantName,
+      content: content,
+      limitMember: limitMember,
+      locationId: locationId,
+      meetingDate: meetingDate,
+    };
+
+    // 폼데이터에 이미지 데이터 추가
+    formData.append("image", imageFile)
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(data)], { type: "application/json" })
+    );
+
+    dispatch(postActions.addPostAction(formData))
+    history.push('/')
   }
 
 
@@ -91,7 +96,7 @@ const PostWrite = (props) => {
     dispatch(postActions.editPostAction({
       meetingTitle: meetingTitle,
       imgUrl: " ",
-      name: name,
+      restaurantName: restaurantName,
       content: content,
       limitMember: limitMember,
       locationName: locationId,
@@ -110,7 +115,8 @@ const PostWrite = (props) => {
     setMeetingTitle(e.target.value);
   };
   const handlerest = (e) => {
-    setName(e.target.value);
+
+    setRestaurantName(e.target.value);
   };
   const handleChange = (e) => {
     setContent(e.target.value);
@@ -153,9 +159,7 @@ const PostWrite = (props) => {
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <TextField fullWidth label="모임이름" id="meetingTitle" value={meetingTitle || ""}
-                    onChange={(e) => {
-                      setMeetingTitle(e.target.value);
-                    }} />
+                    onChange={handleMeetingTitle} />
                 </FormControl>
               </Box>
 
@@ -163,7 +167,7 @@ const PostWrite = (props) => {
 
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <TextField fullWidth label="맛집이름" id="name" value={name || ""}
+                  <TextField fullWidth label="맛집이름" id="name" value={restaurantName || ""}
                     onChange={handlerest} />
                 </FormControl>
               </Box>
@@ -180,22 +184,23 @@ const PostWrite = (props) => {
                     label="지역선택"
                     onChange={handleRegion}
                   >
-                    <MenuItem value={"서울"}>서울</MenuItem>
-                    <MenuItem value={"인천"}>인천</MenuItem>
-                    <MenuItem value={"대전"}>대전</MenuItem>
-                    <MenuItem value={"광주"}>광주</MenuItem>
-                    <MenuItem value={"대구"}>대구</MenuItem>
-                    <MenuItem value={"울산"}>울산</MenuItem>
-                    <MenuItem value={"부산"}>부산</MenuItem>
-                    <MenuItem value={"경기"}>경기</MenuItem>
-                    <MenuItem value={"강원"}>강원</MenuItem>
-                    <MenuItem value={"충북"}>충북</MenuItem>
-                    <MenuItem value={"충남"}>충남</MenuItem>
-                    <MenuItem value={"전북"}>전북</MenuItem>
-                    <MenuItem value={"전남"}>전남</MenuItem>
-                    <MenuItem value={"경북"}>경북</MenuItem>
-                    <MenuItem value={"경남"}>경남</MenuItem>
-                    <MenuItem value={"제주"}>제주</MenuItem>
+                    <MenuItem value={11}>서울</MenuItem>
+                    <MenuItem value={28}>인천</MenuItem>
+                    <MenuItem value={30}>대전</MenuItem>
+                    <MenuItem value={29}>광주</MenuItem>
+                    <MenuItem value={27}>대구</MenuItem>
+                    <MenuItem value={31}>울산</MenuItem>
+                    <MenuItem value={26}>부산</MenuItem>
+                    <MenuItem value={41}>경기</MenuItem>
+                    <MenuItem value={42}>강원</MenuItem>
+                    <MenuItem value={43}>충북</MenuItem>
+                    <MenuItem value={44}>충남</MenuItem>
+                    <MenuItem value={45}>전북</MenuItem>
+                    <MenuItem value={46}>전남</MenuItem>
+                    <MenuItem value={47}>경북</MenuItem>
+                    <MenuItem value={48}>경남</MenuItem>
+                    <MenuItem value={50}>제주</MenuItem>
+                    <MenuItem value={36}>세종</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
