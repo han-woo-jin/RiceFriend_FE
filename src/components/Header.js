@@ -36,6 +36,7 @@ const Header = (props) => {
                   _onClick={() => {
                     dispatch(userActions.logoutAction());
                     alert("로그아웃 되었습니다.");
+                    window.location.href='/'
                   }} text='로그아웃' ></Button>
                 <Button width='120px' margin='2px' padding='8px' bold _onClick={() => history.push('/signup')} text='회원가입' ></Button>
               </Grid>

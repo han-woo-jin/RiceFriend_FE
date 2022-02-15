@@ -4,9 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionsCreators as postActions } from "../redux/modules/post";
 import { Button, Grid } from "../elements";
 import { history } from "../redux/configStore";
+import { instance } from "../shared/axios";
 
 const PostList = (props) => {
 
+    const dispatch = useDispatch()
+    const [postlist, setPostList] = useState([])
     const post_list = useSelector(state => state.post.list)
 
     return (

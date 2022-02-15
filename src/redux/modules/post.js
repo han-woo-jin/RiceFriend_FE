@@ -1,8 +1,8 @@
 import {createAction, handleActions} from "redux-actions"
 import {produce} from 'immer'
-import { instance } from "../../shared/axios"
+import { apis, instance } from "../../shared/axios"
 
-const token = localStorage.getItem('token')
+const token = document.cookie
 
 //Action
 const SET_POST = "SET_POST"
@@ -18,51 +18,54 @@ const delPost = createAction(DEL_POST, (post_Id) => ({post_Id}))
 
 //initialState
 const initialState ={
-    list: [
-        {   
-            id :1,
-            meeting_Id: 1,
-            meetingTitle: "리덕스 초기값 첫번째 우대갈비",
-            imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-            name: '몽탄 용산점',
-            nickname: '음바페',
-            limitMember: 4,
-            userCount: 0,
-            locationName: '서울',
-            meetingDate: '2022-02-16',
-            contents: '',
-            commentCnt: 0,
-        },
-    ],
+    list: [],
 }
+
+const initialPost = {   
+    id :1,
+    meetingId: 1,
+    meetingTitle: "리덕스 초기값 첫번째 우대갈비",
+    imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
+    retaurantName: '몽탄 용산점',
+    nickname: '음바페',
+    limitMember: 4,
+    userCount: 0,
+    locationName: '서울',
+    meetingDate: '2022-02-16',
+    contents: '',
+    commentCnt: 0,
+};
+
+
 
 
 //Middleware
-const addPostAction = (post) => {
-    return function(dispatch, getState, {history}){
-        const _post = {
-      meetingTitle: post.meetingTitle,
-      name: post.retaurantName,
-      content: post.content,
-      limitMember: post.limitMember,
-      locationID: post.locationName,
-      meetingDate: post.meetingDate,
-    }
 
-        instance.post("/api/meeting",_post , {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((res) => {
-                console.log(res)
-                dispatch(addPost(res))
-                history.replace('/')
+const setPostAction = () => {
+    return function (dispatch, getState, {history}) {
+        apis.getPost().then((response) => console.log(response))
+    }
+}
+
+
+const addPostAction = (post) => {
+    const _post = {
+        ...initialPost,
+        meetingTitle: post.meetingTitle,
+        retaurantName: post.retaurantName,
+        contents: post.contents,
+        limitMember: post.limitMember,
+        locationName: post.locationName,
+        meetingDate: post.meetingDate,
+      }
+    return function(dispatch, getState, {history}){
+        apis.createPost(_post)
+            .then((response) => {
+                console.log(response)
+                dispatch(addPost(_post))
+                history.push('/')
             })
             .catch((error) => console.log(error))
-
-
-        dispatch(addPost(_post))
     }
 
 }
@@ -128,6 +131,7 @@ const actionCreators ={
     addPost,
     editPost,
     delPost,
+    setPostAction,
     addPostAction,
     editPostAction,
     delPostAction,

@@ -19,7 +19,8 @@ import moment from "moment";
 const PostWrite = (props) => {
   const dispatch = useDispatch()
   const post = useSelector(state => state.post.list)
-  const token = localStorage.getItem('token')
+  const token = document.cookie
+  const [postInfo, setPostInfo] = useState([])
 
   const [meetingTitle, setMeetingTitle] = useState()
   const [imgUrl, setimgUrl] = useState();
@@ -28,14 +29,17 @@ const PostWrite = (props) => {
   const [locationName, setlocationName] = useState();
   const [meetingDate, setmeetingDate] = useState();
   const [contents, setContents] = useState()
-  const date = moment().format("YYYY-MM-DD")
-
-  // postInfo ? postInfo.contents : "" 같은 수정식별자 달아주기
-
+  const date = moment().format("YYYY-MM-DD hh:mm:ss")
 
 
   const addpost = () => {
-    dispatch(postActions.addPost({
+
+    if( !meetingTitle || !contents || !name || !limitMember || !locationName || !meetingDate ){
+      window.alert("빈 공간을 채워주세요!")
+      return ;
+  }
+
+    dispatch(postActions.addPostAction({
       meetingTitle: meetingTitle,
       imgUrl: imgUrl,
       name: name,
@@ -47,13 +51,14 @@ const PostWrite = (props) => {
     history.push('/')
   }
 
+
   //수정관련
   const id = props.match.params.id
   const is_edit = id ? true : false
   // let postInfo = is_edit ? post.find((p) => p.postId === id) : null
 
   const editpost = () => {
-    dispatch(postActions.editPost({
+    dispatch(postActions.editPostAction({
       meetingTitle: meetingTitle,
       imgUrl: imgUrl,
       name: name,
@@ -187,7 +192,7 @@ const PostWrite = (props) => {
             <Grid >
               <Text bold size="20px">
                 마감일 :
-                <input type="date" label="마감일" min={date}
+                <input type="datetime-local" label="마감일" min={date}
                   onChange={handleDate} />
               </Text>
 

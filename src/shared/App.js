@@ -11,8 +11,16 @@ import PostList from '../pages/PostList';
 import PostDetail from '../pages/PostDetail';
 import PostWrite from '../pages/PostWrite';
 import Permit from './Permit';
-
+import { useDispatch } from 'react-redux';
+import {actionCreators as loginActions} from  "../redux/modules/user"
 function App() {
+  const dispatch = useDispatch()
+  React.useEffect(() => {
+    if (document.cookie) {
+      dispatch(loginActions.userInfoDB())
+    }
+  }, [])
+  
 
   return (
     

@@ -19,7 +19,7 @@ const Post = (props) => {
             <Card sx={{ maxWidth: 345 }}>
                 <CardHeader
                     title={props.meetingTitle}
-                    subheader={props.name}
+                    subheader={props.restaurantName}
                 />
                 <CardMedia
                     component="img"
@@ -58,7 +58,7 @@ const Post = (props) => {
 Post.defaultProps = {
     meetingTitle: "우대갈비 뜯으러 갈 사람!!",
     imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-    name: '몽탄 용산점',
+    restaurantName: '몽탄 용산점',
     nickname: '음바페',
     limitMember: 4,
     userCount: 0,

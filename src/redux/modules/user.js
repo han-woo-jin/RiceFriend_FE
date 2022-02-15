@@ -17,7 +17,7 @@ const setUser = createAction(SET_USER, (user) => ({ user }));
 
 
 const initialState = {
-  user: null,
+  userinfo: {email: "", nickname: ""},
   is_login: false,
 };
 
@@ -36,8 +36,7 @@ const loginAction = (email, password) => {
     apis
       .login(email, password)
       .then((res) => {
-        setCookie('Set-Cookie', res.data.token, 7);
-        localStorage.setItem('email', res.data.email);
+        setCookie('token', res.data.token, 7);
         dispatch(setUser({ email: email }));
         history.push('/');
       })
@@ -58,13 +57,24 @@ const signupAction = (nickname, email, password, passwordCheck, gender) => {
   };
 };
 
+const userInfoDB = () => {
+  return function (dispatch, getState, {history}) {
+    const tokenCheck = document.cookie;
+    const token = tokenCheck.split("=")[1]
+    apis.userInfo(token).then((res) => {
+      console.log(res)
+      const userData = {
+        email: res.data.email,
+        nickname: res.data.nickname
+      }
+      dispatch(setUser(userData))
+    }).catch((error) => console.log(error))
+  }
+}
 
 const logoutAction = () => {
   return function (dispatch, getState, { history }) {
-    deleteCookie("Set-Cookie");
-    localStorage.removeItem("MY_TOKEN");
-    localStorage.removeItem("MY_ID");
-    localStorage.removeItem("MY_NAME");
+    deleteCookie("token");
     dispatch(logOut());
     history.replace("/");
   };
@@ -95,6 +105,7 @@ const actionCreators = {
   loginAction,
   logoutAction,
   loginCheck,
+  userInfoDB,
 };
 
 export { actionCreators };
