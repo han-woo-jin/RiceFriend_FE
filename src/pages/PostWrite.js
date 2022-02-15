@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
+import Upload from "../shared/Upload";
 import styled from 'styled-components';
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as imageActions } from "../redux/modules/image";
+import { actionCreators as imageActions } from '../redux/modules/image';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 
@@ -15,37 +16,71 @@ import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-import Upload from '../shared/Upload';
+
 import moment from "moment";
+import axios from 'axios';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch()
   const post = useSelector(state => state.post.list)
+  const token = document.cookie
 
+  const [imageFile, setImageFile] = useState(null);
 
   const [meetingTitle, setMeetingTitle] = useState()
-  const [imgUrl, setimgUrl] = useState();
   const [name, setName] = useState();
   const [limitMember, setlimitMember] = useState();
-  const [locationName, setlocationName] = useState();
+  const [locationId, setlocationId] = useState();
   const [meetingDate, setmeetingDate] = useState();
-  const [contents, setContents] = useState()
-  const date = moment().format("YYYY-MM-DD")
+  const [content, setContent] = useState()
 
-  // postInfo ? postInfo.contents : "" 같은 수정식별자 달아주기
+  const date = moment().format("YYYY-MM-DD hh:mm:ss")
+
+  const preview = useSelector(state => state.image.preview)
+
+
+  const fileInput = React.useRef();
+
+  const filePreview = (e) => {
+    const reader = new FileReader();
+    const file = fileInput.current.files[0];
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      // console.log(reader.result);
+      dispatch(imageActions.setPreview(reader.result));
+    };
+    if (file) {
+      setImageFile(file)
+
+    }
+
+  };
+
 
   const addpost = () => {
-    dispatch(postActions.addPost({
-      meetingTitle: meetingTitle,
-      imgUrl: imgUrl,
-      name: name,
-      contents: contents,
-      limitMember: limitMember,
-      locationName: locationName,
-      meetingDate: meetingDate,
-    }))
-    history.push('/')
+    console.log(meetingDate)
+
+    // 새로운 폼데이터 생성
+    // let addFormData = new FormData();
+    // // 이미지와 함께 보낼 콘텐츠와 타이틀
+    // const data = {
+    //   meetingTitle: meetingTitle,
+    //   restaurantName: name,
+    //   content: content,
+    //   limitMember: limitMember,
+    //   locationId: locationId,
+    //   meetingDate: meetingDate,
+    // };
+    // // 폼데이터에 이미지와 콘텐츠 추가
+    // addFormData.append("multipartFile", imageFile);
+    // addFormData.append(
+    //   "data",
+    //   new Blob([JSON.stringify(data)], { type: "application/json" })
+    // );
+    // // AddPost 요청
+    // dispatch(postActions.addPostAction(addFormData))
   }
+
 
   //수정관련
   const id = props.match.params.id
@@ -53,45 +88,40 @@ const PostWrite = (props) => {
   // let postInfo = is_edit ? post.find((p) => p.postId === id) : null
 
   const editpost = () => {
-    dispatch(postActions.editPost({
+    dispatch(postActions.editPostAction({
       meetingTitle: meetingTitle,
-      imgUrl: imgUrl,
+      imgUrl: " ",
       name: name,
-      contents: contents,
+      content: content,
       limitMember: limitMember,
-      locationName: locationName,
+      locationName: locationId,
       meetingDate: meetingDate,
     }))
+    history.push('/')
   }
 
-  const preview = useSelector((state) => state.image.preview);
-
-  const saveFile = (e) => {
-    setimgUrl(URL.createObjectURL(e.target.files[0]));
-  };
-
   const handleRegion = (e) => {
-    setlocationName(e.target.value);
+    setlocationId(e.target.value);
   };
   const handlePeople = (e) => {
     setlimitMember(e.target.value);
   };
-  const handlename = (e) => {
+  const handleMeetingTitle = (e) => {
     setMeetingTitle(e.target.value);
   };
   const handlerest = (e) => {
     setName(e.target.value);
   };
   const handleChange = (e) => {
-    setContents(e.target.value);
+    setContent(e.target.value);
   };
 
   const handleDate = (e) => {
     setmeetingDate(e.target.value)
-  };
-  // const Input = styled('input')({
-  //   display: 'none',
-  // });
+  }
+  const ElInput = styled('input')({
+    display: 'none',
+  });
   return (
     <React.Fragment>
       <Wrap>
@@ -100,16 +130,32 @@ const PostWrite = (props) => {
             <Grid padding="5px">
               <Image
                 shape="preview"
-                src={preview ? preview : "https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/1.png"}
+                src={preview ? preview : "http://via.placeholder.com/400x300"}
                 _onClick={() => { history.push('/login') }}
               />
-              <Upload />
+              <Stack direction="row" alignItems="center" spacing={2}>
+                {/* <label htmlFor="contained-button-file">
+          <Input ref={fileInput} onChange={filePreview} accept="image/*" id="contained-button-file" multiple type="file" />
+          <Button variant="contained" component="span">
+            Upload
+          </Button>
+        </label> */}
+                <label htmlFor="icon-button-file">
+                  <ElInput ref={fileInput} onChange={filePreview} accept="image/*" id="icon-button-file" type="file" />
+                  <IconButton color="primary" aria-label="upload picture" component="span">
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+              </Stack>
+
             </Grid>
             <Grid padding="5px" margin="120px 0px 0px 0px">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <TextField fullWidth label="모임이름" id="meetingTitle" value={meetingTitle}
-                    onChange={handlename} />
+                  <TextField fullWidth label="모임이름" id="meetingTitle" value={meetingTitle || ""}
+                    onChange={(e) => {
+                      setMeetingTitle(e.target.value);
+                    }} />
                 </FormControl>
               </Box>
 
@@ -117,7 +163,7 @@ const PostWrite = (props) => {
 
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <TextField fullWidth label="맛집이름" id="name" value={name}
+                  <TextField fullWidth label="맛집이름" id="name" value={name || ""}
                     onChange={handlerest} />
                 </FormControl>
               </Box>
@@ -127,9 +173,10 @@ const PostWrite = (props) => {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">지역선택</InputLabel>
                   <Select
+                    defaultValue=""
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={locationName}
+                    value={locationId || ""}
                     label="지역선택"
                     onChange={handleRegion}
                   >
@@ -157,9 +204,11 @@ const PostWrite = (props) => {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">모집인원</InputLabel>
                   <Select
+
+                    defaultValue=""
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={limitMember}
+                    value={limitMember || ""}
                     label="모집인원"
                     onChange={handlePeople}
                   >
@@ -180,18 +229,27 @@ const PostWrite = (props) => {
                   label="입력"
                   multiline
                   rows={5}
-                  value={contents}
+                  value={content}
                   onChange={handleChange}
                 />
               </FormControl>
             </Box>
 
-            <Grid >
-              <Text bold size="20px">
-                마감일 :
-                <input type="date" label="마감일" min={date}
-                  onChange={handleDate} />
-              </Text>
+            <Grid padding="16px 0px">
+              <Stack component="form" noValidate spacing={3}>
+
+                <TextField
+                  defaultValue={date}
+                  onChange={handleDate}
+                  id="datetime-local"
+                  label="Next appointment"
+                  type="datetime-local"
+                  sx={{ width: 250 }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Stack>
 
             </Grid>
           </Grid>
