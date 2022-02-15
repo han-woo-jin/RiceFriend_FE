@@ -2,55 +2,81 @@ import styled from 'styled-components';
 import React from "react";
 
 const Image = (props) => {
-    const {shape, src, size,} = props;
+  const { shape, src, size, _onClick, cursor } = props;
 
-    const styles = {
-        src: src,
-        size: size,
-    }
+  const styles = {
+    src: src,
+    size: size,
 
-    if(shape === 'rectangle'){
-        return(
-            <AspectOutter>
-                <AspectInner {...styles}></AspectInner>
-            </AspectOutter>
-        )
-    }
-
+    cursor: cursor,
+  }
+  if (shape === 'preview') {
     return (
-        <React.Fragment>
-            <ImageDefault {...styles}></ImageDefault>
-        </React.Fragment>
+      <AspectOutter>
+        <ImgInner {...styles} onClick={_onClick}></ImgInner>
+      </AspectOutter>
     )
+  }
+
+  if (shape === 'rectangle') {
+    return (
+      <AspectOutter>
+        <AspectInner {...styles} onClick={_onClick}></AspectInner>
+      </AspectOutter>
+    )
+  }
+
+  return (
+    <React.Fragment>
+      <ImageDefault {...styles} onClick={_onClick}></ImageDefault>
+    </React.Fragment>
+  )
 }
 
 Image.defaultProps = {
-    shape: 'rectangle',
-    src: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-    size: 36,
+  shape: 'rectangle',
+  src: 'https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/1330259.png',
+  size: 10,
+  cursor: 'potiner',
+  _onClick: () => { }
 };
 
 const ImageDefault = styled.div`
     --size: ${(props) => props.size}px;
     width: var(--size);
     height: var(--size);
-
     background-image: url("${(props) => props.src}");
     background-size: cover;
 `
 
 const AspectOutter = styled.div`
-    width: 100%
-    max-width: 500px;
-    min-width: 250px;
+    width: 100%;
+    min-width: 30px;
+    max-height: 400px;
+    max-width: 400px;
 `;
 
 const AspectInner = styled.div`
     position: relative;
-    padding-top: 75%;
+    padding: 50%;
     overflow: hidden;
     background-image: url("${(props) => props.src}");
     background-size: cover;
 `;
+
+
+const ImgInner = styled.div`
+    position: relative;
+    padding: 50%;
+    overflow: hidden;
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    min-width: 30px;
+    max-height: 40px;
+`;
+
+
 
 export default Image;

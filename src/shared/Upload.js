@@ -1,50 +1,49 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Button } from "../elements";
-
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
+import { useDispatch } from 'react-redux';
+import { Button } from '@mui/material';
+import { actionCreators as imageActions } from "../redux/modules/image";
+import { styled } from '@mui/material/styles';
 // import { actionCreators as imageActions } from "../redux/modules/image";
 
+import FormControl from '@mui/material/FormControl';
 const Upload = (props) => {
-  const uploading = useSelector((state) => state.image.uploading);
+
+  const dispatch = useDispatch();
+
   const fileInput = React.useRef();
-
-  const selectFile = (e) => {
-    // e.target은 input이죠!
-    // input이 가진 files 객체를 살펴봅시다.
-
+  const filePreview = () => {
     const reader = new FileReader();
-    const file = e.target.files[0];
-
-    // 파일 내용을 읽어옵니다.
+    const file = fileInput.current.files[0];
     reader.readAsDataURL(file);
-
-    // 읽기가 끝나면 발생하는 이벤트 핸들러예요! :)
     reader.onloadend = () => {
-      // reader.result는 파일의 컨텐츠(내용물)입니다!
       console.log(reader.result);
-      //dispatch(imageActions.setPreview(reader.result));
-
+      console.log(file);
+      dispatch(imageActions.setPreview(reader.result));
     };
   };
-
-  // const uploadFB = () => {
-  //   if (!fileInput.current || fileInput.current.files.length === 0) {
-  //     window.alert("파일을 선택해주세요!");
-  //     return;
-  //   }
-
-  //   //dispatch(imageActions.uploadImageFB(fileInput.current.files[0]));
-  // };
-
+  const Input = styled('input')({
+    display: 'none',
+  });
   return (
     <React.Fragment>
-      <input
-        type="file"
-        ref={fileInput}
-        onChange={selectFile}
-        disabled={uploading}
-      />
-      <Button>업로드하기</Button>
+      <Stack direction="row" alignItems="center" spacing={2}>
+        <label htmlFor="contained-button-file">
+          <Input ref={fileInput} onChange={filePreview} accept="image/*" id="contained-button-file" multiple type="file" />
+          <Button variant="contained" component="span">
+            Upload
+          </Button>
+        </label>
+        {/* <label htmlFor="icon-button-file">
+          <Input accept="image/*" id="icon-button-file" type="file" />
+          <IconButton color="primary" aria-label="upload picture" component="span">
+            <PhotoCamera />
+          </IconButton>
+        </label> */}
+      </Stack>
     </React.Fragment>
   );
 };

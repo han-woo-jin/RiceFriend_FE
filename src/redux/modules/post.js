@@ -53,7 +53,7 @@ const addPostAction = (post) => {
     const _post = {
         ...initialPost,
         content: post.content,
-        imgUrl: post.imgUrl,
+        // imgUrl: post.imgUrl,
         limitMember: post.limitMember,
         locationId: post.locationId,
         locationName: post.locationName,
