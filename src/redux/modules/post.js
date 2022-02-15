@@ -43,7 +43,9 @@ const initialPost = {
 
 const setPostAction = () => {
     return function (dispatch, getState, {history}) {
-        apis.getPost().then((response) => console.log(response))
+        apis.getPost()
+        .then((response) => console.log(response))
+        .error((error) => console.log(error))
     }
 }
 
@@ -53,6 +55,7 @@ const addPostAction = (post) => {
         ...initialPost,
         meetingTitle: post.meetingTitle,
         retaurantName: post.retaurantName,
+        imgUrl: post.imgUrl,
         contents: post.contents,
         limitMember: post.limitMember,
         locationName: post.locationName,
@@ -72,11 +75,7 @@ const addPostAction = (post) => {
 
 const editPostAction = (post, meeting_Id) =>{
     return function(dispatch, getState, {history}){
-        instance.put(`/api/meeting/${meeting_Id}`, post ,{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            })
+        apis.editPost(`/api/meeting/${meeting_Id}`, post)
                 .then((res) =>{
                     console.log(res)
                     dispatch(editPost(res ,meeting_Id))
@@ -87,14 +86,10 @@ const editPostAction = (post, meeting_Id) =>{
 
 const delPostAction = (post, meeting_Id) =>{
     return function(dispatch, getState, {history}){
-        instance.put(`/api/meeting/${meeting_Id}`, post ,{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            })
+        apis.delPost(`/api/meeting/${meeting_Id}`, post )
                 .then((res) =>{
                     console.log(res)
-                    dispatch(editPost(res ,meeting_Id))
+                    dispatch(delPost(res ,meeting_Id))
                 })
                 .catch((err)=> console.log(err))
     }

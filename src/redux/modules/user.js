@@ -17,7 +17,8 @@ const setUser = createAction(SET_USER, (user) => ({ user }));
 
 
 const initialState = {
-  userinfo: {email: "", nickname: ""},
+  // userinfo: {email: "", nickname: ""},
+  user: null,
   is_login: false,
 };
 
@@ -57,20 +58,20 @@ const signupAction = (nickname, email, password, passwordCheck, gender) => {
   };
 };
 
-const userInfoDB = () => {
-  return function (dispatch, getState, {history}) {
-    const tokenCheck = document.cookie;
-    const token = tokenCheck.split("=")[1]
-    apis.userInfo(token).then((res) => {
-      console.log(res)
-      const userData = {
-        email: res.data.email,
-        nickname: res.data.nickname
-      }
-      dispatch(setUser(userData))
-    }).catch((error) => console.log(error))
-  }
-}
+// const userInfoDB = () => {
+//   return function (dispatch, getState, {history}) {
+//     const tokenCheck = document.cookie;
+//     const token = tokenCheck.split("=")[1]
+//     apis.userInfo(token).then((res) => {
+//       console.log(res)
+//       const userData = {
+//         email: res.data.email,
+//         nickname: res.data.nickname
+//       }
+//       dispatch(setUser(userData))
+//     }).catch((error) => console.log(error))
+//   }
+// }
 
 const logoutAction = () => {
   return function (dispatch, getState, { history }) {
@@ -85,12 +86,12 @@ export default handleActions(
   {
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        draft.user = null;
+        draft.userinfo = null;
         draft.is_login = false;
       }),
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft.user = action.payload.user;
+        draft.userinfo = action.payload.user;
         draft.is_login = true;
       }),
   },
@@ -105,7 +106,7 @@ const actionCreators = {
   loginAction,
   logoutAction,
   loginCheck,
-  userInfoDB,
+  // userInfoDB,
 };
 
 export { actionCreators };

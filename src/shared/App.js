@@ -15,12 +15,12 @@ import { useDispatch } from 'react-redux';
 import {actionCreators as loginActions} from  "../redux/modules/user"
 function App() {
   const dispatch = useDispatch()
-  React.useEffect(() => {
-    if (document.cookie) {
-      dispatch(loginActions.userInfoDB())
-    }
-  }, [])
-  
+
+  // React.useEffect(() => {
+  //   if (document.cookie) {
+  //     dispatch(loginActions.userInfoDB())
+  //   }
+  // }, [])
 
   return (
     
@@ -34,9 +34,7 @@ function App() {
         <Route path="/write/" exact component={PostWrite} />
         <Route path="/post/:id" exact component={PostDetail} />
       </ConnectedRouter>
-      <Permit>
         <Button is_float text="+" _onClick={() => {history.push('/write')}}></Button>
-      </Permit>
     </Grid>
   );
 }

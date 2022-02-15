@@ -26,8 +26,8 @@ export const apis = {
   login: (email, password) =>
     instance.post("/api/user/login", { email: email, password: password }),
   
-  userInfo: (token) =>
-    instance.post(`/api/user/userinfo`, {authorization: token}),  
+  // userInfo: (token) =>
+  //   instance.post(`/api/user/auth`, {authorization: token}),  
   
   // 회원가입 요청
   signup: (email, password, passwordCheck, nickname, gender) =>
