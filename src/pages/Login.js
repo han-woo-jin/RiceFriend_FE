@@ -17,11 +17,15 @@ const Login = (props) => {
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
+    console.log(e.target.value)
   }
 
   const changePassword = (e) => {
     setPassword(e.target.value);
+    console.log(e.target.value)
   }
+
+
 
   const login = () => {
 
@@ -36,8 +40,12 @@ const Login = (props) => {
       window.alert("이메일 형식이 맞지 않습니다!");
       return;
     }
+    // setCookie("user_id", id, 5);
+    // setCookie("user_pwd", pwd, 5);
+
     dispatch(userActions.loginAction(email, password));
-    history.push('/');
+
+    history.push('/')
   };
 
   return (
@@ -71,8 +79,8 @@ const Login = (props) => {
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <TextField fullWidth
-                  placeholder='비밀번호를 입력해주세요.'
                   type="password"
+                  placeholder='비밀번호를 입력해주세요.'
                   label="패스워드" id="패스워드" value={password}
                   onChange={changePassword} />
               </FormControl>

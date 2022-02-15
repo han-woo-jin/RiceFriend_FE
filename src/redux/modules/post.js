@@ -54,15 +54,34 @@ const setPostAction = () => {
 
 const addPostAction = (formData) => {
   return function (dispatch, getState, { history }) {
-    axapis.createPost(formData)
+    apis.createPost(formData)
       .then((response) => {
         console.log(response)
-        history.push('/')
+        history.replace('/')
       })
       .catch((error) => console.log(error))
   }
 
 }
+
+// const addPostAction = (formData) => {
+//   return function (dispatch, getState, { history }) {
+//     axios({
+//       method: "post",
+//       url: "http://bobfriend.shop/api/meeting",
+//       data: formData,
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//       },
+//     })
+//       .then((response) => {
+//         console.log(response)
+//         history.push('/')
+//       })
+//       .catch((error) => console.log(error))
+//   }
+
+// }
 
 const editPostAction = (post, meeting_Id) => {
   return function (dispatch, getState, { history }) {

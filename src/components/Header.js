@@ -6,14 +6,14 @@ import { getCookie, deleteCookie } from '../shared/Cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActions } from "../redux/modules/user";
 
+
 const Header = (props) => {
 
   const dispatch = useDispatch();
   let is_login = useSelector((state) => state.user.is_login);
 
-  const is_token = document.cookie;
+  const is_token = document.cookie
 
-  console.log("토큰유무: ", is_token);
   if (is_login === false && is_token === true) {
     is_login = true;
   }
@@ -30,12 +30,13 @@ const Header = (props) => {
                 <Text margin='0px' bold size="30px">맛집 탐방 모임 커뮤니티</Text>
               </LogoText>
 
+
               <Grid is_flex width="200px" margin="2em">
                 <Button width='100px' margin='2px' padding='8px' bold
                   _onClick={() => {
                     dispatch(userActions.logoutAction());
                     alert("로그아웃 되었습니다.");
-                    history.push('/login');
+                    window.location.href = '/'
                   }} text='로그아웃' ></Button>
                 <Button width='120px' margin='2px' padding='8px' bold _onClick={() => history.push('/signup')} text='회원가입' ></Button>
               </Grid>

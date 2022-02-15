@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
-import Upload from "../shared/Upload";
 import styled from 'styled-components';
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configStore";
@@ -83,7 +82,6 @@ const PostWrite = (props) => {
     );
 
     dispatch(postActions.addPostAction(formData))
-    history.push('/')
   }
 
 

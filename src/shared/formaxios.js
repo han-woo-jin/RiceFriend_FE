@@ -10,11 +10,9 @@ export const instance = axios.create({
     accept: "application/json",
     token: token,
   },
-  // method: "post",
-  //     url: "http://bobfriend.shop/api/meeting",
-  //     data: formData,
 
 });
+
 
 instance.interceptors.request.use(function (config) {
   const accesstoken = document.cookie.split("=")[1];

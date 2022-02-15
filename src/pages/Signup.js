@@ -19,7 +19,6 @@ import FormControl from '@mui/material/FormControl';
 const Signup = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
@@ -59,6 +58,8 @@ const Signup = (props) => {
     }
     console.log(email, nickname, password, gender)
     dispatch(userActions.signupAction(email, password, passwordCheck, nickname, gender));
+
+    history.push('/')
   };
 
 
@@ -78,7 +79,7 @@ const Signup = (props) => {
               <TextField fullWidth
 
                 placeholder="email를 입력해주세요. ex)aaa@aaa.com"
-                label="email" id="아이디" value={email}
+                label="email" email="아이디" value={email}
 
                 color='primary'
                 onChange={changeEmail} />
@@ -89,7 +90,7 @@ const Signup = (props) => {
               <TextField fullWidth
                 placeholder='닉네임을 입력해주세요.'
                 color='primary'
-                label="닉네임" id="닉네임"
+                label="닉네임" email="닉네임"
                 value={nickname}
                 onChange={changeNickname} />
             </FormControl>
@@ -116,17 +117,16 @@ const Signup = (props) => {
               <TextField fullWidth
                 label="비밀번호"
                 placeholder='비밀번호를 입력해주세요'
-                id="비밀번호"
+                email="비밀번호"
                 value={password} type="password"
                 color='primary'
                 onChange={changePassword} />
-
             </FormControl>
           </Grid>
           <Grid padding="16px 0px">
             <FormControl fullWidth>
               <TextField fullWidth
-                id="비밀번호확인"
+                email="비밀번호확인"
                 label="비밀번호확인"
                 placeholder='비밀번호를 다시 입력해주세요'
                 color='primary'
