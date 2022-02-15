@@ -1,5 +1,8 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from 'immer'
+import { apis, instance } from "../../shared/axios"
+import axios from 'axios'
+const token = document.cookie
 
 //Action
 const SET_POST = "SET_POST"
@@ -15,64 +18,79 @@ const delPost = createAction(DEL_POST, (post_Id) => ({ post_Id }))
 
 //initialState
 const initialState = {
-  list: [
-    {
-      postId: 1,
-      meetingTitle: "리덕스 초기값 첫번째 우대갈비",
-      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-      name: '몽탄 용산점',
-      nickname: '음바페',
-      limitMember: 4,
-      userCount: 0,
-      locationName: '서울',
-      meetingDate: '2022-02-16',
-      contents: '',
-      commentCnt: 0,
-    },
-    {
-      postId: 2,
-      meetingTitle: "리덕스 초기값 두번째 우대갈비",
-      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-      name: '몽탄 용산점',
-      nickname: '음바페',
-      limitMember: 4,
-      userCount: 0,
-      locationName: '서울',
-      meetingDate: '2022-02-16',
-      contents: '',
-      commentCnt: 0,
-    },
-    {
-      postId: 3,
-      meetingTitle: "리덕스 초기값 세번째 우대갈비",
-      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-      name: '몽탄 용산점',
-      nickname: '음바페',
-      limitMember: 4,
-      userCount: 0,
-      locationName: '서울',
-      meetingDate: '2022-02-16',
-      contents: '',
-      commentCnt: 0,
-    },
-    {
-      postId: 4,
-      meetingTitle: "리덕스 초기값 네번째 우대갈비",
-      imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
-      name: '몽탄 용산점',
-      nickname: '음바페',
-      limitMember: 4,
-      userCount: 0,
-      locationName: '서울',
-      meetingDate: '2022-02-16',
-      contents: '',
-      commentCnt: 0,
-    },
-  ],
+  list: [],
 }
+
+const initialPost = {
+  meetingTitle: "리덕스 초기값 첫번째 우대갈비",
+  imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
+  restaurantName: '몽탄 용산점',
+  nickname: '음바페',
+  limitMember: 4,
+  userCount: 0,
+  locationId: 0,
+  locationName: '서울',
+  meetingDate: '2022-02-16',
+  content: '',
+  commentCnt: 0,
+};
+
+
 
 
 //Middleware
+
+const setPostAction = () => {
+  return function (dispatch, getState, { history }) {
+    apis.getPost()
+      .then((response) => console.log(response))
+      .error((error) => console.log(error))
+  }
+}
+
+
+const addPostAction = (formData) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "post",
+      url: "http://bobfriend.shop/api/meeting",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log(response)
+        history.push('/')
+      })
+      .catch((error) => console.log(error))
+  }
+
+}
+
+const editPostAction = (post, meeting_Id) => {
+  return function (dispatch, getState, { history }) {
+    apis.editPost(`/api/meeting/${meeting_Id}`, post)
+      .then((res) => {
+        console.log(res)
+        dispatch(editPost(res, meeting_Id))
+      })
+      .catch((err) => console.log(err))
+  }
+}
+
+const delPostAction = (post, meeting_Id) => {
+  return function (dispatch, getState, { history }) {
+    apis.delPost(`/api/meeting/${meeting_Id}`, post)
+      .then((res) => {
+        console.log(res)
+        dispatch(delPost(res, meeting_Id))
+      })
+      .catch((err) => console.log(err))
+  }
+}
+
+
 
 
 
@@ -103,6 +121,10 @@ const actionCreators = {
   addPost,
   editPost,
   delPost,
+  setPostAction,
+  addPostAction,
+  editPostAction,
+  delPostAction,
 }
 
 export { actionCreators }
