@@ -23,8 +23,6 @@ const Login = (props) => {
     setPassword(e.target.value);
   }
 
-
-
   const login = () => {
 
     console.log(email);
@@ -38,9 +36,6 @@ const Login = (props) => {
       window.alert("이메일 형식이 맞지 않습니다!");
       return;
     }
-    // setCookie("user_id", id, 5);
-    // setCookie("user_pwd", pwd, 5);
-
     dispatch(userActions.loginAction(email, password));
     history.push('/');
   };

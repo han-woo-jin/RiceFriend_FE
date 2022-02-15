@@ -19,13 +19,12 @@ import FormControl from '@mui/material/FormControl';
 const Signup = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [gender, setGender] = React.useState("")
-
-
 
   const changeEmail = (e) => {
     setEmail(e.target.value);

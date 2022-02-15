@@ -5,7 +5,7 @@ import { Grid, Button, Text, Image } from "../elements"
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { actionCreators as postActions } from '../redux/modules/post'
-
+import { useHistory } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -14,93 +14,103 @@ import IconButton from '@mui/material/IconButton';
 
 const PostDetail = (props) => {
 
+  const history = useHistory();
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
 
-  return (
-    <React.Fragment>
-      <Wrap>
-        <Grid>
-          <TableHeader>
-            <Grid padding="10px" margin="40px 0px 0px 0px">
-              <Image src={props.imgUrl} />
+  const is_token = document.cookie;
 
-            </Grid>
-            <Grid padding="5px">
-              <EditDeleteBtn>
-                <Button margin="0px 5px">수정</Button>
-                <Button margin="0px 5px">삭제</Button>
-              </EditDeleteBtn>
+  if (is_token) {
 
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> { } </Text>
-                </FormControl>
-              </Box>
+    return (
+      <React.Fragment>
+        <Wrap>
+          <Grid>
+            <TableHeader>
+              <Grid padding="10px" margin="40px 0px 0px 0px">
+                <Image src={props.imgUrl} />
 
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> 닉네임 </Text>
-                </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> 맛집이름 </Text>
-                </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> 지역 </Text>
-                </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {props.userCount} / {props.limitMember} 명 </Text>
-                </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> 마감일 </Text>
-                </FormControl>
-              </Box>
-
-            </Grid>
-          </TableHeader>
-
-          <Grid padding="16px">
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <Text size="24px"> 내용 </Text>
-              </FormControl>
-            </Box>
-
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <Text size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
-              </FormControl>
-            </Box>
-
-            <Grid is_flex margin="0px 10px">
-              <IconButton aria-label="add to join">
-                <AddTaskIcon />
-              </IconButton>
-              <Grid is_flex margin="0px 20px">
-                <Text size="20px">댓글 0개</Text>
               </Grid>
+              <Grid padding="5px">
+                <EditDeleteBtn>
+                  <Button margin="0px 5px">수정</Button>
+                  <Button margin="0px 5px">삭제</Button>
+                </EditDeleteBtn>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <Text margin="10px 10px 10px 20px" size="32px"> { } </Text>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <Text margin="10px 10px 10px 20px" size="32px"> 닉네임 </Text>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <Text margin="10px 10px 10px 20px" size="32px"> 맛집이름 </Text>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <Text margin="10px 10px 10px 20px" size="32px"> 지역 </Text>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {props.userCount} / {props.limitMember} 명 </Text>
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <Text margin="10px 10px 10px 20px" size="32px"> 마감일 </Text>
+                  </FormControl>
+                </Box>
+
+              </Grid>
+            </TableHeader>
+
+            <Grid padding="16px">
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <Text size="24px"> 내용 </Text>
+                </FormControl>
+              </Box>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <Text size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
+                </FormControl>
+              </Box>
+
+              <Grid is_flex margin="0px 10px">
+                <IconButton aria-label="add to join">
+                  <AddTaskIcon />
+                </IconButton>
+                <Grid is_flex margin="0px 20px">
+                  <Text size="20px">댓글 0개</Text>
+                </Grid>
+              </Grid>
+
+              <CommentWrite></CommentWrite>
+              <CommentList></CommentList>
+
             </Grid>
-
-            <CommentWrite></CommentWrite>
-            <CommentList></CommentList>
-
           </Grid>
-        </Grid>
-      </Wrap>
-    </React.Fragment >
-  )
+        </Wrap>
+      </React.Fragment >
+    )
+  }
+  else {
+    window.alert("로그인이 필요합니다");
+    history.push('/login');
+  }
 }
 
 const TableHeader = styled.div`

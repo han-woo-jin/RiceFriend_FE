@@ -33,8 +33,8 @@ export const apis = {
       nickname: nickname,
       gender: gender,
     }),
-  // 회원가입 요청
 };
+
 
 // export const postApis = {
 //     // 게시물 불러오기

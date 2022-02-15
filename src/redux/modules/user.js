@@ -27,11 +27,10 @@ const loginCheck = () => {
     } else {
       dispatch(logOut());
     }
-
   };
 };
 
-const loginAction = (email, password, gender) => {
+const loginAction = (email, password) => {
   return function (dispatch, getState, { history }) {
     apis
       .login(email, password)
@@ -50,6 +49,7 @@ const loginAction = (email, password, gender) => {
       });
   };
 };
+
 const logoutAction = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie('Set-Cookie');

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Grid, Text, Button, Image, Input } from "../elements";
-// import Upload from "../shared/Upload";
 import styled from 'styled-components';
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-// import { actionCreators as imageActions } from "../redux/modules/image";
+import { actionCreators as imageActions } from "../redux/modules/image";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 
@@ -16,7 +15,7 @@ import Select from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-
+import Upload from '../shared/Upload';
 import moment from "moment";
 
 const PostWrite = (props) => {
@@ -34,8 +33,6 @@ const PostWrite = (props) => {
   const date = moment().format("YYYY-MM-DD")
 
   // postInfo ? postInfo.contents : "" 같은 수정식별자 달아주기
-
-
 
   const addpost = () => {
     dispatch(postActions.addPost({
@@ -67,6 +64,8 @@ const PostWrite = (props) => {
     }))
   }
 
+  const preview = useSelector((state) => state.image.preview);
+
   const saveFile = (e) => {
     setimgUrl(URL.createObjectURL(e.target.files[0]));
   };
@@ -89,10 +88,10 @@ const PostWrite = (props) => {
 
   const handleDate = (e) => {
     setmeetingDate(e.target.value)
-  }
-  const Input = styled('input')({
-    display: 'none',
-  });
+  };
+  // const Input = styled('input')({
+  //   display: 'none',
+  // });
   return (
     <React.Fragment>
       <Wrap>
@@ -101,23 +100,10 @@ const PostWrite = (props) => {
             <Grid padding="5px">
               <Image
                 shape="preview"
-                src={imgUrl}
+                src={preview ? preview : "https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/1.png"}
                 _onClick={() => { history.push('/login') }}
               />
-              <Stack direction="row" alignItems="center" spacing={2}>
-                {/* <label htmlFor="contained-button-file">
-                  <Input accept="image/*" id="contained-button-file" multiple type="file" />
-                  <Button variant="contained" component="span">
-                    Upload
-                  </Button>
-                </label> */}
-                <label htmlFor="icon-button-file">
-                  <Input accept="image/*" id="icon-button-file" type="file" onChange={saveFile} />
-                  <IconButton color="primary" aria-label="upload picture" component="span">
-                    <PhotoCamera />
-                  </IconButton>
-                </label>
-              </Stack>
+              <Upload />
             </Grid>
             <Grid padding="5px" margin="120px 0px 0px 0px">
               <Box sx={{ minWidth: 120 }}>
