@@ -68,19 +68,26 @@ const PostWrite = (props) => {
       return;
     }
 
-    dispatch(postActions.addPostAction(
-      {
-        meetingTitle: meetingTitle,
-        // imgUrl: imgUrl,
-        restaurantName: restaurantName,
-        content: content,
-        limitMember: limitMember,
-        locationId: locationId,
-        meetingDate: meetingDate,
-      }
+    // 폼데이터 생성
+    let formData = new FormData()
+    // 보낼 데이터 묶음
+    const data = {
+      meetingTitle: meetingTitle,
+      restaurantName: restaurantName,
+      content: content,
+      limitMember: limitMember,
+      locationId: locationId,
+      meetingDate: meetingDate,
+    };
 
-    ))
-    history.push('/')
+    // 폼데이터에 이미지 데이터 추가
+    formData.append("image", imageFile)
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(data)], { type: "application/json" })
+    );
+
+    dispatch(postActions.addPostAction(formData))
   }
 
 
@@ -223,7 +230,6 @@ const PostWrite = (props) => {
                 </Grid>
               </Grid>
           </TableHeader>
-          
           <Grid padding="16px">
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>

@@ -15,11 +15,31 @@ export const instance = axios.create({
   },
 });
 
-instance.interceptors.request.use(function (config) {
-  const accesstoken = document.cookie.split("=")[1];
-  config.headers.common["Authorization"] = `${accesstoken}`;
-  return config;
+// instance.interceptors.request.use(function (config) {
+//   const accesstoken = document.cookie.split("=")[1];
+//   config.headers.common["Authorization"] = `${accesstoken}`;
+//   return config;
+// });
+
+export const imstance = axios.create({
+  // 기본적으로 우리가 바라볼 서버의 주소
+  baseURL: "http://bobfriend.shop/",
+  headers: {
+    "Content-Type": "multipart/form-data",
+    accept: "application/json",
+    token: token,
+  },
+  // method: "post",
+  //     url: "http://bobfriend.shop/api/meeting",
+  //     data: formData,
+
 });
+
+export const axapis = {
+  createPost: (formData) => instance.post("/api/meeting", formData),
+}
+
+
 
 export const apis = {
   // 로그인 요청
