@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from 'immer'
 import { apis, instance } from "../../shared/axios"
+import axios from "axios"
+import { axapis } from "../../shared/formaxios"
 
 const token = document.cookie
 
@@ -49,29 +51,17 @@ const setPostAction = () => {
 }
 
 
-const addPostAction = (post) => {
-    const _post = {
-        ...initialPost,
-        content: post.content,
-        // imgUrl: post.imgUrl,
-        limitMember: post.limitMember,
-        locationId: post.locationId,
-        locationName: post.locationName,
-        meetingDate: post.meetingDate,
-        meetingTitle: post.meetingTitle,
-        restaurantName: post.restaurantName,
-    }
+const addPostAction = (formData) => {
     return function (dispatch, getState, { history }) {
-        apis.createPost(_post)
-            .then((response) => {
-                console.log(response)
-                dispatch(addPost(_post))
-                history.push('/')
-            })
-            .catch((error) => console.log(error))
+      axapis.createPost(formData)
+        .then((response) => {
+          console.log(response)
+          history.replace('/')
+        })
+        .catch((error) => console.log(error))
     }
-
-}
+  
+  }
 
 const editPostAction = (post, meeting_Id) => {
     return function (dispatch, getState, { history }) {
