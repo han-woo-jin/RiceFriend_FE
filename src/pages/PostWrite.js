@@ -50,11 +50,9 @@ const PostWrite = (props) => {
     if (file) {
       setImageFile(file)
     }
-
   };
 
   const addpost = () => {
-
     // 폼데이터 생성
     let formData = new FormData()
     // 보낼 데이터 묶음
@@ -140,13 +138,14 @@ const PostWrite = (props) => {
       <Wrap>
         <Grid>
           <TableHeader>
-            <Grid padding="5px">
+            <Grid padding="5px 5px 5px 20px">
               <Image
                 shape="preview"
                 src={preview ? preview : "http://via.placeholder.com/400x300"}
               />
-              <Stack direction="row" alignItems="center" spacing={2}>
+              <Stack direction="row" alignItems="center" spacing={2} fontSize="25px">
                 <label htmlFor="icon-button-file">
+                  음식사진을 올려주세요
                   <ElInput ref={fileInput} onChange={filePreview} accept="image/*" id="icon-button-file" type="file" />
                   <IconButton color="primary" aria-label="upload picture" component="span">
                     <PhotoCamera />
@@ -155,7 +154,7 @@ const PostWrite = (props) => {
               </Stack>
             </Grid>
 
-            <Grid margin="0px 0px 100px 0px">
+            <Grid margin="0px 10px 100px 0px">
               <Grid padding="5px" margin="120px 0px 0px 0px">
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
@@ -224,10 +223,27 @@ const PostWrite = (props) => {
                     </Select>
                   </FormControl>
                 </Box>
+                <Grid padding="16px 0px">
+
+                  <Stack component="form" noValidate spacing={3} >
+                    <TextField
+                      defaultValue={date}
+                      onChange={handleDate}
+                      id="datetime-local"
+                      label="마감일"
+                      type="datetime-local"
+                      sx={{ width: 250 }}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </Stack>
+
+                </Grid>
               </Grid>
             </Grid>
           </TableHeader>
-          <Grid padding="16px">
+          <Grid padding="0px 16px 0px 16px">
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <TextField id="outlined-multiline-flexible"
@@ -240,23 +256,7 @@ const PostWrite = (props) => {
               </FormControl>
             </Box>
 
-            <Grid padding="16px 0px">
-              <Stack component="form" noValidate spacing={3}>
 
-                <TextField
-                  defaultValue={date}
-                  onChange={handleDate}
-                  id="datetime-local"
-                  label="Next appointment"
-                  type="datetime-local"
-                  sx={{ width: 250 }}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Stack>
-
-            </Grid>
           </Grid>
         </Grid>
         <Grid padding="16px">
@@ -266,7 +266,7 @@ const PostWrite = (props) => {
             <Button text="게시글 작성" _onClick={addpost}></Button>
           )}
         </Grid>
-      </Wrap>
+      </Wrap >
     </React.Fragment >
   );
 };
@@ -289,6 +289,7 @@ max-width : 1100px;
 min-width:  920px;
 min-height : 100vh;
 margin : auto;
+background-color: yellow;
 `
 
 export default PostWrite;

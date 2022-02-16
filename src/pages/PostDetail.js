@@ -28,6 +28,7 @@ const PostDetail = (props) => {
   const [info, setInfo] = useState([])
   const [정보, 정보변경] = useState([]);
   const [성별, 성전환] = useState(false);
+
   React.useEffect(() => {
     instance.get(`api/meeting/${id}`)
       .then((response) => {
@@ -82,54 +83,36 @@ const PostDetail = (props) => {
     <React.Fragment>
       <Wrap>
         <Grid>
+          <EditDeleteBtn>
+            <Button margin="0px 5px" _onClick={editThisPost}>수정</Button>
+            <Button margin="0px 5px" _onClick={deleteThisPost}>삭제</Button>
+          </EditDeleteBtn>
           <TableHeader>
-            <Grid padding="10px" margin="40px 0px 0px 0px">
+            <Grid padding="10px 20px" margin="0px 0px 0px 0px">
               <Image shape="preview" src={info.imgUrl} />
-
             </Grid>
-            <Grid padding="5px">
-              <EditDeleteBtn>
-                <Button margin="0px 5px" _onClick={editThisPost}>수정</Button>
-                <Button margin="0px 5px" _onClick={deleteThisPost}>삭제</Button>
-              </EditDeleteBtn>
-
-              <Box sx={{ minWidth: 120 }}>
+            <Grid padding="10px 20px 0px 0px" >
+              <Box sx={{ minWidth: 120 }} border=" 1px solid black" borderRadius="5px">
                 <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> {info.meetingTitle} </Text>
+                  <Text margin="10px 10px 10px 20px" size="32px">모임이름 :  {info.meetingTitle} </Text>
                 </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   {정보 === "male" ? (
-                    <Text color="red" margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
+                    <Text color="red" margin="10px 10px 10px 20px" size="32px">닉네임 : {info.nickname} </Text>
                   ) : (
-                    <Text color="blue" margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
-
+                    <Text color="blue" margin="10px 10px 10px 20px" size="32px">닉네임 : {info.nickname} </Text>
                   )}
-
                 </FormControl>
-              </Box>
 
-              <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <Text margin="10px 10px 10px 20px" size="32px"> {info.name} </Text>
                 </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <Text margin="10px 10px 10px 20px" size="32px"> {info.locationName} </Text>
+                  <Text margin="10px 10px 10px 20px" size="32px"> 지역 : {info.locationName} </Text>
                 </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.userCount} / {info.limitMember} 명 </Text>
                 </FormControl>
-              </Box>
-
-              <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <Text margin="10px 10px 10px 20px" size="32px"> 마감일 : {info.meetingDate} </Text>
                 </FormControl>
@@ -138,16 +121,16 @@ const PostDetail = (props) => {
             </Grid>
           </TableHeader>
 
-          <Grid padding="16px">
-            <Box sx={{ minWidth: 120 }}>
+          <Grid padding="16px" >
+            <Box sx={{ minWidth: 120 }} border=" 1px solid black" >
               <FormControl fullWidth>
-                <Text size="24px"> {info.content} </Text>
+                <Text margin="50px" size="24px"> {info.content} </Text>
               </FormControl>
             </Box>
-
+            <br></br>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <Text size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
+                <Text margin="10px" size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
               </FormControl>
             </Box>
 
@@ -156,7 +139,7 @@ const PostDetail = (props) => {
                 <AddTaskIcon />
               </IconButton>
               <Grid is_flex margin="0px 20px">
-                <Text size="20px">댓글 {info.comment_cnt}개</Text>
+                <Text size="20px">댓글 {info.commentCount}개</Text>
               </Grid>
             </Grid>
 
@@ -183,10 +166,14 @@ const TableHeader = styled.div`
   `;
 
 const Wrap = styled.div`
+
 max-width : 1100px;
 min-width:  920px;
 min-height : 100vh;
-margin : auto;
+margin-left : auto;
+margin-right : auto;
+margin-top: 20px;
+border: 2px solid black;
 `
 
 const EditDeleteBtn = styled.div`

@@ -56,10 +56,13 @@ const Btn = styled.button`
   font-size: 20px;
   border: 0;
   outline: 0;
+  background-color: lightgray;
+  color: black;
   cursor: pointer;
 
   &:hover {
-    background-color : #f8f3ee;
+    background-color : black;
+    color:white;
   }
 `;
 
