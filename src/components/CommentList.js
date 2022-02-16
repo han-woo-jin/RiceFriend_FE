@@ -1,42 +1,47 @@
 import React from 'react';
 import { Grid, Image, Text, Button } from '../elements'
 import { useState } from 'react';
+import { apis, instance } from '../shared/axios';
+import styled from 'styled-components';
+import { history } from '../redux/configStore';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as commentAcions} from '../redux/modules/comment';
+import { actionCreators as commentActions } from '../redux/modules/comment';
 
 const CommentList = (props) => {
 
-    const {post_id} = props;
+    const dispatch = useDispatch()
+    const [comment_list, setCommentList] = useState([])
 
-    const dispatch = useDispatch();
+    const id = props.meetingId
 
-    const comment_list = useSelector(state => state.comment.list)
-    
-    React.useEffect( () => {
-        if(!comment_list[post_id]){
-            dispatch(commentAcions.setComment(post_id));
-        }
+    // const deleteComment = (id) => {
+    //     dispatch(commentActions.delCommentAction(id))
+    //     // document.location.reload()
+    // }
+
+    React.useEffect(() => {
+        instance.get(`api/meeting/${props.meetingId}`)
+            .then((response) => {
+                console.log(response)
+                setCommentList(response.data.commentResponseDtos)
+            })
+            .catch((error) => console.log(error))
     }, [])
-
-    if(!comment_list[post_id] || !post_id){
-        return null;
-    }
 
     return (
         <React.Fragment>
             <Grid padding='16px'>
-                <CommentItem />
-                {comment_list[post_id].map((c,i) => {
-                    return <CommentItem key={c.i} {...c}/>
+                {comment_list.map((c, i) => {
+                    return <CommentItem key={i} id={id} {...c} />
                 })}
             </Grid>
         </React.Fragment>
     );
 };
 
-CommentList.defaultProps ={
-    post_id: null,
+CommentList.defaultProps = {
+    meetingId: null,
 }
 
 export default CommentList
@@ -44,15 +49,41 @@ export default CommentList
 
 const CommentItem = (props) => {
 
-    const { user_id, user_name, post_id, insert_dt, contents } = props;
+    const { nickname, createdAt, content,} = props;
+
+    const dispatch = useDispatch()
+
+    const meetingId = props.id
+    const commentId = props.commentId
+    console.log(meetingId, commentId)
+
+    const deleteComment = () => {
+        // const data ={
+        //     commentId : commentId,
+        //     meetingId : meetingId,
+        // }
+        // console.log(data)
+        dispatch(commentActions.delCommentAction(meetingId, commentId))
+        // document.location.reload()
+    }
+
     return (
-        <Grid is_flex>
-            <Grid is_flex width='auto'>
-                <Text bold size="20px">{user_name}</Text>
-            </Grid>
+        <Grid is_flex >
+            <Text bold size="20px">{nickname}</Text>
             <Grid is_flex margin='0px 16px'>
-                <Text margin='0px' size="20px">{contents}</Text>
-                <Text margin='0px' size="20px">{insert_dt}</Text>
+                <Grid is_flex>
+                    <Text margin='0px' size="20px">{content}</Text>
+                </Grid>
+                <Grid is_flex>
+                    <Grid>
+                        <Text margin='0px' size="20px">{createdAt}</Text>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid>
+            <CommentBtn>
+                        <Button margin="0px 5px" _onClick={deleteComment} >삭제</Button>
+                    </CommentBtn>
             </Grid>
         </Grid>
     )
@@ -65,3 +96,9 @@ CommentItem.defaultProps = {
     insert_dt: '2022-01-01 10:00:00',
     contents: '맛있겠네요!',
 }
+
+const CommentBtn = styled.div`
+display: flex;
+width: 80px;
+float: right;
+`

@@ -12,7 +12,7 @@ import PostDetail from '../pages/PostDetail';
 import PostWrite from '../pages/PostWrite';
 import Permit from './Permit';
 import { useDispatch } from 'react-redux';
-import {actionCreators as loginActions} from  "../redux/modules/user"
+import { actionCreators as loginActions } from "../redux/modules/user"
 function App() {
   const dispatch = useDispatch()
 
@@ -23,18 +23,18 @@ function App() {
   // }, [])
 
   return (
-    
+
     <Grid>
       <Header />
       <ConnectedRouter history={history}>
         <Route path='/' exact component={PostList} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
-        <Route path="/write/:id" exact component={PostWrite} />
+        <Route path="/write/:meetingId" exact component={PostWrite} />
         <Route path="/write/" exact component={PostWrite} />
-        <Route path="/post/:id" exact component={PostDetail} />
+        <Route path="/meeting/:meetingId" exact component={PostDetail} />
       </ConnectedRouter>
-        <Button is_float text="+" _onClick={() => {history.push('/write')}}></Button>
+      <Button is_float text="+" _onClick={() => { history.push('/write') }}></Button>
     </Grid>
   );
 }

@@ -10,10 +10,6 @@ export const instance = axios.create({
     accept: "application/json",
     token: token,
   },
-  // method: "post",
-  //     url: "http://bobfriend.shop/api/meeting",
-  //     data: formData,
-
 });
 
 instance.interceptors.request.use(function (config) {
@@ -24,4 +20,5 @@ instance.interceptors.request.use(function (config) {
 
 export const axapis = {
   createPost: (formData) => instance.post("/api/meeting", formData),
+  edPost: (id, formData) => instance.put(`/api/meeting/${id}`, formData)
 }
