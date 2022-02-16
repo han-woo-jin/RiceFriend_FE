@@ -46,7 +46,7 @@ const setPostAction = () => {
     return function (dispatch, getState, { history }) {
         apis.getPost()
             .then((response) => console.log(response))
-            .error((error) => console.log(error))
+            .catch((error) => console.log(error))
     }
 }
 

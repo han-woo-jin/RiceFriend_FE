@@ -127,12 +127,12 @@ const PostDetail = (props) => {
                                 <AddTaskIcon />
                             </IconButton>
                             <Grid is_flex margin="0px 20px">
-                                <Text size="20px">댓글 {info.comment_cnt}개</Text>
+                                <Text size="20px">댓글 {info.commentCount}개</Text>
                             </Grid>
                         </Grid>
 
-                        <CommentWrite></CommentWrite>
-                        <CommentList></CommentList>
+                        <CommentWrite meetingId={id}></CommentWrite>
+                        <CommentList meetingId={id}></CommentList>
 
                     </Grid>
                 </Grid>
