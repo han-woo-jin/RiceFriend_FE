@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import IconButton from '@mui/material/IconButton';
+import image from "../redux/modules/image";
 
 const PostDetail = (props) => {
 
@@ -20,15 +21,15 @@ const PostDetail = (props) => {
     const id = props.match.params.meetingId;
     const is_edit = id ? true : false;
 
-    const [meetingInfo, setMeetingInfo] = useState([])
+    const postList = useSelector((state) => state.post.list);
+    const post_idx = postList.findIndex(p => p.meetingId === id);
+    const post = postList[post_idx];
 
     React.useEffect(() =>{
-        apis.getPost()
-        .then((response) =>{
-            setMeetingInfo(response.data)
-        })
-        .catch((error)=> console.log(error))
-
+        if(post){
+            return;
+        }
+        dispatch(postActions.getOnePostAction(id))
    },[])
 
 
@@ -56,7 +57,7 @@ const PostDetail = (props) => {
                 <Grid>
                     <TableHeader>
                         <Grid padding="10px" margin="40px 0px 0px 0px">
-                            <Image src={meetingInfo.imgUrl} />
+                            <Image src={post.imgUrl} />
 
                         </Grid>
                         <Grid padding="5px">
@@ -67,37 +68,37 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px 10px 10px 20px" size="32px"> {meetingInfo.meetingTitle} </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> {post.meetingTitle} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {meetingInfo.nickname} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.nickname} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {meetingInfo.name} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.name} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {meetingInfo.locationName} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.locationName} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모집인원 : {meetingInfo.userCount} / {meetingInfo.limitMember} 명 </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모집인원 : {post.userCount} / {post.limitMember} 명 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {meetingInfo.meetingDate} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.meetingDate} </Text>
                                 </FormControl>
                             </Box>
 
@@ -107,7 +108,7 @@ const PostDetail = (props) => {
                     <Grid padding="16px">
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
-                                <Text size="24px"> {meetingInfo.contents} </Text>
+                                <Text size="24px"> {post.contents} </Text>
                             </FormControl>
                         </Box>
 
@@ -122,7 +123,7 @@ const PostDetail = (props) => {
                                 <AddTaskIcon />
                             </IconButton>
                             <Grid is_flex margin="0px 20px">
-                                <Text size="20px">댓글 {meetingInfo.comment_cnt}개</Text>
+                                <Text size="20px">댓글 {post.comment_cnt}개</Text>
                             </Grid>
                         </Grid>
 

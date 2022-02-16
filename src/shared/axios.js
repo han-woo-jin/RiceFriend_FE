@@ -63,22 +63,24 @@ export const apis = {
 
     // 게시물 불러오기
     getPost: () => instance.get("/api/meeting"),
+    // 게시물 한개불러오기
+    getOnePost: (meetingId) => instance.get(`/api/meeting/${meetingId}`),
     // 게시물 작성하기
     createPost: (contents) => instance.post("/api/meeting", contents),
     // 게시물 수정하기
-    editPost: (id, content) => instance.put(`/api/meeting/${id}`, content),
+    editPost: (meetingId, content) => instance.put(`/api/meeting/${meetingId}`, content),
     // 게시물 삭제하기
-    delPost: (id) => instance.delete(`/api/meeting/${id}`),
+    delPost: (meetingId) => instance.delete(`/api/meeting/${meetingId}`),
 };
 
 
-//   export const commentApis = {
-//     // 게시물 불러오기
-//     getPost: () => instance.get("/posts"),
-//     // 게시물 작성하기
-//     createPost: (contents) => instance.post("/posts", contents),
-//     // 게시물 수정하기
-//     editPost: (id, content) => instance.put(`/posts/${id}`, content),
-//     // 게시물 삭제하기
-//     delPost: (id) => instance.delete(`/posts/${id}`),
-//   };
+  export const commentApis = {
+    // 게시물 불러오기
+    getPost: () => instance.get("/posts"),
+    // 게시물 작성하기
+    createPost: (contents) => instance.post("/posts", contents),
+    // 게시물 수정하기
+    editPost: (id, content) => instance.put(`/posts/${id}`, content),
+    // 게시물 삭제하기
+    delPost: (id) => instance.delete(`/posts/${id}`),
+  };
