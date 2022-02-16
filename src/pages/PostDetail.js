@@ -4,10 +4,10 @@ import CommentList from "../components/CommentList";
 import { Grid, Button, Text, Image } from "../elements"
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-import {actionCreators as postActions} from '../redux/modules/post'
-import {actionCreators as userActions} from "../redux/modules/user";
+import { actionCreators as postActions } from '../redux/modules/post'
+import user, { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
-import {apis, instance} from '../shared/axios'
+import { apis, instance } from '../shared/axios'
 
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -20,21 +20,43 @@ const PostDetail = (props) => {
     const dispatch = useDispatch()
     const id = props.match.params.meetingId;
     const is_edit = id ? true : false;
-
+    const user_id = props.match.userId;
     // const postList = useSelector((state) => state.post.list);
     // const post_idx = postList.findIndex(p => p.meetingId === id);
     // const post = postList[post_idx];
 
     const [info, setInfo] = useState([])
-
-    React.useEffect(() =>{
+    const [정보, 정보변경] = useState([]);
+    const [성별, 성전환] = useState(false);
+    React.useEffect(() => {
         instance.get(`api/meeting/${id}`)
-        .then ((response) => {
-            console.log(response)
-            setInfo(response.data.meetingResonseDto)
-        })
-        .catch((error) => console.log(error))
-   },[])
+            .then((response) => {
+                console.log(response)
+                setInfo(response.data.meetingResonseDto)
+            })
+            .catch((error) => console.log(error))
+    }, [id])
+
+    React.useEffect(() => {
+        instance.get(`api/meeting/${id}`)
+            .then((response) => {
+                console.log(response)
+                정보변경(response.data.meetingUserResponseDtos[0].gender)
+            })
+            .catch((error) => console.log(error))
+    }, [id])
+
+    console.log(정보)
+
+    // if (정보 === "male") {
+    //   return (
+    //     성전환(true)
+    //   )
+    // } else {
+    //   return (
+    //     성전환(false)
+    //   )
+    // }
 
 
     //포스트 수정 => 작성페이지가 수정페이지로 바뀜
@@ -46,13 +68,14 @@ const PostDetail = (props) => {
     const deleteThisPost = () => {
         const ok = window.confirm("정말로 삭제하시겠어요?")
 
-        if(ok){
-            dispatch(postActions.delPost(id))
-        }else{
+        if (ok) {
+            dispatch(postActions.delPostAction(id))
+
+            history.replace('/')
+        } else {
             return;
         }
 
-        history.replace('/')
     }
 
     return (
@@ -61,7 +84,7 @@ const PostDetail = (props) => {
                 <Grid>
                     <TableHeader>
                         <Grid padding="10px" margin="40px 0px 0px 0px">
-                            <Image src={info.imgUrl} />
+                            <Image shape="preview" src={info.imgUrl} />
 
                         </Grid>
                         <Grid padding="5px">
@@ -72,37 +95,43 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px 10px 10px 20px" bold size="36px"> {info.meetingTitle} </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> {info.meetingTitle} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모임주최자 : {info.nickname} </Text>
+                                    {정보 === "male" ? (
+                                        <Text color="red" margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
+                                    ) : (
+                                        <Text color="blue" margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
+
+                                    )}
+
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> 맛집 : {info.restaurantName} </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> {info.name} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> 지역 : {info.locationName} </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> {info.locationName} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.userCount} / {info.limitMember} 명 </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.userCount} / {info.limitMember} 명 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> 마감일 : {info.meetingDate} </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> 마감일 : {info.meetingDate} </Text>
                                 </FormControl>
                             </Box>
 
@@ -118,7 +147,7 @@ const PostDetail = (props) => {
 
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
-                                <Text bold size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
+                                <Text size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
                             </FormControl>
                         </Box>
 
@@ -127,7 +156,7 @@ const PostDetail = (props) => {
                                 <AddTaskIcon />
                             </IconButton>
                             <Grid is_flex margin="0px 20px">
-                                <Text size="20px">댓글 {info.commentCount}개</Text>
+                                <Text size="20px">댓글 {info.comment_cnt}개</Text>
                             </Grid>
                         </Grid>
 

@@ -17,12 +17,10 @@ const Login = (props) => {
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value)
   }
 
   const changePassword = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value)
   }
 
 

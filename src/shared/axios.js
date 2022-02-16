@@ -47,10 +47,10 @@ export const apis = {
   // 로그인 요청
   login: (email, password) =>
     instance.post("/api/user/login", { email: email, password: password }),
-  
+
   // userInfo: (token) =>
   //   instance.post(`/api/user/auth`, {authorization: token}),
-  
+
   // 회원가입 요청
   signup: (email, password, passwordCheck, nickname, gender) =>
     instance.post("/api/user/signup", {
@@ -63,23 +63,24 @@ export const apis = {
       { withCredentials: true }
     ),
 
-    // 게시물 불러오기
-    getPost: () => instance.get("/api/meeting"),
-    // 게시물 한개불러오기
-    // getOnePost: (meetingId) => instance.get(`/api/meeting/${meetingId}`),
-    // 게시물 작성하기
-    createPost: (content) => instance.post("/api/meeting", content),
-    // 게시물 수정하기
-    editPost: (meetingId, content) => instance.put(`/api/meeting/${meetingId}`, content),
-    // 게시물 삭제하기
-    delPost: (meetingId) => instance.delete(`/api/meeting/${meetingId}`),
+  // 게시물 불러오기
+  getPost: () => instance.get("/api/meeting"),
+  // 게시물 한개불러오기
+  // getOnePost: (meetingId) => instance.get(`/api/meeting/${meetingId}`),
+  // 게시물 작성하기
+  createPost: (contents) => instance.post("/api/meeting", contents),
+  // 게시물 수정하기
+  edPost: (meetingId) => instance.patch(`/api/meeting/${meetingId}`),
+  // 게시물 삭제하기
+  delPost: (meetingId) => instance.delete(`/api/meeting/${meetingId}`),
 
-    // 댓글 불러오기
-    getComment: (meetingId) => instance.get(`api/meeting/${meetingId}`),
-    // 댓글 작성하기
-    createComment: (meetingId, content) => instance.post(`api/meeting/${meetingId}/comments`, content),
-    // 댓글 수정하기
-    // editComment: (meetingId, content, commentId) => instance.put(`api/meeting/${meetingId}/comments/${commentId}`, content),
-    // 댓글 삭제하기
-    delCommentDB: (meetingId, commentId) => instance.delete(`api/meeting/${meetingId}/comments/${commentId}`),
+
+  // 댓글 불러오기
+  getComment: (meetingId) => instance.get(`api/meeting/${meetingId}`),
+  // 댓글 작성하기
+  createComment: (meetingId, content) => instance.post(`api/meeting/${meetingId}/comments`, content),
+  // 댓글 수정하기
+  // editComment: (meetingId, content, commentId) => instance.put(`api/meeting/${meetingId}/comments/${commentId}`, content),
+  // 댓글 삭제하기
+  delCommentDB: (meetingId, commentId) => instance.delete(`api/meeting/${meetingId}/comments/${commentId}`),
 };
