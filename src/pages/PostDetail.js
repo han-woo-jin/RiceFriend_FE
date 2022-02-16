@@ -102,7 +102,7 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.meetingDate} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 마감일 : {info.meetingDate} </Text>
                                 </FormControl>
                             </Box>
 
@@ -112,7 +112,7 @@ const PostDetail = (props) => {
                     <Grid padding="16px">
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
-                                <Text size="24px"> {info.contents} </Text>
+                                <Text size="24px"> {info.content} </Text>
                             </FormControl>
                         </Box>
 
