@@ -2,6 +2,7 @@ import axios from "axios";
 
 const tokencheck = document.cookie;
 const token = tokencheck.split("=")[1];
+
 export const instance = axios.create({
   // 기본적으로 우리가 바라볼 서버의 주소
   baseURL: "http://bobfriend.shop/",
@@ -15,6 +16,12 @@ export const instance = axios.create({
   },
 });
 
+instance.interceptors.request.use(function (config) {
+  const accesstoken = document.cookie.split("=")[1];
+  config.headers.common["Authorization"] = `${accesstoken}`;
+  return config;
+});
+
 export const imstance = axios.create({
   // 기본적으로 우리가 바라볼 서버의 주소
   baseURL: "http://bobfriend.shop/",
@@ -23,21 +30,17 @@ export const imstance = axios.create({
     accept: "application/json",
     token: token,
   },
+  // method: "post",
+  //     url: "http://bobfriend.shop/api/meeting",
+  //     data: formData,
 
 });
 
+export const axapis = {
+  createPost: (formData) => instance.post("/api/meeting", formData),
+}
 
-instance.interceptors.request.use(function (config) {
-  const accesstoken = document.cookie.split("=")[1];
-  config.headers.common["Authorization"] = `${accesstoken}`;
-  return config;
-});
 
-imstance.interceptors.request.use(function (config) {
-  const accesstoken = document.cookie.split("=")[1];
-  config.headers.common["Authorization"] = `${accesstoken}`;
-  return config;
-});
 
 export const apis = {
   // 로그인 요청
@@ -61,23 +64,24 @@ export const apis = {
 
   // 게시물 불러오기
   getPost: () => instance.get("/api/meeting"),
+  // 게시물 한개불러오기
+  // getOnePost: (meetingId) => instance.get(`/api/meeting/${meetingId}`),
   // 게시물 작성하기
-  createPost: (formData) => imstance.post("/api/meeting", formData),
+  createPost: (contents) => instance.post("/api/meeting", contents),
   // 게시물 수정하기
-  editPost: (id, content) => instance.put(`/api/meeting/${id}`, content),
+  edPost: (meetingId) => instance.patch(`/api/meeting/${meetingId}`),
   // 게시물 삭제하기
-  delPost: (id) => instance.delete(`/api/meeting/${id}`),
+  delPost: (meetingId) => instance.delete(`/api/meeting/${meetingId}`),
 };
 
 
-
-//   export const commentApis = {
-//     // 게시물 불러오기
-//     getPost: () => instance.get("/posts"),
-//     // 게시물 작성하기
-//     createPost: (contents) => instance.post("/posts", contents),
-//     // 게시물 수정하기
-//     editPost: (id, content) => instance.put(`/posts/${id}`, content),
-//     // 게시물 삭제하기
-//     delPost: (id) => instance.delete(`/posts/${id}`),
-//   };
+export const commentApis = {
+  // 게시물 불러오기
+  getPost: () => instance.get("/posts"),
+  // 게시물 작성하기
+  createPost: (contents) => instance.post("/posts", contents),
+  // 게시물 수정하기
+  editPost: (id, content) => instance.put(`/posts/${id}`, content),
+  // 게시물 삭제하기
+  delPost: (id) => instance.delete(`/posts/${id}`),
+};

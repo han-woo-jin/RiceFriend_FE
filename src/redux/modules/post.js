@@ -1,19 +1,20 @@
 import { createAction, handleActions } from "redux-actions"
 import { produce } from 'immer'
 import { apis, instance } from "../../shared/axios"
-import axios from 'axios'
-
-import { axapis } from '../../shared/formaxios'
-
+import axios from "axios"
+import { axapis } from "../../shared/formaxios"
 
 const token = document.cookie
+
 //Action
 const SET_POST = "SET_POST"
 const ADD_POST = "ADD_POST"
 const EDIT_POST = "EDIT_POST"
 const DEL_POST = "DEL_POST"
+const GET_POST = "GET_POST"
 
 //Action create
+const getPost = createAction(GET_POST, (postlist) => ({ postlist }));
 const setPost = createAction(SET_POST, (postlist) => ({ postlist }))
 const addPost = createAction(ADD_POST, (post) => ({ post }))
 const editPost = createAction(EDIT_POST, (post, post_Id) => ({ post, post_Id }))
@@ -46,7 +47,19 @@ const initialPost = {
 const setPostAction = () => {
   return function (dispatch, getState, { history }) {
     apis.getPost()
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response)
+      })
+      .error((error) => console.log(error))
+  }
+}
+
+const getPostAction = () => {
+  return function (dispatch, getState, { history }) {
+    apis.getPost()
+      .then((response) => {
+        dispatch(getPost(response.data));
+      })
       .error((error) => console.log(error))
   }
 }
@@ -54,52 +67,34 @@ const setPostAction = () => {
 
 const addPostAction = (formData) => {
   return function (dispatch, getState, { history }) {
-    apis.createPost(formData)
+    axapis.createPost(formData)
       .then((response) => {
         console.log(response)
         history.replace('/')
       })
       .catch((error) => console.log(error))
   }
-
 }
 
-// const addPostAction = (formData) => {
-//   return function (dispatch, getState, { history }) {
-//     axios({
-//       method: "post",
-//       url: "http://bobfriend.shop/api/meeting",
-//       data: formData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//       },
-//     })
-//       .then((response) => {
-//         console.log(response)
-//         history.push('/')
-//       })
-//       .catch((error) => console.log(error))
-//   }
-
-// }
-
-const editPostAction = (post, meeting_Id) => {
+const editPostAction = (id, formData) => {
   return function (dispatch, getState, { history }) {
-    apis.editPost(`/api/meeting/${meeting_Id}`, post)
+    axapis.edPost(id, formData)
       .then((res) => {
         console.log(res)
-        dispatch(editPost(res, meeting_Id))
+        dispatch(editPost(id, formData));
+        history.replace('/')
       })
       .catch((err) => console.log(err))
   }
 }
 
-const delPostAction = (post, meeting_Id) => {
+const delPostAction = (meetingId) => {
   return function (dispatch, getState, { history }) {
-    apis.delPost(`/api/meeting/${meeting_Id}`, post)
+    apis.delPost(meetingId)
       .then((res) => {
         console.log(res)
-        dispatch(delPost(res, meeting_Id))
+        dispatch(delPost(meetingId))
+        document.location.reload();
       })
       .catch((err) => console.log(err))
   }
@@ -140,6 +135,7 @@ const actionCreators = {
   addPostAction,
   editPostAction,
   delPostAction,
+  getPostAction,
 }
 
 export { actionCreators }

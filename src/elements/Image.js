@@ -55,6 +55,7 @@ const AspectOutter = styled.div`
     min-width: 30px;
     max-height: 400px;
     max-width: 400px;
+    text-align: center;
 `;
 
 const AspectInner = styled.div`

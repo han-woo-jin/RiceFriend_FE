@@ -10,9 +10,7 @@ export const instance = axios.create({
     accept: "application/json",
     token: token,
   },
-
 });
-
 
 instance.interceptors.request.use(function (config) {
   const accesstoken = document.cookie.split("=")[1];
@@ -22,4 +20,5 @@ instance.interceptors.request.use(function (config) {
 
 export const axapis = {
   createPost: (formData) => instance.post("/api/meeting", formData),
+  edPost: (id, formData) => instance.put(`/api/meeting/${id}`, formData)
 }
