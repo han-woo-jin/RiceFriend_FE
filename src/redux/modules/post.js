@@ -50,35 +50,35 @@ const setPostAction = () => {
     }
 }
 
-const getOnePostAction = (meetingId) => {
-    return function (dispatch, getState, { history }) {
+// const getOnePostAction = (meetingId) => {
+//     return function (dispatch, getState, { history }) {
 
-        apis.getOnePost(meetingId)
-        .then((response) => {
-            console.log(response.data);
+//         apis.getOnePost(meetingId)
+//         .then((response) => {
+//             console.log(response.data);
 
-            const _post = response.data;
-            const post = {
-                meetingId : _post.meetingId,
-                content: _post.content,
-                meetingTitle: _post.meetingTitle,
-                nickname: _post.nickName,
-                imgUrl: _post.imgUrl,
-                locationId:_post.locationId,
-                limitMember: _post.limitMember,
-                userCount: _post.userCount,
-                restaurantName: _post.restaurantName,
-                meetingDate: _post.meetingDate,
-                commentCnt: _post.commentCnt,
-            };
-            dispatch(setPost(post));
-        })
-        .catch((error) => {
-          console.log(error);
-          history.replace("/");
-        });
-    };
-  };
+//             const _post = response.data;
+//             const post = {
+//                 meetingId : _post.meetingId,
+//                 content: _post.content,
+//                 meetingTitle: _post.meetingTitle,
+//                 nickname: _post.nickName,
+//                 imgUrl: _post.imgUrl,
+//                 locationId:_post.locationId,
+//                 limitMember: _post.limitMember,
+//                 userCount: _post.userCount,
+//                 restaurantName: _post.restaurantName,
+//                 meetingDate: _post.meetingDate,
+//                 commentCnt: _post.commentCnt,
+//             };
+//             dispatch(setPost(post));
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//           history.replace("/");
+//         });
+//     };
+//   };
 
 
 

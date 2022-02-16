@@ -16,7 +16,7 @@ const Post = (props) => {
 
     return (
         <Grid >
-            <Card onClick={() => {history.push(`/meeting/${props.meetingId}`)}} sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345 }}>
                 <CardHeader
                     title={props.meetingTitle}
                     subheader={props.restaurantName}

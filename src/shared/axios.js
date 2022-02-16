@@ -64,7 +64,7 @@ export const apis = {
     // 게시물 불러오기
     getPost: () => instance.get("/api/meeting"),
     // 게시물 한개불러오기
-    getOnePost: (meetingId) => instance.get(`/api/meeting/${meetingId}`),
+    // getOnePost: (meetingId) => instance.get(`/api/meeting/${meetingId}`),
     // 게시물 작성하기
     createPost: (contents) => instance.post("/api/meeting", contents),
     // 게시물 수정하기

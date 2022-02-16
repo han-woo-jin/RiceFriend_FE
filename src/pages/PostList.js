@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 const PostList = (props) => {
+    const token = document.cookie;
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -41,7 +42,15 @@ const PostList = (props) => {
                     <Grid container spacing={2} columns={16}>
                         {post_list.map((p, i) => {
                             return (
-                                <Grid item xs={4}>
+
+                                <Grid key={i} onClick={() => {
+                                    if (token) {
+                                        history.push(`/meeting/${p.meetingId}`)
+                                    } else {
+                                        window.alert('로그인 먼저 해주세요!')
+                                        history.push('/login')
+                                    }
+                                }} item xs={4}>
                                     <Post key={i} {...p} />
                                 </Grid>
                             )

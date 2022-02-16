@@ -21,15 +21,19 @@ const PostDetail = (props) => {
     const id = props.match.params.meetingId;
     const is_edit = id ? true : false;
 
-    const postList = useSelector((state) => state.post.list);
-    const post_idx = postList.findIndex(p => p.meetingId === id);
-    const post = postList[post_idx];
+    // const postList = useSelector((state) => state.post.list);
+    // const post_idx = postList.findIndex(p => p.meetingId === id);
+    // const post = postList[post_idx];
+
+    const [info, setInfo] = useState([])
 
     React.useEffect(() =>{
-        if(post){
-            return;
-        }
-        dispatch(postActions.getOnePostAction(id))
+        instance.get(`api/meeting/${id}`)
+        .then ((response) => {
+            console.log(response)
+            setInfo(response.data.meetingResonseDto)
+        })
+        .catch((error) => console.log(error))
    },[])
 
 
@@ -57,7 +61,7 @@ const PostDetail = (props) => {
                 <Grid>
                     <TableHeader>
                         <Grid padding="10px" margin="40px 0px 0px 0px">
-                            <Image src={post.imgUrl} />
+                            <Image src={info.imgUrl} />
 
                         </Grid>
                         <Grid padding="5px">
@@ -68,37 +72,37 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px 10px 10px 20px" size="32px"> {post.meetingTitle} </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> {info.meetingTitle} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.nickname} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.name} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.name} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.locationName} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.locationName} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모집인원 : {post.userCount} / {post.limitMember} 명 </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.userCount} / {info.limitMember} 명 </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {post.meetingDate} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.meetingDate} </Text>
                                 </FormControl>
                             </Box>
 
@@ -108,7 +112,7 @@ const PostDetail = (props) => {
                     <Grid padding="16px">
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
-                                <Text size="24px"> {post.contents} </Text>
+                                <Text size="24px"> {info.contents} </Text>
                             </FormControl>
                         </Box>
 
@@ -123,7 +127,7 @@ const PostDetail = (props) => {
                                 <AddTaskIcon />
                             </IconButton>
                             <Grid is_flex margin="0px 20px">
-                                <Text size="20px">댓글 {post.comment_cnt}개</Text>
+                                <Text size="20px">댓글 {info.comment_cnt}개</Text>
                             </Grid>
                         </Grid>
 
