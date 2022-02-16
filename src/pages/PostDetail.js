@@ -72,25 +72,25 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px 10px 10px 20px" size="32px"> {info.meetingTitle} </Text>
+                                    <Text margin="10px 10px 10px 20px" bold size="36px"> {info.meetingTitle} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 모임주최자 : {info.nickname} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.name} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 맛집 : {info.restaurantName} </Text>
                                 </FormControl>
                             </Box>
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text  margin="10px 10px 10px 20px" size="32px"> {info.locationName} </Text>
+                                    <Text  margin="10px 10px 10px 20px" size="32px"> 지역 : {info.locationName} </Text>
                                 </FormControl>
                             </Box>
 
@@ -118,7 +118,7 @@ const PostDetail = (props) => {
 
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
-                                <Text size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
+                                <Text bold size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
                             </FormControl>
                         </Box>
 
