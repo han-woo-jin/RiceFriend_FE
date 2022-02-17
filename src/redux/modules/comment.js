@@ -2,9 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import "moment";
 import moment from "moment";
-import { instance } from "../../shared/axios";
 import { apis } from "../../shared/axios";
-import { axapis } from "../../shared/axios";
 
 //action
 const SET_COMMENT = "SET_COMMENT";
@@ -25,20 +23,6 @@ const initialState = {
 
 // 미들웨어
 
-// const setCommentAction = (meetingId = null) => {
-//   return function (dispatch, getState, { history }) {
-//       if(!meetingId){
-//         return;
-//       }
-//       apis.getComment()
-//           .then((response) => 
-//           console.log(response),
-//           dispatch(response.data.commentResponseDtos)
-//           )
-//           .catch((error) => console.log(error))
-//   }
-// }
-
 const addCommentAction = (meetingId, content) => {
 
   return function(dispatch, getState, {history}){
@@ -57,7 +41,7 @@ const delCommentAction = (meetingId, commentId) => {
     apis.delCommentDB(meetingId, commentId)
       .then((response) => {
         console.log(response)
-        // dispatch(delComment(meetingId, commentId))
+        document.location.reload('/')
       })
       .catch((error) => {
         console.log(error)
@@ -88,9 +72,6 @@ export default handleActions(
 const actionCreators = {
   setComment,
   addComment,
-  // editComment,
-  // delComment,
-  // setCommentAction,
   addCommentAction,
   delCommentAction,
 };

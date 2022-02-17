@@ -1,51 +1,51 @@
 import React from "react";
 import styled from "styled-components";
 const Button = (props) => {
-    const {margin, padding, bg, bold, children, _onClick, text, width, cursor, disabled, color, is_float} = props;
+  const { margin, padding, bg, bold, children, _onClick, text, width, cursor, disabled, color, is_float } = props;
 
-    if (is_float) {
-        return (
-          <React.Fragment>
-            <FloatButton onClick={_onClick}>{text? text : children}</FloatButton>
-          </React.Fragment>
-        );
-      }
-
-    const styles = {
-        margin: margin,
-        padding: padding,
-        bg: bg,
-        bold: bold,
-        width: width,
-        cursor: cursor,
-        disabled:disabled,
-        color: color,
-    };
-
+  if (is_float) {
     return (
-        <React.Fragment>
-            <Btn {...styles} onClick={_onClick}>{text ? text : children}</Btn>
-        </React.Fragment>
+      <React.Fragment>
+        <FloatButton onClick={_onClick}>{text ? text : children}</FloatButton>
+      </React.Fragment>
     );
+  }
+
+  const styles = {
+    margin: margin,
+    padding: padding,
+    bg: bg,
+    bold: bold,
+    width: width,
+    cursor: cursor,
+    disabled: disabled,
+    color: color,
+  };
+
+  return (
+    <React.Fragment>
+      <Btn {...styles} onClick={_onClick}>{text ? text : children}</Btn>
+    </React.Fragment>
+  );
 };
 
 Button.defaultProps = {
-    children: null,
-    text: false,
-    _onClick: () => {},
-    color: "#ffffff",
-    margin: false,
-    width: '100%',
-    bold: false,
-    cursor: 'pointer',
-    bg: false,
+  children: null,
+  text: false,
+  _onClick: () => { },
+  color: "#ffffff",
+  margin: false,
+  width: '100%',
+  bold: false,
+  cursor: 'pointer',
+  bg: false,
 };
 
 const Btn = styled.button`
   width: ${(props) => props.width};
   border-radius: 10px;
   height: 40px;
-  color: ${(props) => (props.color)}
+  color: ${(props) => (props.color)};
   border-radius: 10px;
   box-sizing: border-box;
   border: none;
@@ -56,10 +56,12 @@ const Btn = styled.button`
   font-size: 20px;
   border: 0;
   outline: 0;
+  background-color: rgba(249,125,102,1);
+  color: white;
   cursor: pointer;
-
   &:hover {
-    background-color : #f8f3ee
+    background-color : #FA9705;
+    color:white;
   }
 `;
 

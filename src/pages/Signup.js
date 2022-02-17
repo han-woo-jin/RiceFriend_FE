@@ -8,6 +8,9 @@ import { emailCheck } from "../shared/common";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 
+import { yellow, grey } from '@material-ui/core/colors';
+import Card from '@material-ui/core/Card';
+import { makeStyles } from '@material-ui/core/styles';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -15,6 +18,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 1045,
+    minWidth: 345,
+    backgroundColor: grey[200],
+  },
+}));
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -59,89 +70,103 @@ const Signup = (props) => {
     console.log(email, nickname, password, gender)
     dispatch(userActions.signupAction(email, password, passwordCheck, nickname, gender));
 
-    history.push('/')
+    alert("환영합니다 회원님!")
+
+    history.push('/login')
   };
+  const classes = useStyles();
 
 
   return (
     <React.Fragment>
-      <Wrap>
-        <Grid padding="16px">
-          <Text size="36px" bold centertext>
-            <>
-              <img alt='babfriend' src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/ricefriend.png" style={{ background: "white", height: "20vh", wemailth: "15vw" }} />
-              <br></br>
-            </>
-            회원가입
-          </Text>
-          <Grid padding="16px 0px">
-            <FormControl fullWidth>
-              <TextField fullWidth
+      <Grid margin="auto" width="980px">
 
-                placeholder="email를 입력해주세요. ex)aaa@aaa.com"
-                label="email" email="아이디" value={email}
+        <Card className={classes.root}>
 
-                color='primary'
-                onChange={changeEmail} />
-            </FormControl>
-          </Grid>
-          <Grid padding="16px 0px">
-            <FormControl fullWidth>
-              <TextField fullWidth
-                placeholder='닉네임을 입력해주세요.'
-                color='primary'
-                label="닉네임" email="닉네임"
-                value={nickname}
-                onChange={changeNickname} />
-            </FormControl>
-          </Grid>
-          <Grid padding="16px 0px">
-            <FormControl>
-              <FormLabel email="demo-row-radio-buttons-group-label">gender</FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                value={gender}
-                onChange={changeGender}
-              >
-                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                <FormControlLabel value="male" control={<Radio />} label="Male" />
+          <Grid padding="0px">
+            <Text size="64px" bold centertext>
+              <>
+                <img alt='' src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/babfriend.png" width="200px" />
+                <br></br>
+              </>
+              회원가입
+            </Text>
+            <Grid padding="0px 30px 16px 30px">
+              <FormControl fullWidth>
+                <TextField fullWidth
+                  variant="standard"
 
-              </RadioGroup>
-            </FormControl>
+                  placeholder="아이디를 입력해주세요. ex)aaa@aaa.com"
+                  label="아이디" email="아이디" value={email}
 
+                  color='primary'
+                  onChange={changeEmail} />
+              </FormControl>
+            </Grid>
+            <Grid padding="30px">
+              <FormControl fullWidth>
+                <TextField fullWidth
+                  variant="standard"
+                  placeholder='닉네임을 입력해주세요.'
+                  color='primary'
+                  label="닉네임" email="닉네임"
+                  value={nickname}
+                  onChange={changeNickname} />
+              </FormControl>
+            </Grid>
+            <Grid padding="30px">
+              <FormControl>
+                <FormLabel email="demo-row-radio-buttons-group-label">성별을 선택하세요</FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={gender}
+                  onChange={changeGender}
+                >
+                  <FormControlLabel value="male" control={<Radio />} label="남자" />
+                  <FormControlLabel value="female" control={<Radio />} label="여자" />
+
+                </RadioGroup>
+              </FormControl>
+
+            </Grid>
+            <Grid padding="30px">
+              <FormControl fullWidth>
+                <TextField fullWidth
+                  variant="standard"
+                  label="비밀번호"
+                  placeholder='비밀번호를 입력해주세요'
+                  email="비밀번호"
+                  value={password} type="password"
+                  color='primary'
+                  onChange={changePassword} />
+              </FormControl>
+            </Grid>
+            <Grid padding="30px">
+              <FormControl fullWidth>
+                <TextField fullWidth
+                  variant="standard"
+                  email="비밀번호확인"
+                  label="비밀번호확인"
+                  placeholder='비밀번호를 다시 입력해주세요'
+                  color='primary'
+                  value={passwordCheck} type="password"
+                  onChange={changePasswordCheck} />
+              </FormControl>
+            </Grid>
+
+            <Grid padding="30px">
+              <Button
+                text="회원가입하기"
+                _onClick={signup}
+                is_active={email && password && nickname && passwordCheck ? false : true}
+              ></Button>
+            </Grid>
+            <Text centertext>아이디가 있으신가요? <span><a href='./login'>로그인하기</a></span></Text>
           </Grid>
-          <Grid padding="16px 0px">
-            <FormControl fullWidth>
-              <TextField fullWidth
-                label="비밀번호"
-                placeholder='비밀번호를 입력해주세요'
-                email="비밀번호"
-                value={password} type="password"
-                color='primary'
-                onChange={changePassword} />
-            </FormControl>
-          </Grid>
-          <Grid padding="16px 0px">
-            <FormControl fullWidth>
-              <TextField fullWidth
-                email="비밀번호확인"
-                label="비밀번호확인"
-                placeholder='비밀번호를 다시 입력해주세요'
-                color='primary'
-                value={passwordCheck} type="password"
-                onChange={changePasswordCheck} />
-            </FormControl>
-          </Grid>
-          <Button
-            text="회원가입하기"
-            _onClick={signup}
-            is_active={email && password && nickname && passwordCheck ? false : true}
-          ></Button>
-          <Text centertext>아이디가 있으신가요? <span><a href='./login'>로그인하기</a></span></Text>
-        </Grid>
-      </Wrap>
+        </Card>
+      </Grid>
     </React.Fragment>
   );
 };

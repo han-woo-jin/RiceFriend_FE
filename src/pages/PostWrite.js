@@ -8,6 +8,9 @@ import { actionCreators as imageActions } from "../redux/modules/image";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 
+import { yellow, grey } from '@material-ui/core/colors';
+import Card from '@material-ui/core/Card';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -18,8 +21,16 @@ import Stack from '@mui/material/Stack';
 
 import moment from "moment";
 import axios from 'axios';
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 1045,
+    minWidth: 345,
+    backgroundColor: grey[200],
+  },
+}));
 const PostWrite = (props) => {
+  const classes = useStyles();
+
   const dispatch = useDispatch()
   const post = useSelector(state => state.post.list)
   const [postInfo, setPostInfo] = useState([])
@@ -137,136 +148,156 @@ const PostWrite = (props) => {
 
   return (
     <React.Fragment>
-      <Wrap>
-        <Grid>
-          <TableHeader>
-            <Grid padding="5px">
-              <Image
-                shape="preview"
-                src={preview ? preview : "http://via.placeholder.com/400x300"}
-              />
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <label htmlFor="icon-button-file">
-                  <ElInput ref={fileInput} onChange={filePreview} accept="image/*" id="icon-button-file" type="file" />
-                  <IconButton color="primary" aria-label="upload picture" component="span">
-                    <PhotoCamera />
-                  </IconButton>
-                </label>
-              </Stack>
-            </Grid>
+      <Grid margin="auto" width="980px">
 
-            <Grid margin="0px 0px 100px 0px">
-              <Grid padding="5px" margin="120px 0px 0px 0px">
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <TextField fullWidth label="모임이름" id="meetingTitle" value={meetingTitle || ""}
-                      onChange={handlename} />
-                  </FormControl>
-                </Box>
+        <Card className={classes.root}>
+          <Grid padding="20px 0px 0px 0px" margin="0px">
 
-                <br />
-
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <TextField fullWidth label="맛집이름" id="name" value={restaurantName || ""}
-                      onChange={handlerest} />
-                  </FormControl>
-                </Box>
-
-                <br />
-
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">지역선택</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={locationId || ""}
-                      label="지역선택"
-                      onChange={handleRegion}
-                    >
-                      <MenuItem value={11}>서울</MenuItem>
-                      <MenuItem value={28}>인천</MenuItem>
-                      <MenuItem value={30}>대전</MenuItem>
-                      <MenuItem value={29}>광주</MenuItem>
-                      <MenuItem value={27}>대구</MenuItem>
-                      <MenuItem value={31}>울산</MenuItem>
-                      <MenuItem value={26}>부산</MenuItem>
-                      <MenuItem value={41}>경기</MenuItem>
-                      <MenuItem value={42}>강원</MenuItem>
-                      <MenuItem value={43}>충북</MenuItem>
-                      <MenuItem value={44}>충남</MenuItem>
-                      <MenuItem value={45}>전북</MenuItem>
-                      <MenuItem value={46}>전남</MenuItem>
-                      <MenuItem value={47}>경북</MenuItem>
-                      <MenuItem value={48}>경남</MenuItem>
-                      <MenuItem value={50}>제주</MenuItem>
-                      <MenuItem value={36}>세종</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-                <br />
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">모집인원</InputLabel>
-                    <Select
-                      defaultValue=""
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={limitMember || ""}
-                      label="모집인원"
-                      onChange={handlePeople}
-                    >
-                      <MenuItem value={1}>1</MenuItem>
-                      <MenuItem value={2}>2</MenuItem>
-                      <MenuItem value={3}>3</MenuItem>
-                      <MenuItem value={4}>4</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
+            <Text centertext bold size="40px">게시글 작성</Text>
+            <TableHeader>
+              <Grid padding="5px 5px 5px 5px" >
+                <div style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    shape="preview"
+                    src={preview ? preview : "http://via.placeholder.com/400x300"}
+                  />
+                </div>
+                <Stack alignItems="center" spacing={2} fontSize="25px">
+                  <label htmlFor="icon-button-file">
+                    음식사진을 올려주세요
+                    <ElInput ref={fileInput} onChange={filePreview} accept="image/*" id="icon-button-file" type="file" />
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                      <PhotoCamera />
+                    </IconButton>
+                  </label>
+                </Stack>
               </Grid>
-            </Grid>
-          </TableHeader>
-          <Grid padding="16px">
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <TextField id="outlined-multiline-flexible"
-                  label="입력"
-                  multiline
-                  rows={5}
-                  value={content}
-                  onChange={handleChange}
-                />
-              </FormControl>
-            </Box>
 
-            <Grid padding="16px 0px">
-              <Stack component="form" noValidate spacing={3}>
+              <Grid margin="0px 45px 30px 0px">
 
-                <TextField
-                  defaultValue={date}
-                  onChange={handleDate}
-                  id="datetime-local"
-                  label="Next appointment"
-                  type="datetime-local"
-                  sx={{ width: 250 }}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Stack>
+                <Grid padding="15px" margin="10px 0px 0px 0px">
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
+                    <FormControl fullWidth>
+                      <TextField
+                        variant="standard" fullWidth label="모임이름" id="meetingTitle" value={meetingTitle || ""}
+                        onChange={handlename} />
+                    </FormControl>
+                  </Box>
+
+                  <br />
+
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
+                    <FormControl fullWidth>
+                      <TextField
+                        variant="standard" fullWidth label="맛집이름" id="name" value={restaurantName || ""}
+                        onChange={handlerest} />
+                    </FormControl>
+                  </Box>
+
+                  <br />
+
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
+                    <FormControl fullWidth>
+                      <InputLabel
+                        variant="standard" id="demo-simple-select-label">지역선택</InputLabel>
+                      <Select
+                        variant="standard"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={locationId || ""}
+                        label="지역선택"
+                        onChange={handleRegion}
+                      >
+                        <MenuItem value={11}>서울</MenuItem>
+                        <MenuItem value={28}>인천</MenuItem>
+                        <MenuItem value={30}>대전</MenuItem>
+                        <MenuItem value={29}>광주</MenuItem>
+                        <MenuItem value={27}>대구</MenuItem>
+                        <MenuItem value={31}>울산</MenuItem>
+                        <MenuItem value={26}>부산</MenuItem>
+                        <MenuItem value={41}>경기</MenuItem>
+                        <MenuItem value={42}>강원</MenuItem>
+                        <MenuItem value={43}>충북</MenuItem>
+                        <MenuItem value={44}>충남</MenuItem>
+                        <MenuItem value={45}>전북</MenuItem>
+                        <MenuItem value={46}>전남</MenuItem>
+                        <MenuItem value={47}>경북</MenuItem>
+                        <MenuItem value={48}>경남</MenuItem>
+                        <MenuItem value={50}>제주</MenuItem>
+                        <MenuItem value={36}>세종</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <br />
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
+                    <FormControl fullWidth>
+                      <InputLabel
+                        variant="standard" id="demo-simple-select-label">모집인원</InputLabel>
+                      <Select
+                        variant="standard"
+                        defaultValue=""
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={limitMember || ""}
+                        label="모집인원"
+                        onChange={handlePeople}
+                      >
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <Grid padding="23px 0px" >
+                    <FormControl fullWidth>
+
+                      <TextField
+                        variant="standard"
+                        fullWidth
+                        defaultValue={date}
+                        onChange={handleDate}
+                        id="datetime-local"
+                        label="마감일"
+                        type="datetime-local"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+
+                    </FormControl>
+
+                  </Grid>
+                </Grid>
+              </Grid>
+            </TableHeader>
+            <hr style={{ border: "1px solid lightgrey", margin: "0px 50px 30px 50px" }} />
+
+            <Grid padding="0px 50px 0px 50px">
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <TextField id="outlined-multiline-flexible"
+                    placeholder='모임을 설명해 주세요!'
+                    multiline
+                    rows={5}
+                    value={content}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+              </Box>
+
 
             </Grid>
           </Grid>
-        </Grid>
-        <Grid padding="16px">
-          {is_edit ? (
-            <Button text="게시글 수정" _onClick={editpost}></Button>
-          ) : (
-            <Button text="게시글 작성" _onClick={addpost}></Button>
-          )}
-        </Grid>
-      </Wrap>
+          <Grid padding="20px 350px 20px 350px" >
+            {is_edit ? (
+              <Button text="게시글 수정" _onClick={editpost}></Button>
+            ) : (
+              <Button text="게시글 작성" _onClick={addpost}></Button>
+            )}
+          </Grid>
+        </Card>
+      </Grid>
     </React.Fragment >
   );
 };

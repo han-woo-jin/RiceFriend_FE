@@ -6,6 +6,7 @@ import { history } from "../redux/configStore";
 import { apis, instance } from "../shared/axios";
 import { Grid, } from '@mui/material';
 import Box from '@mui/material/Box';
+import { Button } from "../elements"
 
 const PostList = (props) => {
   const token = document.cookie;
@@ -25,7 +26,8 @@ const PostList = (props) => {
 
   return (
     <React.Fragment>
-      <Grid margin="50px 0px 0px 50px">
+
+      <Grid margin="50px 0px 0px 150px">
 
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} columns={16}>
@@ -42,6 +44,7 @@ const PostList = (props) => {
                 }} item xs={4}>
                   <Post key={i} {...p} />
                 </Grid>
+
               )
             })}
           </Grid>

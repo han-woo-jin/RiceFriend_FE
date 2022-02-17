@@ -26,7 +26,7 @@ const initialState = {
 }
 
 const initialPost = {
-  meetingTitle: "리덕스 초기값 첫번째 우대갈비",
+  meetingTitle: "리덕스 초기값",
   imgUrl: 'https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjdfMTk1/MDAxNTgyNzMxMDQ5Njkw.ix16dWc4vxLvK-RLLVqZPnYS4Zus4xlpa7u_qJWchKYg.f4t2_bt1WaYl_1jNhOTESDf1J2JTBjAIamrNVyZ9CBog.JPEG.queen7165/DSC04357.JPG?type=w800',
   restaurantName: '몽탄 용산점',
   nickname: '음바페',
@@ -94,7 +94,7 @@ const delPostAction = (meetingId) => {
       .then((res) => {
         console.log(res)
         dispatch(delPost(meetingId))
-        document.location.reload();
+        document.location.reload('/')
       })
       .catch((err) => console.log(err))
   }

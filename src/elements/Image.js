@@ -74,6 +74,7 @@ const ImgInner = styled.div`
     background-size: cover;
     background-position: center;
     object-fit: cover;
+  border: 1px solid lightgrey;
     min-width: 30px;
     max-height: 40px;
 `;

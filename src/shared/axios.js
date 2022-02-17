@@ -21,6 +21,8 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 
+
+// formaxios.js 와 같지만 한 컴포넌트에 연동되나 확인
 export const imstance = axios.create({
   // 기본적으로 우리가 바라볼 서버의 주소
   baseURL: "http://bobfriend.shop/",
@@ -34,10 +36,8 @@ export const imstance = axios.create({
   //     data: formData,
 
 });
-
 export const axapis = {
   createPost: (formData) => instance.post("/api/meeting", formData),
-
   createComment: (meetingId, content) => instance.post(`api/meeting/${meetingId}/comments`, content),
 }
 
@@ -65,8 +65,6 @@ export const apis = {
 
   // 게시물 불러오기
   getPost: () => instance.get("/api/meeting"),
-  // 게시물 한개불러오기
-  // getOnePost: (meetingId) => instance.get(`/api/meeting/${meetingId}`),
   // 게시물 작성하기
   createPost: (contents) => instance.post("/api/meeting", contents),
   // 게시물 수정하기
@@ -79,8 +77,12 @@ export const apis = {
   getComment: (meetingId) => instance.get(`api/meeting/${meetingId}`),
   // 댓글 작성하기
   createComment: (meetingId, content) => instance.post(`api/meeting/${meetingId}/comments`, content),
-  // 댓글 수정하기
-  // editComment: (meetingId, content, commentId) => instance.put(`api/meeting/${meetingId}/comments/${commentId}`, content),
   // 댓글 삭제하기
   delCommentDB: (meetingId, commentId) => instance.delete(`api/meeting/${meetingId}/comments/${commentId}`),
+
+
+  //모임 참여하기
+    createJoin: (meetingId) => instance.post(`api/meeting/${meetingId}/user/`),
+  //모임 탈퇴하기
+    deleteJoin: (meetingId) => instance.delete(`api/meeting/${meetingId}/user/`),
 };
