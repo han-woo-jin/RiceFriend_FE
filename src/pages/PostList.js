@@ -27,7 +27,7 @@ const PostList = (props) => {
   return (
     <React.Fragment>
 
-      <Grid margin="50px 0px 0px 50px">
+      <Grid margin="50px 0px 0px 150px">
 
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} columns={16}>
@@ -44,7 +44,7 @@ const PostList = (props) => {
                 }} item xs={4}>
                   <Post key={i} {...p} />
                 </Grid>
-                
+
               )
             })}
           </Grid>

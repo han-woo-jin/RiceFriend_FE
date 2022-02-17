@@ -70,7 +70,9 @@ const Signup = (props) => {
     console.log(email, nickname, password, gender)
     dispatch(userActions.signupAction(email, password, passwordCheck, nickname, gender));
 
-    history.push('/')
+    alert("환영합니다 회원님!")
+
+    history.push('/login')
   };
   const classes = useStyles();
 

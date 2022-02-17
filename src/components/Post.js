@@ -74,7 +74,7 @@ const Post = (props) => {
             <CardActions disableSpacing>
               <IconButton aria-label="add to join" onClick={() => { history.push('/login') }}>
                 <AddTaskIcon />
-                <Text margin="0px 0px 0px 10px" size='24px'>{props.userCount} / {props.limitMember}</Text>
+                <Text margin="0px 0px 0px 10px" size='24px'>{props.memberCount} / {props.limitMember}</Text>
               </IconButton>
               <IconButton aria-label="note">
                 <NotesIcon />
