@@ -78,7 +78,7 @@ const Post = (props) => {
               </IconButton>
               <IconButton aria-label="note">
                 <NotesIcon />
-                <Text margin="0px 0px 0px 10px" size='24px'>{props.commentCnt}</Text>
+                <Text margin="0px 0px 0px 10px" size='24px'>{props.commentCount}</Text>
               </IconButton>
             </CardActions>
           </CardActionArea>
