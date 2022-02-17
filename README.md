@@ -1,4 +1,4 @@
-# 👀 밥친구 (Back-End)
+# 👀 밥친구
 ![img_2.png](img_2.png)
 
 
@@ -29,7 +29,11 @@
 ### [FRONT-END] 
 🧑🏻‍💻 [차민재](https://github.com/letminjae) <br/>
 
+- 스켈레톤 뷰 구성, 메인-상세 페이지 Read 및 참여기능 구현(Axios), 댓글 CRUD 구현(Axios), AWS S3 배포
+
 🧑🏻‍💻 [한우진](https://github.com/han-woo-jin)
+
+- 로그인/회원가입 기능 구현, MUI를 통한 CSS 작업, 게시물 작성/수정/삭제 구현(Axios), 이미지 업로드(Multipart) 구현
 
 #### [\[Front-End Github\]](https://github.com/letminjae/RiceFriend_FE)
 
