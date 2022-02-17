@@ -111,54 +111,39 @@ const PostDetail = (props) => {
 
         <Card className={classes.root}>
           <Grid>
+            <EditDeleteBtn>
+              <Button margin="0px 5px" _onClick={editThisPost}>수정</Button>
+              <Button margin="0px 5px" _onClick={deleteThisPost}>삭제</Button>
+            </EditDeleteBtn>
             <TableHeader>
-              <Grid padding="10px" margin="40px 0px 0px 0px">
+              <Grid padding="10px 20px" margin="40px 0px 0px 0px">
                 <Image shape="preview" src={info.imgUrl} />
 
               </Grid>
-              <Grid padding="5px">
-                <EditDeleteBtn>
-                  <Button margin="0px 5px" _onClick={editThisPost}>수정</Button>
-                  <Button margin="0px 5px" _onClick={deleteThisPost}>삭제</Button>
-                </EditDeleteBtn>
+              <Grid padding="10px 20px 0px 0px">
 
-                <Box sx={{ minWidth: 120 }}>
+
+                <Box sx={{ minWidth: 120 }} border=" 1px solid black" borderRadius="5px">
                   <FormControl fullWidth>
-                    <Text margin="10px 10px 10px 20px" size="32px"> {info.meetingTitle} </Text>
+                    <Text margin="10px 10px 10px 20px" size="32px">모임이름 :  {info.meetingTitle} </Text>
                   </FormControl>
-                </Box>
-
-                <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
                     {정보 === "male" ? (
-                      <Text color="red" margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
+                      <Text color="red" margin="10px 10px 10px 20px" size="32px">닉네임 : {info.nickname} </Text>
                     ) : (
-                      <Text color="blue" margin="10px 10px 10px 20px" size="32px"> {info.nickname} </Text>
-
+                      <Text color="blue" margin="10px 10px 10px 20px" size="32px">닉네임 : {info.nickname} </Text>
                     )}
-
                   </FormControl>
-                </Box>
 
-                <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
-                    <Text margin="10px 10px 10px 20px" size="32px"> {info.restaurantName} </Text>
+                    <Text margin="10px 10px 10px 20px" size="32px"> {info.name} </Text>
                   </FormControl>
-                </Box>
-
-                <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
-                    <Text margin="10px 10px 10px 20px" size="32px"> {info.locationName} </Text>
+                    <Text margin="10px 10px 10px 20px" size="32px"> 지역 : {info.locationName} </Text>
                   </FormControl>
-                </Box>
-
-                <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
-                    <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.memberCount} / {info.limitMember} 명 </Text>
+                    <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.userCount} / {info.limitMember} 명 </Text>
                   </FormControl>
-                </Box>
-
-                <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
                     <Text margin="10px 10px 10px 20px" size="32px"> 마감일 : {info.meetingDate} </Text>
                   </FormControl>
@@ -168,9 +153,9 @@ const PostDetail = (props) => {
             </TableHeader>
 
             <Grid padding="16px">
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ minWidth: 120 }} border=" 1px solid black" borderRadius="5px" >
                 <FormControl fullWidth>
-                  <Text size="24px"> {info.content} </Text>
+                  <Text margin="50px" size="24px"> {info.content} </Text>
                 </FormControl>
               </Box>
 
@@ -181,6 +166,7 @@ const PostDetail = (props) => {
               </Box>
 
               <Grid is_flex margin="0px 10px">
+
                 <IconButton aria-label="add to join">
                   <AddTaskIcon onClick={meetingHandler} />
                 </IconButton>
@@ -223,8 +209,8 @@ const EditDeleteBtn = styled.div`
 display: flex;
 width: 150px;
 float: right;
-margin-right: 40px;
-
+margin-right: 10px;
+padding-top: 15px;
 `
 
 export default PostDetail;

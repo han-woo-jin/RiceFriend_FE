@@ -151,14 +151,18 @@ const PostWrite = (props) => {
       <Grid margin="auto" width="980px">
 
         <Card className={classes.root}>
-          <Grid>
+          <Grid padding="20px 0px 0px 0px" margin="0px">
+
+            <Text centertext bold size="40px">게시글 작성</Text>
             <TableHeader>
-              <Grid padding="5px 5px 5px 20px">
-                <Image
-                  shape="preview"
-                  src={preview ? preview : "http://via.placeholder.com/400x300"}
-                />
-                <Stack direction="row" alignItems="center" spacing={2} fontSize="25px">
+              <Grid padding="5px 5px 5px 5px" >
+                <div style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    shape="preview"
+                    src={preview ? preview : "http://via.placeholder.com/400x300"}
+                  />
+                </div>
+                <Stack alignItems="center" spacing={2} fontSize="25px">
                   <label htmlFor="icon-button-file">
                     음식사진을 올려주세요
                     <ElInput ref={fileInput} onChange={filePreview} accept="image/*" id="icon-button-file" type="file" />
@@ -169,9 +173,10 @@ const PostWrite = (props) => {
                 </Stack>
               </Grid>
 
-              <Grid margin="0px 10px 100px 0px">
-                <Grid padding="5px" margin="120px 0px 0px 0px">
-                  <Box sx={{ minWidth: 120 }}>
+              <Grid margin="0px 45px 30px 0px">
+
+                <Grid padding="15px" margin="10px 0px 0px 0px">
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
                       <TextField fullWidth label="모임이름" id="meetingTitle" value={meetingTitle || ""}
                         onChange={handlename} />
@@ -180,7 +185,7 @@ const PostWrite = (props) => {
 
                   <br />
 
-                  <Box sx={{ minWidth: 120 }}>
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
                       <TextField fullWidth label="맛집이름" id="name" value={restaurantName || ""}
                         onChange={handlerest} />
@@ -189,7 +194,7 @@ const PostWrite = (props) => {
 
                   <br />
 
-                  <Box sx={{ minWidth: 120 }}>
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label">지역선택</InputLabel>
                       <Select
@@ -220,7 +225,7 @@ const PostWrite = (props) => {
                     </FormControl>
                   </Box>
                   <br />
-                  <Box sx={{ minWidth: 120 }}>
+                  <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label">모집인원</InputLabel>
                       <Select
@@ -238,27 +243,30 @@ const PostWrite = (props) => {
                       </Select>
                     </FormControl>
                   </Box>
-                  <Grid padding="16px 0px">
+                  <Grid padding="23px 0px" >
+                    <FormControl fullWidth>
 
-                    <Stack component="form" noValidate spacing={3} >
                       <TextField
+                        fullWidth
                         defaultValue={date}
                         onChange={handleDate}
                         id="datetime-local"
                         label="마감일"
                         type="datetime-local"
-                        sx={{ width: 250 }}
                         InputLabelProps={{
                           shrink: true,
                         }}
                       />
-                    </Stack>
+
+                    </FormControl>
 
                   </Grid>
                 </Grid>
               </Grid>
             </TableHeader>
-            <Grid padding="0px 16px 0px 16px">
+            <hr style={{ border: "1px solid lightgrey", margin: "0px 50px 30px 50px" }} />
+
+            <Grid padding="0px 50px 0px 50px">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <TextField id="outlined-multiline-flexible"
@@ -274,7 +282,7 @@ const PostWrite = (props) => {
 
             </Grid>
           </Grid>
-          <Grid padding="16px">
+          <Grid padding="20px 350px 20px 350px" >
             {is_edit ? (
               <Button text="게시글 수정" _onClick={editpost}></Button>
             ) : (
