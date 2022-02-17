@@ -77,6 +77,7 @@ background-color: #eeeeee;
 margin-bottom: 40px;
 padding: 0px 70px;
 height: 100px;
+min-width: 500px;
 `
 
 const LogoText = styled.div`
