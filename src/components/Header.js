@@ -34,7 +34,7 @@ const Header = (props) => {
             </Grid>
 
 
-              <Grid is_flex width="200px" margin="1.2em">
+              <Grid is_flex width="200px" margin="0px 0px 0px 300px">
                 <Button width='100px' margin='2px' padding='8px' bold
                   _onClick={() => {
                     dispatch(userActions.logoutAction());

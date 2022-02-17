@@ -25,55 +25,56 @@ const PostDetail = (props) => {
     // const post_idx = postList.findIndex(p => p.meetingId === id);
     // const post = postList[post_idx];
 
-    const [info, setInfo] = useState([])
+    const [info, setInfo] = useState([]);
     const [정보, 정보변경] = useState([]);
     const [성별, 성전환] = useState(false);
-    React.useEffect(() => {
-        instance.get(`api/meeting/${id}`)
-            .then((response) => {
-                console.log(response)
-                setInfo(response.data.meetingResonseDto)
-            })
-            .catch((error) => console.log(error))
-    }, [id])
+    const [joinInfo, setJoinInfo] = useState([]);
+    const [joinFalseButton, setJoinButton] = useState(false);
+    const [joinTrueButton, setTrueButton] = useState(true);
 
+    // 상세정보 표시 + 성별 표시
     React.useEffect(() => {
         instance.get(`api/meeting/${id}`)
-            .then((response) => {
+            .then((response) => {               
+                setInfo(response.data.meetingResonseDto)
                 정보변경(response.data.meetingUserResponseDtos[0].gender)
             })
             .catch((error) => console.log(error))
     }, [id])
 
-
-    // if (정보 === "male") {
-    //   return (
-    //     성전환(true)
-    //   )
-    // } else {
-    //   return (
-    //     성전환(false)
-    //   )
-    // }
-
-    // 참여 버튼
-    const addJoinMeeting = () => {
-        apis.createJoin()
+    // 참여자 정보 표시
+    React.useEffect(() => {
+        instance.get(`api/meeting/${id}`)
             .then((response) => {
                 console.log(response)
+                const joinUser = response.data.meetingUserResponseDtos
+                const joinUserList = joinUser.map((u) => u.nickname)
+                setJoinInfo(joinUserList)
             })
             .catch((error) => console.log(error))
-    }
+    }, [id])
 
-    // 탈퇴버튼
-    const deleteJoinMeeting = () => {
-        apis.deleteJoin()
+    // 참여버튼
+    const meetingHandler = () => {
+        if(joinTrueButton === true){
+            apis.createJoin(id)
             .then((response) => {
                 console.log(response)
+                alert('참여완료!')
+                document.location.reload()
             })
             .catch((error) => console.log(error))
+        }
+        if(joinFalseButton === false){
+            apis.deleteJoin(id)
+            .then((response) => {
+                console.log(response)
+                alert('취소되었습니다.')
+                document.location.reload()
+            })
+            .catch((error) => console.log(error))
+        }
     }
-
 
     //포스트 수정 => 작성페이지가 수정페이지로 바뀜
     const editThisPost = () => {
@@ -129,7 +130,7 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px 10px 10px 20px" size="32px"> {info.name} </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> {info.restaurantName} </Text>
                                 </FormControl>
                             </Box>
 
@@ -141,7 +142,7 @@ const PostDetail = (props) => {
 
                             <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
-                                    <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.userCount} / {info.limitMember} 명 </Text>
+                                    <Text margin="10px 10px 10px 20px" size="32px"> 모집인원 : {info.memberCount} / {info.limitMember} 명 </Text>
                                 </FormControl>
                             </Box>
 
@@ -163,13 +164,13 @@ const PostDetail = (props) => {
 
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
-                                <Text size="24px"> 참여자: 누구누구님, 누구누구님, 누구누구님, 누구누구님 </Text>
+                                <Text size="24px"> 참여자: {joinInfo + ""} </Text>
                             </FormControl>
                         </Box>
 
                         <Grid is_flex margin="0px 10px">
                             <IconButton aria-label="add to join">
-                                <AddTaskIcon onClick={addJoinMeeting}/>
+                                <AddTaskIcon onClick={meetingHandler} />
                             </IconButton>
                             <Grid is_flex margin="0px 20px">
                                 <Text size="20px">댓글 {info.commentCount}개</Text>
