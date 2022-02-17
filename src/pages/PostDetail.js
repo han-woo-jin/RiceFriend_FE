@@ -9,21 +9,33 @@ import user, { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
 import { apis, instance } from '../shared/axios'
 
+import { yellow, grey } from '@material-ui/core/colors';
+import Card from '@material-ui/core/Card';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import IconButton from '@mui/material/IconButton';
 import image from "../redux/modules/image";
 
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 1045,
+    minWidth: 345,
+    backgroundColor: grey[200],
+  },
+}));
+
 const PostDetail = (props) => {
+
+  const classes = useStyles();
 
   const dispatch = useDispatch()
   const id = props.match.params.meetingId;
   const is_edit = id ? true : false;
   const user_id = props.match.userId;
-  // const postList = useSelector((state) => state.post.list);
-  // const post_idx = postList.findIndex(p => p.meetingId === id);
-  // const post = postList[post_idx];
+
 
   const [info, setInfo] = useState([])
   const [정보, 정보변경] = useState([]);
@@ -38,6 +50,7 @@ const PostDetail = (props) => {
       .catch((error) => console.log(error))
   }, [id])
 
+
   React.useEffect(() => {
     instance.get(`api/meeting/${id}`)
       .then((response) => {
@@ -49,15 +62,6 @@ const PostDetail = (props) => {
 
   console.log(정보)
 
-  // if (정보 === "male") {
-  //   return (
-  //     성전환(true)
-  //   )
-  // } else {
-  //   return (
-  //     성전환(false)
-  //   )
-  // }
 
 
   //포스트 수정 => 작성페이지가 수정페이지로 바뀜
@@ -78,14 +82,36 @@ const PostDetail = (props) => {
     }
 
   }
+  // 참여 버튼
+  const addJoinMeeting = () => {
+    apis.createJoin()
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => console.log(error))
+  }
+
+  // 탈퇴버튼
+  const deleteJoinMeeting = () => {
+    apis.deleteJoin()
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => console.log(error))
+  }
 
   return (
+
     <React.Fragment>
-      <Wrap>
-        <Grid>
-          <EditDeleteBtn>
+      <Grid margin="auto" width="980px">
+
+        <Card className={classes.root}>
+
+          <EditDeleteBtn >
+
             <Button margin="0px 5px" _onClick={editThisPost}>수정</Button>
             <Button margin="0px 5px" _onClick={deleteThisPost}>삭제</Button>
+
           </EditDeleteBtn>
           <TableHeader>
             <Grid padding="10px 20px" margin="0px 0px 0px 0px">
@@ -122,7 +148,7 @@ const PostDetail = (props) => {
           </TableHeader>
 
           <Grid padding="16px" >
-            <Box sx={{ minWidth: 120 }} border=" 1px solid black" >
+            <Box sx={{ minWidth: 120 }} border=" 1px solid black" borderRadius="5px" >
               <FormControl fullWidth>
                 <Text margin="50px" size="24px"> {info.content} </Text>
               </FormControl>
@@ -136,20 +162,21 @@ const PostDetail = (props) => {
 
             <Grid is_flex margin="0px 10px">
               <IconButton aria-label="add to join">
-                <AddTaskIcon />
+                <AddTaskIcon onClick={addJoinMeeting} />
               </IconButton>
               <Grid is_flex margin="0px 20px">
-                <Text size="20px">댓글 {info.commentCount}개</Text>
+                <Text size="20px">댓글 {info.commentCount + ","}개</Text>
               </Grid>
             </Grid>
 
-            <CommentWrite></CommentWrite>
-            <CommentList></CommentList>
+            <CommentWrite meetingId={id}></CommentWrite>
+            <CommentList meetingId={id}></CommentList>
 
           </Grid>
-        </Grid>
-      </Wrap>
-    </React.Fragment >
+
+        </Card>
+      </Grid>
+    </React.Fragment>
   )
 }
 
@@ -173,15 +200,14 @@ min-height : 100vh;
 margin-left : auto;
 margin-right : auto;
 margin-top: 20px;
-border: 2px solid black;
 `
 
 const EditDeleteBtn = styled.div`
 display: flex;
 width: 150px;
 float: right;
-margin-right: 40px;
-
+margin-right: 10px;
+padding-top: 15px;
 `
 
 export default PostDetail;

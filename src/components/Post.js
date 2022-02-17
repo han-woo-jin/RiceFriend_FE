@@ -5,6 +5,8 @@ import { Image, Text, Grid } from '../elements'
 import styled from 'styled-components';
 import { history } from '../redux/configStore';
 
+import { yellow, grey } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -16,10 +18,18 @@ import NotesIcon from '@mui/icons-material/Notes';
 import { CardActionArea } from '@mui/material';
 import Ggrid from '../elements/Ggrid';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 1045,
+    minWidth: 345,
+    backgroundColor: grey[200],
+  },
+}));
 
 const Post = (props) => {
   const dday = props.meetingDate.split("T")[0];
 
+  const classes = useStyles();
   return (
     <Ggrid
       shadow="rgba(0, 0, 0, 0.1) 0px 4px 12px"
@@ -30,11 +40,11 @@ const Post = (props) => {
       border_radius="20px"
       bgcolor="white"
       margin="5px"
-      width="370px"
+      width="350px"
       height="458px"
     >
       <Grid >
-        <Card sx={{ maxWidth: 400, minWidth: 200 }}>
+        <Card className={classes.root} sx={{ maxWidth: 350, minWidth: 200 }}>
           <CardActionArea >
 
             <CardHeader

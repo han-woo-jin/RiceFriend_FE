@@ -6,6 +6,7 @@ import { getCookie, deleteCookie } from '../shared/Cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActions } from "../redux/modules/user";
 
+import { yellow, grey } from '@material-ui/core/colors';
 
 const Header = (props) => {
 
@@ -23,23 +24,24 @@ const Header = (props) => {
       <React.Fragment>
         <HeaderForm>
           <Grid is_flex>
-            <img alt="" src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/babfriend.png" width="100px" />
-            <Grid is_flex>
-              <LogoText>
-                <Text margin='0px' bold size="36px">밥친구</Text>
-                <Text margin='0px' bold size="30px">맛집 탐방 모임 커뮤니티</Text>
-              </LogoText>
-
-
-              <Grid is_flex width="200px" margin="2em">
-                <Button width='100px' margin='2px' padding='8px' bold
-                  _onClick={() => {
-                    dispatch(userActions.logoutAction());
-                    alert("로그아웃 되었습니다.");
-                    window.location.href = '/'
-                  }} text='로그아웃' ></Button>
-                <Button width='120px' margin='2px' padding='8px' bold _onClick={() => history.push('/signup')} text='회원가입' ></Button>
+            <Grid is_flex cursor="pointer" _onClick={() => { history.replace('/') }}>
+              <img alt="" src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/babfriend.png" width="100px" />
+              <Grid is_flex>
+                <LogoText>
+                  <Text margin='0px' bold size="36px">밥친구</Text>
+                  <Text margin='0px' bold size="30px">맛집 탐방 모임 커뮤니티</Text>
+                </LogoText>
               </Grid>
+            </Grid>
+
+
+            <Grid is_flex width="200px" margin="1.2em">
+              <Button width='100px' margin='2px' padding='8px' bold
+                _onClick={() => {
+                  dispatch(userActions.logoutAction());
+                  alert("로그아웃 되었습니다.");
+                  window.location.href = '/'
+                }} text='로그아웃' ></Button>
             </Grid>
           </Grid>
         </HeaderForm>
@@ -71,9 +73,10 @@ const Header = (props) => {
 };
 
 const HeaderForm = styled.div`
-background-color: rgba(249,125,102,1);
+background-color: #eeeeee;
+margin-bottom: 40px;
 padding: 0px 70px;
-height: 120px;
+height: 100px;
 `
 
 const LogoText = styled.div`
