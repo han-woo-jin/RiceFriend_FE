@@ -15,11 +15,6 @@ const CommentList = (props) => {
 
     const id = props.meetingId
 
-    // const deleteComment = (id) => {
-    //     dispatch(commentActions.delCommentAction(id))
-    //     // document.location.reload()
-    // }
-
     React.useEffect(() => {
         instance.get(`api/meeting/${props.meetingId}`)
             .then((response) => {
@@ -49,7 +44,7 @@ export default CommentList
 
 const CommentItem = (props) => {
 
-    const { nickname, createdAt, content,} = props;
+    const { nickname, createdAt, content, } = props;
 
     const dispatch = useDispatch()
 
@@ -58,33 +53,27 @@ const CommentItem = (props) => {
     console.log(meetingId, commentId)
 
     const deleteComment = () => {
-        // const data ={
-        //     commentId : commentId,
-        //     meetingId : meetingId,
-        // }
-        // console.log(data)
         dispatch(commentActions.delCommentAction(meetingId, commentId))
-        document.location.reload()
     }
 
     return (
         <Grid is_flex >
-            <Text bold size="20px">{nickname}</Text>
+            <Grid width="150px">
+                <Text bold size="20px">{nickname}</Text>
+            </Grid>
             <Grid is_flex margin='0px 16px'>
                 <Grid is_flex>
                     <Text margin='0px' size="20px">{content}</Text>
                 </Grid>
                 <Grid is_flex>
-                    <Grid>
+                    <Timegrid>
                         <Text margin='0px' size="20px">{createdAt}</Text>
-                    </Grid>
+                    </Timegrid>
                 </Grid>
             </Grid>
-            <Grid>
             <CommentBtn>
-                        <Button margin="0px 5px" _onClick={deleteComment} >삭제</Button>
-                    </CommentBtn>
-            </Grid>
+                <Button margin="0px 5px" _onClick={deleteComment} >삭제</Button>
+            </CommentBtn>
         </Grid>
     )
 }
@@ -101,4 +90,8 @@ const CommentBtn = styled.div`
 display: flex;
 width: 80px;
 float: right;
+`
+const Timegrid = styled.div`
+display: flex;
+margin-left: 150px;
 `

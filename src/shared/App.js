@@ -24,7 +24,7 @@ function App() {
 
   return (
 
-    <Grid bg="lightgrey">
+    <Grid bg="">
       <Header />
       <ConnectedRouter history={history}>
         <Route path='/' exact component={PostList} />

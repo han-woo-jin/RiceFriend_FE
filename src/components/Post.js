@@ -3,6 +3,8 @@ import { Image, Text, Grid } from '../elements'
 import styled from 'styled-components';
 import { history } from '../redux/configStore';
 
+import { yellow, grey } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,51 +13,78 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import NotesIcon from '@mui/icons-material/Notes';
-
 import { CardActionArea } from '@mui/material';
+import Ggrid from '../elements/Ggrid';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 1045,
+    minWidth: 345,
+    backgroundColor: grey[200],
+  },
+}));
+
 const Post = (props) => {
 
-  return (
-    <Grid >
-      <CardActionArea>
-        <Card sx={{ maxWidth: 400, minWidth: 200 }}>
-          <CardHeader
-            title={props.meetingTitle}
-            subheader={props.restaurantName}
-          />
-          <CardMedia
-            component="img"
-            height="200"
-            image={props.imgUrl}
-          />
-          <CardContent>
-            <Text margin="0px" size="20px">
-              지역 : {props.locationName}
-            </Text>
-            <Text margin="5px 0px" size="20px">
-              모집인원 : {props.limitMember} 명
-            </Text>
-            <Text margin="0px" size="20px">
-              모집자 : {props.nickname}
-            </Text>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to join">
-              <AddTaskIcon />
-              <Text margin="0px 0px 0px 10px" size='24px'>{props.userCount} / {props.limitMember}</Text>
-            </IconButton>
-            <IconButton aria-label="note">
-              <NotesIcon />
-              <Text margin="0px 0px 0px 10px" size='24px'>{props.commentCount}</Text>
-            </IconButton>
-            <Text margin="0px 0px 0px 30px" size="24px">
-              마감일 : {props.meetingDate}
-            </Text>
-          </CardActions>
-        </Card>
+  const dday = props.meetingDate.split("T")[0];
 
-      </CardActionArea>
-    </Grid>
+  const classes = useStyles();
+
+  return (
+    <Ggrid
+      shadow="rgba(0, 0, 0, 0.1) 0px 4px 12px"
+      transition="all ease 0.5s"
+      hovertransition=" scale( 1.05, 1.05 )"
+      hovercolor="#D1DEF1"
+      hovershadow="rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px"
+      border_radius="20px"
+      bgcolor="white"
+      margin="5px"
+      width="350px"
+      height="458px"
+    >
+      <Grid >
+        <Card className={classes.root} sx={{ maxWidth: 350, minWidth: 200 }}>
+          <CardActionArea >
+
+            <CardHeader
+              title={props.meetingTitle}
+              subheader={props.restaurantName}
+            ></CardHeader>
+
+            <CardMedia
+              component="img"
+              height="200"
+              image={props.imgUrl}
+            />
+            <CardContent>
+              <Text margin="0px" size="20px">
+                지역 : {props.locationName}
+              </Text>
+              <Text margin="0px 0px" size="20px">
+                모집인원 : {props.limitMember} 명
+              </Text>
+              <Text margin="0px" size="20px">
+                모집자 : {props.nickname}
+              </Text>
+              <Text margin="0px" size="20px">
+                모임일자 : {dday}
+              </Text>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to join" onClick={() => { history.push('/login') }}>
+                <AddTaskIcon />
+                <Text margin="0px 0px 0px 10px" size='24px'>{props.userCount} / {props.limitMember}</Text>
+              </IconButton>
+              <IconButton aria-label="note">
+                <NotesIcon />
+                <Text margin="0px 0px 0px 10px" size='24px'>{props.commentCnt}</Text>
+              </IconButton>
+            </CardActions>
+          </CardActionArea>
+        </Card>
+      </Grid>
+    </Ggrid>
 
   )
 }
