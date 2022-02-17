@@ -64,7 +64,7 @@ const CommentItem = (props) => {
         // }
         // console.log(data)
         dispatch(commentActions.delCommentAction(meetingId, commentId))
-        // document.location.reload()
+        document.location.reload()
     }
 
     return (

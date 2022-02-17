@@ -83,4 +83,10 @@ export const apis = {
   // editComment: (meetingId, content, commentId) => instance.put(`api/meeting/${meetingId}/comments/${commentId}`, content),
   // 댓글 삭제하기
   delCommentDB: (meetingId, commentId) => instance.delete(`api/meeting/${meetingId}/comments/${commentId}`),
+
+
+  //모임 참여하기
+    createJoin: (meetingId) => instance.post(`api/meeting/${meetingId}/user/`),
+  //모임 탈퇴하기
+    deleteJoin: (meetingId) => instance.delete(`api/meeting/${meetingId}/user/`),
 };

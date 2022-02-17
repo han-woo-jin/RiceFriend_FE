@@ -40,13 +40,11 @@ const PostDetail = (props) => {
     React.useEffect(() => {
         instance.get(`api/meeting/${id}`)
             .then((response) => {
-                console.log(response)
                 정보변경(response.data.meetingUserResponseDtos[0].gender)
             })
             .catch((error) => console.log(error))
     }, [id])
 
-    console.log(정보)
 
     // if (정보 === "male") {
     //   return (
@@ -57,6 +55,24 @@ const PostDetail = (props) => {
     //     성전환(false)
     //   )
     // }
+
+    // 참여 버튼
+    const addJoinMeeting = () => {
+        apis.createJoin()
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => console.log(error))
+    }
+
+    // 탈퇴버튼
+    const deleteJoinMeeting = () => {
+        apis.deleteJoin()
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => console.log(error))
+    }
 
 
     //포스트 수정 => 작성페이지가 수정페이지로 바뀜
@@ -153,7 +169,7 @@ const PostDetail = (props) => {
 
                         <Grid is_flex margin="0px 10px">
                             <IconButton aria-label="add to join">
-                                <AddTaskIcon />
+                                <AddTaskIcon onClick={addJoinMeeting}/>
                             </IconButton>
                             <Grid is_flex margin="0px 20px">
                                 <Text size="20px">댓글 {info.commentCount}개</Text>

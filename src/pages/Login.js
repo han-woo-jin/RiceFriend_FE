@@ -53,7 +53,7 @@ const Login = (props) => {
 
           <Text size="32px" bold centertext >
             <>
-              <img alt='babfriend' src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/ricefriend.png" style={{ background: "white", height: "20vh", width: "15vw" }} />
+              <img alt='babfriend' src="https://ricefriendimage.s3.ap-northeast-2.amazonaws.com/ricefriend.png" style={{ background: "white", height: "20vh", width: "8vw" }} />
               <br></br>
             </>
 
@@ -92,7 +92,7 @@ const Login = (props) => {
               }}
             ></Button>
           </Grid>
-          <Text centertext>밥친구가 처음이신가요? <span><a href='./signup'>회원가입하기</a></span></Text>
+          <Text size="20px" centertext>밥친구가 처음이신가요? <span><a href='./signup'>회원가입하기</a></span></Text>
         </Grid>
       </Wrap>
     </React.Fragment>

@@ -34,7 +34,9 @@ function App() {
         <Route path="/write/" exact component={PostWrite} />
         <Route path="/meeting/:meetingId" exact component={PostDetail} />
       </ConnectedRouter>
-      <Button is_float text="+" _onClick={() => { history.push('/write') }}></Button>
+      <Permit>
+        <Button is_float text="+" _onClick={() => { history.push('/write') }}></Button>
+      </Permit>
     </Grid>
   );
 }
