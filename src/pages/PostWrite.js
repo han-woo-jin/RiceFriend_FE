@@ -178,7 +178,8 @@ const PostWrite = (props) => {
                 <Grid padding="15px" margin="10px 0px 0px 0px">
                   <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
-                      <TextField fullWidth label="모임이름" id="meetingTitle" value={meetingTitle || ""}
+                      <TextField
+                        variant="standard" fullWidth label="모임이름" id="meetingTitle" value={meetingTitle || ""}
                         onChange={handlename} />
                     </FormControl>
                   </Box>
@@ -187,7 +188,8 @@ const PostWrite = (props) => {
 
                   <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
-                      <TextField fullWidth label="맛집이름" id="name" value={restaurantName || ""}
+                      <TextField
+                        variant="standard" fullWidth label="맛집이름" id="name" value={restaurantName || ""}
                         onChange={handlerest} />
                     </FormControl>
                   </Box>
@@ -196,8 +198,10 @@ const PostWrite = (props) => {
 
                   <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">지역선택</InputLabel>
+                      <InputLabel
+                        variant="standard" id="demo-simple-select-label">지역선택</InputLabel>
                       <Select
+                        variant="standard"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={locationId || ""}
@@ -227,8 +231,10 @@ const PostWrite = (props) => {
                   <br />
                   <Box sx={{ minWidth: 120 }} paddingBottom="7px">
                     <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">모집인원</InputLabel>
+                      <InputLabel
+                        variant="standard" id="demo-simple-select-label">모집인원</InputLabel>
                       <Select
+                        variant="standard"
                         defaultValue=""
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -247,6 +253,7 @@ const PostWrite = (props) => {
                     <FormControl fullWidth>
 
                       <TextField
+                        variant="standard"
                         fullWidth
                         defaultValue={date}
                         onChange={handleDate}
@@ -270,7 +277,7 @@ const PostWrite = (props) => {
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <TextField id="outlined-multiline-flexible"
-                    label="입력"
+                    placeholder='모임을 설명해 주세요!'
                     multiline
                     rows={5}
                     value={content}

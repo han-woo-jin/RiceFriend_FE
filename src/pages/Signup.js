@@ -89,20 +89,22 @@ const Signup = (props) => {
               </>
               회원가입
             </Text>
-            <Grid padding="0px 16px 16px 16px">
+            <Grid padding="0px 30px 16px 30px">
               <FormControl fullWidth>
                 <TextField fullWidth
+                  variant="standard"
 
-                  placeholder="email를 입력해주세요. ex)aaa@aaa.com"
-                  label="email" email="아이디" value={email}
+                  placeholder="아이디를 입력해주세요. ex)aaa@aaa.com"
+                  label="아이디" email="아이디" value={email}
 
                   color='primary'
                   onChange={changeEmail} />
               </FormControl>
             </Grid>
-            <Grid padding="16px">
+            <Grid padding="30px">
               <FormControl fullWidth>
                 <TextField fullWidth
+                  variant="standard"
                   placeholder='닉네임을 입력해주세요.'
                   color='primary'
                   label="닉네임" email="닉네임"
@@ -110,9 +112,9 @@ const Signup = (props) => {
                   onChange={changeNickname} />
               </FormControl>
             </Grid>
-            <Grid padding="16px">
+            <Grid padding="30px">
               <FormControl>
-                <FormLabel email="demo-row-radio-buttons-group-label">gender</FormLabel>
+                <FormLabel email="demo-row-radio-buttons-group-label">성별을 선택하세요</FormLabel>
                 <RadioGroup
                   row
                   aria-labelledby="demo-controlled-radio-buttons-group"
@@ -120,16 +122,17 @@ const Signup = (props) => {
                   value={gender}
                   onChange={changeGender}
                 >
-                  <FormControlLabel value="female" control={<Radio />} label="Female" />
-                  <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  <FormControlLabel value="male" control={<Radio />} label="남자" />
+                  <FormControlLabel value="female" control={<Radio />} label="여자" />
 
                 </RadioGroup>
               </FormControl>
 
             </Grid>
-            <Grid padding="16px">
+            <Grid padding="30px">
               <FormControl fullWidth>
                 <TextField fullWidth
+                  variant="standard"
                   label="비밀번호"
                   placeholder='비밀번호를 입력해주세요'
                   email="비밀번호"
@@ -138,9 +141,10 @@ const Signup = (props) => {
                   onChange={changePassword} />
               </FormControl>
             </Grid>
-            <Grid padding="16px">
+            <Grid padding="30px">
               <FormControl fullWidth>
                 <TextField fullWidth
+                  variant="standard"
                   email="비밀번호확인"
                   label="비밀번호확인"
                   placeholder='비밀번호를 다시 입력해주세요'
@@ -150,7 +154,7 @@ const Signup = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid padding="16px">
+            <Grid padding="30px">
               <Button
                 text="회원가입하기"
                 _onClick={signup}

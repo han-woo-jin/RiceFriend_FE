@@ -76,8 +76,10 @@ const Login = (props) => {
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <TextField fullWidth
+                    id="outlined-basic"
+                    variant="standard"
                     placeholder='아이디를 입력해주세요.'
-                    label="아이디" id="아이디" value={email}
+                    label="아이디" value={email}
                     onChange={changeEmail} />
                 </FormControl>
               </Box>
@@ -89,6 +91,7 @@ const Login = (props) => {
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <TextField fullWidth
+                    variant="standard"
                     type="password"
                     placeholder='비밀번호를 입력해주세요.'
                     label="비밀번호" id="패스워드" value={password}
