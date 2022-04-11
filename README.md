@@ -1,6 +1,7 @@
 # 👀 밥친구
 ![img_2.png](img_2.png)
 유튜브 링크 : https://www.youtube.com/watch?v=5NKD60wRSOg
+<br />   
 **맛집 탐방 모임 커뮤니티**
 
 <br />   
