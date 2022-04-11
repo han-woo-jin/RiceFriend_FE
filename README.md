@@ -1,6 +1,6 @@
 # 👀 밥친구
 ![img_2.png](img_2.png)
-![https://www.youtube.com/watch?v=5NKD60wRSOg](https://www.youtube.com/watch?v=5NKD60wRSOg)
+[![Video Label](img_2.png)](https://www.youtube.com/watch?v=5NKD60wRSOg)
 
 >**맛집 탐방 모임 커뮤니티**
 
